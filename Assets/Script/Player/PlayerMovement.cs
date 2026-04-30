@@ -1,27 +1,37 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(PlayerAnimation))]
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float speed = 5f;
+
+    private Vector2 input;
     private Vector2 lastDirection;
+
+    private Rigidbody2D rigidBody2D;
     private PlayerAnimation playerAnimation;
     private bool isMoving;
 
-    private void Start()
+    private void Awake()
     {
         playerAnimation = GetComponent<PlayerAnimation>();
+        rigidBody2D = GetComponent<Rigidbody2D>();
     }
 
-    public void Move(Vector2 input)
+    public void Move(Vector2 newInput)
     {
-        transform.Translate(input * speed * Time.deltaTime);
+        input = newInput.normalized;
 
-        if (input != Vector2.zero)
-            lastDirection = input;
+        if (newInput != Vector2.zero)
+            lastDirection = newInput;
 
-        isMoving = input != Vector2.zero;
+        isMoving = input.sqrMagnitude > 0.001f;
 
-        playerAnimation.UpdateAnimation(input, lastDirection, isMoving);
+        playerAnimation.UpdateAnimation(newInput, lastDirection, isMoving);
+    }
+    private void FixedUpdate()
+    {
+        rigidBody2D.MovePosition(rigidBody2D.position + input * speed * Time.fixedDeltaTime);
     }
 }
