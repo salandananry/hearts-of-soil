@@ -222,12 +222,12 @@ TextureImporter:
       name: MPlayer 1 idle_0
       rect:
         serializedVersion: 2
-        x: 14
-        y: 337
-        width: 23
-        height: 42
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 15
+        y: 338
+        width: 21
+        height: 40
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -244,12 +244,12 @@ TextureImporter:
       name: MPlayer 1 idle_1
       rect:
         serializedVersion: 2
-        x: 62
-        y: 337
-        width: 23
-        height: 42
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 63
+        y: 338
+        width: 21
+        height: 40
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -266,12 +266,12 @@ TextureImporter:
       name: MPlayer 1 idle_2
       rect:
         serializedVersion: 2
-        x: 110
-        y: 337
-        width: 23
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 111
+        y: 338
+        width: 21
+        height: 39
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -288,12 +288,12 @@ TextureImporter:
       name: MPlayer 1 idle_3
       rect:
         serializedVersion: 2
-        x: 158
-        y: 337
-        width: 23
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 159
+        y: 338
+        width: 21
+        height: 39
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -310,12 +310,12 @@ TextureImporter:
       name: MPlayer 1 idle_4
       rect:
         serializedVersion: 2
-        x: 11
-        y: 289
-        width: 23
-        height: 42
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 12
+        y: 290
+        width: 21
+        height: 40
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -332,12 +332,12 @@ TextureImporter:
       name: MPlayer 1 idle_5
       rect:
         serializedVersion: 2
-        x: 59
-        y: 289
-        width: 23
-        height: 42
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 60
+        y: 290
+        width: 21
+        height: 40
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -354,12 +354,12 @@ TextureImporter:
       name: MPlayer 1 idle_6
       rect:
         serializedVersion: 2
-        x: 107
-        y: 289
-        width: 23
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 108
+        y: 290
+        width: 21
+        height: 39
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -376,12 +376,12 @@ TextureImporter:
       name: MPlayer 1 idle_7
       rect:
         serializedVersion: 2
-        x: 155
-        y: 289
-        width: 23
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 156
+        y: 290
+        width: 21
+        height: 39
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -398,12 +398,12 @@ TextureImporter:
       name: MPlayer 1 idle_8
       rect:
         serializedVersion: 2
-        x: 13
-        y: 243
-        width: 23
-        height: 39
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 14
+        y: 244
+        width: 21
+        height: 37
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -420,12 +420,12 @@ TextureImporter:
       name: MPlayer 1 idle_9
       rect:
         serializedVersion: 2
-        x: 61
-        y: 243
-        width: 23
-        height: 39
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 62
+        y: 244
+        width: 21
+        height: 37
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -442,12 +442,12 @@ TextureImporter:
       name: MPlayer 1 idle_10
       rect:
         serializedVersion: 2
-        x: 109
-        y: 243
-        width: 23
-        height: 38
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 110
+        y: 244
+        width: 21
+        height: 36
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -464,12 +464,12 @@ TextureImporter:
       name: MPlayer 1 idle_11
       rect:
         serializedVersion: 2
-        x: 157
-        y: 243
-        width: 23
-        height: 38
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 158
+        y: 244
+        width: 21
+        height: 36
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -486,12 +486,12 @@ TextureImporter:
       name: MPlayer 1 idle_12
       rect:
         serializedVersion: 2
-        x: 13
-        y: 196
-        width: 23
-        height: 38
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 14
+        y: 197
+        width: 21
+        height: 36
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -508,12 +508,12 @@ TextureImporter:
       name: MPlayer 1 idle_13
       rect:
         serializedVersion: 2
-        x: 61
-        y: 196
-        width: 23
-        height: 38
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 62
+        y: 197
+        width: 21
+        height: 36
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -530,12 +530,12 @@ TextureImporter:
       name: MPlayer 1 idle_14
       rect:
         serializedVersion: 2
-        x: 109
-        y: 196
-        width: 23
-        height: 37
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 110
+        y: 197
+        width: 21
+        height: 35
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -552,12 +552,12 @@ TextureImporter:
       name: MPlayer 1 idle_15
       rect:
         serializedVersion: 2
-        x: 157
-        y: 196
-        width: 23
-        height: 37
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 158
+        y: 197
+        width: 21
+        height: 35
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -574,12 +574,12 @@ TextureImporter:
       name: MPlayer 1 idle_16
       rect:
         serializedVersion: 2
-        x: 14
-        y: 145
-        width: 23
-        height: 42
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 15
+        y: 146
+        width: 21
+        height: 40
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -596,12 +596,12 @@ TextureImporter:
       name: MPlayer 1 idle_17
       rect:
         serializedVersion: 2
-        x: 62
-        y: 145
-        width: 23
-        height: 42
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 63
+        y: 146
+        width: 21
+        height: 40
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -618,12 +618,12 @@ TextureImporter:
       name: MPlayer 1 idle_18
       rect:
         serializedVersion: 2
-        x: 110
-        y: 145
-        width: 23
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 111
+        y: 146
+        width: 21
+        height: 39
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -640,12 +640,12 @@ TextureImporter:
       name: MPlayer 1 idle_19
       rect:
         serializedVersion: 2
-        x: 158
-        y: 145
-        width: 23
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 159
+        y: 146
+        width: 21
+        height: 39
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -662,12 +662,12 @@ TextureImporter:
       name: MPlayer 1 idle_20
       rect:
         serializedVersion: 2
-        x: 11
-        y: 97
-        width: 23
-        height: 42
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 12
+        y: 98
+        width: 21
+        height: 40
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -684,12 +684,12 @@ TextureImporter:
       name: MPlayer 1 idle_21
       rect:
         serializedVersion: 2
-        x: 59
-        y: 97
-        width: 23
-        height: 42
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 60
+        y: 98
+        width: 21
+        height: 40
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -706,12 +706,12 @@ TextureImporter:
       name: MPlayer 1 idle_22
       rect:
         serializedVersion: 2
-        x: 107
-        y: 97
-        width: 23
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 108
+        y: 98
+        width: 21
+        height: 39
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -728,12 +728,12 @@ TextureImporter:
       name: MPlayer 1 idle_23
       rect:
         serializedVersion: 2
-        x: 155
-        y: 97
-        width: 23
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 156
+        y: 98
+        width: 21
+        height: 39
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -750,12 +750,12 @@ TextureImporter:
       name: MPlayer 1 idle_24
       rect:
         serializedVersion: 2
-        x: 12
-        y: 50
-        width: 23
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 13
+        y: 51
+        width: 21
+        height: 39
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -772,12 +772,12 @@ TextureImporter:
       name: MPlayer 1 idle_25
       rect:
         serializedVersion: 2
-        x: 60
-        y: 50
-        width: 23
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 61
+        y: 51
+        width: 21
+        height: 39
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -794,12 +794,12 @@ TextureImporter:
       name: MPlayer 1 idle_26
       rect:
         serializedVersion: 2
-        x: 108
-        y: 50
-        width: 23
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 109
+        y: 51
+        width: 21
+        height: 38
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -816,12 +816,12 @@ TextureImporter:
       name: MPlayer 1 idle_27
       rect:
         serializedVersion: 2
-        x: 156
-        y: 50
-        width: 23
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 157
+        y: 51
+        width: 21
+        height: 38
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -838,12 +838,12 @@ TextureImporter:
       name: MPlayer 1 idle_28
       rect:
         serializedVersion: 2
-        x: 13
-        y: 2
-        width: 23
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 14
+        y: 3
+        width: 21
+        height: 39
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -860,12 +860,12 @@ TextureImporter:
       name: MPlayer 1 idle_29
       rect:
         serializedVersion: 2
-        x: 61
-        y: 2
-        width: 23
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 62
+        y: 3
+        width: 21
+        height: 39
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -882,12 +882,12 @@ TextureImporter:
       name: MPlayer 1 idle_30
       rect:
         serializedVersion: 2
-        x: 109
-        y: 2
-        width: 23
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 110
+        y: 3
+        width: 21
+        height: 38
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -904,12 +904,12 @@ TextureImporter:
       name: MPlayer 1 idle_31
       rect:
         serializedVersion: 2
-        x: 157
-        y: 2
-        width: 23
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 158
+        y: 3
+        width: 21
+        height: 38
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -926,7 +926,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 7e0088db1ec33e947b8e7e7abfd315ed
     internalID: 0
     vertices: []
     indices: 
@@ -934,7 +934,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       MPlayer 1 idle_0: 7987384838523919942
       MPlayer 1 idle_1: 7457349803818390202
