@@ -34,4 +34,8 @@ public class PlayerMovement : MonoBehaviour
     {
         rigidBody2D.MovePosition(rigidBody2D.position + input * speed * Time.fixedDeltaTime);
     }
+    public Vector2 GetLastDirection()
+    {
+        return lastDirection;
+    }
 }

@@ -3,6 +3,7 @@ using UnityEngine;
 [RequireComponent (typeof(PlayerMovement))]
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private CheckSoil checkSoil;
     private PlayerMovement movement;
 
     private void Awake()
@@ -18,5 +19,15 @@ public class PlayerController : MonoBehaviour
         ).normalized;
 
         movement.Move(input);
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            TryPlant();
+        }
+    }
+    private void TryPlant()
+    {
+        Vector2 adjustedPos = (Vector2)transform.position + new Vector2(0, -0.5f);
+        checkSoil.TileCheck(adjustedPos);
     }
 }

@@ -178,8 +178,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: SOIL
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b96bf4064011e134eb93de6e9a574104, type: 2}
-  m_sharedMaterial: {fileID: 2370417873476403688, guid: b96bf4064011e134eb93de6e9a574104, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 00ebc43e5c92f10409f4c6295b4b018e, type: 2}
+  m_sharedMaterial: {fileID: -805482158055247967, guid: 00ebc43e5c92f10409f4c6295b4b018e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1149,8 +1149,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: HEARTS OF
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b96bf4064011e134eb93de6e9a574104, type: 2}
-  m_sharedMaterial: {fileID: 2370417873476403688, guid: b96bf4064011e134eb93de6e9a574104, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 00ebc43e5c92f10409f4c6295b4b018e, type: 2}
+  m_sharedMaterial: {fileID: -805482158055247967, guid: 00ebc43e5c92f10409f4c6295b4b018e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

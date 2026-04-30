@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 03b01584d6f34e0498a07577574853ed
+guid: f0b71f5aeb54fb349901fb3862eb76ef
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Zero Cool
+  - monogram
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
