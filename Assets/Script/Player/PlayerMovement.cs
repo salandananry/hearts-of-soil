@@ -32,7 +32,14 @@ public class PlayerMovement : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        rigidBody2D.MovePosition(rigidBody2D.position + input * speed * Time.fixedDeltaTime);
+        Vector2 isoAdjusted = new Vector2(
+            input.x,
+            input.y * 0.5f
+        );
+
+        rigidBody2D.MovePosition(
+            rigidBody2D.position + isoAdjusted * speed * Time.fixedDeltaTime
+        );
     }
     public Vector2 GetLastDirection()
     {
