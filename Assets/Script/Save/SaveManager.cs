@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
@@ -9,6 +10,14 @@ public class SaveData
     public bool masterToggle = true;
     public bool musicToggle = true;
     public bool sfxToggle = true;
+
+    public List<TileSaveData> tiles = new List<TileSaveData>();
+}
+[Serializable]
+public class TileSaveData
+{
+    public Vector3Int position;
+    public bool hasPlant = false;
 }
 public class SaveManager : MonoBehaviour
 {
