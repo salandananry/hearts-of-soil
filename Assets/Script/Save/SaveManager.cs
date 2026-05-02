@@ -17,7 +17,8 @@ public class SaveData
 public class TileSaveData
 {
     public Vector3Int position;
-    public bool hasPlant = false;
+    public bool isEmpty = false;
+    public bool isWatered = false;
 }
 public class SaveManager : MonoBehaviour
 {
