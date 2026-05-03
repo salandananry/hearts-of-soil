@@ -13,6 +13,7 @@ public class TileCheck : MonoBehaviour
     private TextMeshProUGUI currentStatusText;
     
     private Vector3Int lastCell;
+    private bool hasLastCell;
 
     private void OnTriggerStay2D(Collider2D collision)
     {
@@ -32,11 +33,12 @@ public class TileCheck : MonoBehaviour
     {
         Vector3Int cell = soilTilemap.WorldToCell(collision.transform.position);
         
-        if (!soilTilemap.HasTile(cell)) return;
+        if (!HasSoilTile(cell)) return;
 
-        if (cell == lastCell) return;
+        if (hasLastCell && cell == lastCell) return;
 
         lastCell = cell;
+        hasLastCell = true;
 
         if (currentStatusText != null) HideTileStatus();
 
@@ -55,18 +57,31 @@ public class TileCheck : MonoBehaviour
         {
             Destroy(currentStatusText.gameObject);
             currentStatusText = null;
+            hasLastCell = false;
         }
     }
     private string GetSoilOccupancyText(Vector3Int cell)
     {
-        return tileManager.HasPlant(cell)
+        return HasPlant(cell)
             ? "This soil is occupied"
             : "This soil is empty";
     }
     private string GetSoilMoistureText(Vector3Int cell)
     {
-        return tileManager.IsWatered(cell)
+        return IsWatered(cell)
             ? "watered"
             : "dry";
+    }
+    public bool HasSoilTile(Vector3Int cell)
+    {
+        return soilTilemap.HasTile(cell);
+    }
+    public bool HasPlant(Vector3Int cell)
+    {
+        return tileManager.HasPlant(cell);
+    }
+    public bool IsWatered(Vector3Int cell)
+    {
+        return tileManager.IsWatered(cell);
     }
 }

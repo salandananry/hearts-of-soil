@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent (typeof(PlayerMovement))]
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private TileCheck tileCheck;
+    [SerializeField] private SeedPlanter seedPlanter;
     private PlayerMovement movement;
 
     private void Awake()
@@ -14,6 +14,11 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         MovementInput();
+
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            TryPlant();
+        }
     }
     private void MovementInput()
     {
@@ -23,5 +28,9 @@ public class PlayerController : MonoBehaviour
         ).normalized;
 
         movement.Move(input);
+    }
+    private void TryPlant()
+    {
+        seedPlanter.GoPlant(transform.position);
     }
 }
