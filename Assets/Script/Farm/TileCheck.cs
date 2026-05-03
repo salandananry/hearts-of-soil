@@ -38,8 +38,7 @@ public class TileCheck : MonoBehaviour
 
         lastCell = cell;
 
-        if (currentStatusText != null)
-            Destroy(currentStatusText.gameObject);
+        if (currentStatusText != null) HideTileStatus();
 
         currentStatusText = Instantiate(statusTextPrefab, spawnHolder);
 
@@ -52,9 +51,10 @@ public class TileCheck : MonoBehaviour
     }
     private void HideTileStatus()
     {
-        if(currentStatusText.gameObject.activeInHierarchy)
+        if (currentStatusText != null)
         {
             Destroy(currentStatusText.gameObject);
+            currentStatusText = null;
         }
     }
     private string GetSoilOccupancyText(Vector3Int cell)
