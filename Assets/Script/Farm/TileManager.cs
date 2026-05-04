@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class TileManager : MonoBehaviour
 {
@@ -18,6 +19,27 @@ public class TileManager : MonoBehaviour
             {
                 position = targetTile,
                 hasPlant = hasPlant
+            });
+        }
+
+        SaveManager.Instance.SaveGame();
+    }
+    public void SetHasWater(Vector3Int targetTile, bool hasWater)
+    {
+        var save = SaveManager.Instance.CurrentSave;
+
+        var tile = save.tiles.Find(t => t.position == targetTile);
+
+        if (tile != null)
+        {
+            tile.isWatered = hasWater;
+        }
+        else
+        {
+            save.tiles.Add(new TileSaveData
+            {
+                position = targetTile,
+                isWatered = hasWater
             });
         }
 

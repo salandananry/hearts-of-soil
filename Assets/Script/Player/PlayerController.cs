@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private SeedPlanter seedPlanter;
+    [SerializeField] private TileWaterer tileWaterer;
     private PlayerMovement movement;
 
     private void Awake()
@@ -17,7 +18,11 @@ public class PlayerController : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.E))
         {
-            TryPlant();
+            TryPlanting();
+        }
+        if(Input.GetKeyDown(KeyCode.F))
+        {
+            TryWatering();
         }
     }
     private void MovementInput()
@@ -29,8 +34,12 @@ public class PlayerController : MonoBehaviour
 
         movement.Move(input);
     }
-    private void TryPlant()
+    private void TryPlanting()
     {
         seedPlanter.PlantSeed(transform.position);
+    }
+    private void TryWatering()
+    {
+        tileWaterer.WaterSoil(transform.position);
     }
 }
