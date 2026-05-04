@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class TileManager : MonoBehaviour
 {
-    public void SetTileAvailability(bool hasPlant , Vector3Int targetTile)
+    public void SetHasPlant(Vector3Int targetTile, bool hasPlant)
     {
         var save = SaveManager.Instance.CurrentSave;
 
