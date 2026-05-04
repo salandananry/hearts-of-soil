@@ -2,40 +2,40 @@ using UnityEngine;
 
 public class TileManager : MonoBehaviour
 {
-    public void SetTileAvailability(bool hasPlant , Vector3Int tilePosition)
+    public void SetTileAvailability(bool hasPlant , Vector3Int targetTile)
     {
         var save = SaveManager.Instance.CurrentSave;
 
-        var tile = save.tiles.Find(t => t.position == tilePosition);
+        var tile = save.tiles.Find(t => t.position == targetTile);
 
         if (tile != null)
         {
-            tile.isEmpty = hasPlant;
+            tile.hasPlant = hasPlant;
         }
         else
         {
             save.tiles.Add(new TileSaveData
             {
-                position = tilePosition,
-                isEmpty = hasPlant
+                position = targetTile,
+                hasPlant = hasPlant
             });
         }
 
         SaveManager.Instance.SaveGame();
     }
-    public bool HasPlant(Vector3Int tilePosition)
+    public bool HasPlant(Vector3Int targetTile)
     {
         var save = SaveManager.Instance.CurrentSave;
-        var tile = save.tiles.Find(t => t.position == tilePosition);
+        var tile = save.tiles.Find(t => t.position == targetTile);
 
         if (tile == null) return false;
 
-        return tile.isEmpty;
+        return tile.hasPlant;
     }
-    public bool IsWatered(Vector3Int tilePosition)
+    public bool IsWatered(Vector3Int targetTile)
     {
         var save = SaveManager.Instance.CurrentSave;
-        var tile = save.tiles.Find(t => t.position == tilePosition);
+        var tile = save.tiles.Find(t => t.position == targetTile);
 
         if (tile == null) return false;
 

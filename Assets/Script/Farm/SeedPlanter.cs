@@ -8,23 +8,37 @@ public class SeedPlanter : MonoBehaviour
     [SerializeField] private TileManager tileManager;
     [SerializeField] private GameObject seedPrefab;
     private GameObject currentSeed;
-    public void GoPlant(Vector2 position)
+
+    private void Start()
+    { /*
+        check each tile if:
+        has soil tile
+        has plant
+
+        if has plant, then spawn a seed to that target cell
+        */
+    }
+    public void PlantSeed(Vector2 position)
     {
-        Vector3Int cell = soilTileMap.WorldToCell(position);
+        Vector3Int targetTile = tileCheck.GetTileAtPosition(position);
 
-        if (!soilTileMap.HasTile(cell)) return;
-        if (tileCheck.HasPlant(cell)) return;
-
-        Vector3 spawnPos = soilTileMap.GetCellCenterWorld(cell);
-        spawnPos.y += 0.1f;
+        if (!tileCheck.HasSoilTile(targetTile)) return;
+        if (tileCheck.HasPlant(targetTile)) return;
 
         currentSeed = Instantiate(seedPrefab, transform);
-        currentSeed.transform.position = spawnPos;
+        currentSeed.transform.position = SpawnPosition(targetTile);
 
-        UpdateTileStatus(cell);
+        UpdateTileStatus(targetTile);
     }
-    private void UpdateTileStatus(Vector3Int position)
+    private void UpdateTileStatus(Vector3Int targetTile)
     {
-        tileManager.SetTileAvailability(true, position);
+        tileManager.SetTileAvailability(true, targetTile);
+    }
+    private Vector3 SpawnPosition(Vector3Int targetTile)
+    {
+        Vector3 spawnPos = soilTileMap.GetCellCenterWorld(targetTile);
+        spawnPos.y += 0.1f;
+        
+        return spawnPos;
     }
 }

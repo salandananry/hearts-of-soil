@@ -31,6 +31,6 @@ public class PlayerController : MonoBehaviour
     }
     private void TryPlant()
     {
-        seedPlanter.GoPlant(transform.position);
+        seedPlanter.PlantSeed(transform.position);
     }
 }

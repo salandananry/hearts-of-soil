@@ -31,25 +31,22 @@ public class TileCheck : MonoBehaviour
     }
     private void ShowTileStatus(Collider2D collision)
     {
-        Vector3Int cell = soilTilemap.WorldToCell(collision.transform.position);
+        Vector3Int targetTile = GetTileAtPosition(collision.transform.position);
         
-        if (!HasSoilTile(cell)) return;
+        if (!HasSoilTile(targetTile)) return;
 
-        if (hasLastCell && cell == lastCell) return;
+        if (hasLastCell && targetTile == lastCell) return;
 
-        lastCell = cell;
+        lastCell = targetTile;
         hasLastCell = true;
 
         if (currentStatusText != null) HideTileStatus();
 
         currentStatusText = Instantiate(statusTextPrefab, spawnHolder);
 
-        Vector3 worldPos = soilTilemap.GetCellCenterWorld(cell);
-        worldPos.y += 1f;
+        currentStatusText.rectTransform.position = GetSpawnPosition(targetTile);
 
-        currentStatusText.rectTransform.position = worldPos;
-
-        currentStatusText.text = GetSoilOccupancyText(cell) + " and " + GetSoilMoistureText(cell);
+        currentStatusText.text = GetSoilOccupancyText(targetTile) + " and " + GetSoilMoistureText(targetTile);
     }
     private void HideTileStatus()
     {
@@ -60,28 +57,39 @@ public class TileCheck : MonoBehaviour
             hasLastCell = false;
         }
     }
-    private string GetSoilOccupancyText(Vector3Int cell)
+    private string GetSoilOccupancyText(Vector3Int targetTile)
     {
-        return HasPlant(cell)
+        return HasPlant(targetTile)
             ? "This soil is occupied"
             : "This soil is empty";
     }
-    private string GetSoilMoistureText(Vector3Int cell)
+    private string GetSoilMoistureText(Vector3Int targetTile)
     {
-        return IsWatered(cell)
+        return IsWatered(targetTile)
             ? "watered"
             : "dry";
     }
-    public bool HasSoilTile(Vector3Int cell)
+    public bool HasSoilTile(Vector3Int targetTile)
     {
-        return soilTilemap.HasTile(cell);
+        return soilTilemap.HasTile(targetTile);
     }
-    public bool HasPlant(Vector3Int cell)
+    public bool HasPlant(Vector3Int targetTile)
     {
-        return tileManager.HasPlant(cell);
+        return tileManager.HasPlant(targetTile);
     }
-    public bool IsWatered(Vector3Int cell)
+    public bool IsWatered(Vector3Int targetTile)
     {
-        return tileManager.IsWatered(cell);
+        return tileManager.IsWatered(targetTile);
+    }
+    public Vector3 GetSpawnPosition(Vector3Int targetTile)
+    {
+        Vector3 worldPos = soilTilemap.GetCellCenterWorld(targetTile);
+        worldPos.y += 1f;
+
+        return worldPos;
+    }
+    public Vector3Int GetTileAtPosition(Vector3 playerPosition)
+    {
+        return soilTilemap.WorldToCell(playerPosition);
     }
 }
