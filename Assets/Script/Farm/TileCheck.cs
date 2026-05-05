@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class TileCheck : MonoBehaviour
@@ -9,6 +10,7 @@ public class TileCheck : MonoBehaviour
 
     [Header("Status panel")]
     [SerializeField] private GameObject statusPanel;
+    [SerializeField] private TextMeshProUGUI statusText;
     
     private Vector3Int previousTile;
     private bool hasPreviousTile;
@@ -50,42 +52,13 @@ public class TileCheck : MonoBehaviour
 
         statusPanel.SetActive(true);
         statusPanel.transform.position = tileUtility.GetTileWorldPosition(targetTile, 2f, 1.1f);
+        statusText.text = GetSoilOccupancyText(targetTile) + " + " + GetSoilMoistureText(targetTile);
         interactionHint.HideHint();
     }
     public void CloseTileStatus()
     {
         statusPanel.SetActive(false);
     }
-    /*
-    private void ShowTileStatus(Collider2D collision)
-    {
-        Vector3Int targetTile = tileUtility.WorldToCell(collision.transform.position);
-        
-        if (!tileUtility.HasTile(targetTile)) return;
-
-        if (hasLastCell && targetTile == lastCell) return;
-
-        lastCell = targetTile;
-        hasLastCell = true;
-
-        if (currentStatusText != null) HideTileStatus();
-
-        currentStatusText = Instantiate(statusTextPrefab, spawnHolder);
-
-        currentStatusText.rectTransform.position = tileUtility.GetSpawnPosition(targetTile, 1f);
-
-        currentStatusText.text = GetSoilOccupancyText(targetTile) + " and " + GetSoilMoistureText(targetTile);
-    }
-    private void HideTileStatus()
-    {
-        if (currentStatusText != null)
-        {
-            Destroy(currentStatusText.gameObject);
-            currentStatusText = null;
-            hasLastCell = false;
-        }
-    }
-    */
     private void HideHint()
     {
         interactionHint.HideHint();
@@ -94,14 +67,14 @@ public class TileCheck : MonoBehaviour
     private string GetSoilOccupancyText(Vector3Int targetTile)
     {
         return HasPlant(targetTile)
-            ? "This soil is occupied"
-            : "This soil is empty";
+            ? "Planted"
+            : "Empty";
     }
     private string GetSoilMoistureText(Vector3Int targetTile)
     {
         return IsWatered(targetTile)
-            ? "watered"
-            : "dry";
+            ? "Watered"
+            : "Dry";
     }
     public bool HasPlant(Vector3Int targetTile)
     {
