@@ -5,6 +5,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private SeedPlanter seedPlanter;
     [SerializeField] private TileWaterer tileWaterer;
+    [SerializeField] private TileCheck tileCheck;
     private PlayerMovement movement;
 
     private void Awake()
@@ -18,7 +19,7 @@ public class PlayerController : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.E))
         {
-            TryPlanting();
+            InspectTile();
         }
         if(Input.GetKeyDown(KeyCode.F))
         {
@@ -34,10 +35,16 @@ public class PlayerController : MonoBehaviour
 
         movement.Move(input);
     }
+    private void InspectTile()
+    {
+        tileCheck.ShowTileStatus(transform.position);
+    }
+    /*
     private void TryPlanting()
     {
         seedPlanter.PlantSeed(transform.position);
     }
+    */
     private void TryWatering()
     {
         tileWaterer.WaterSoil(transform.position);

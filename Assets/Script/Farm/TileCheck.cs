@@ -1,39 +1,67 @@
-using TMPro;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 public class TileCheck : MonoBehaviour
 {
-    [SerializeField] private Tilemap soilTilemap;
+    [Header("Script reference:")]
     [SerializeField] private TileManager tileManager;
+    [SerializeField] private TileUtility tileUtility;
+    [SerializeField] private InteractionHint interactionHint;
 
-    [Header("Tile Status UI: ")]
-    [SerializeField] private TextMeshProUGUI statusTextPrefab;
-    [SerializeField] private Transform spawnHolder;
-    private TextMeshProUGUI currentStatusText;
+    [Header("Status panel")]
+    [SerializeField] private GameObject statusPanel;
     
-    private Vector3Int lastCell;
-    private bool hasLastCell;
+    private Vector3Int previousTile;
+    private bool hasPreviousTile;
 
     private void OnTriggerStay2D(Collider2D collision)
     {
         if(collision.gameObject.CompareTag("Player"))
         {
-            ShowTileStatus(collision);
+            ShowHint(collision);
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            HideTileStatus();
+            HideHint();
+            CloseTileStatus();
         }
     }
+    private void ShowHint(Collider2D collision)
+    {
+        Vector3Int targetTile = tileUtility.WorldToCell(collision.transform.position);
+
+        if (!tileUtility.HasTile(targetTile)) return;
+
+        if (hasPreviousTile && targetTile == previousTile) return;
+
+        previousTile = targetTile;
+        hasPreviousTile = true;
+
+        interactionHint.ShowHint(tileUtility.GetTileWorldPosition(targetTile, 0f, 1.1f), "Press (e) to interact");
+        CloseTileStatus();
+    }
+    public void ShowTileStatus(Vector3 position)
+    {
+        Vector3Int targetTile = tileUtility.WorldToCell(position);
+        
+        if (!tileUtility.HasTile(targetTile)) return;
+
+        statusPanel.SetActive(true);
+        statusPanel.transform.position = tileUtility.GetTileWorldPosition(targetTile, 2f, 1.1f);
+        interactionHint.HideHint();
+    }
+    public void CloseTileStatus()
+    {
+        statusPanel.SetActive(false);
+    }
+    /*
     private void ShowTileStatus(Collider2D collision)
     {
-        Vector3Int targetTile = GetTileAtPosition(collision.transform.position);
+        Vector3Int targetTile = tileUtility.WorldToCell(collision.transform.position);
         
-        if (!HasSoilTile(targetTile)) return;
+        if (!tileUtility.HasTile(targetTile)) return;
 
         if (hasLastCell && targetTile == lastCell) return;
 
@@ -44,7 +72,7 @@ public class TileCheck : MonoBehaviour
 
         currentStatusText = Instantiate(statusTextPrefab, spawnHolder);
 
-        currentStatusText.rectTransform.position = GetSpawnPosition(targetTile);
+        currentStatusText.rectTransform.position = tileUtility.GetSpawnPosition(targetTile, 1f);
 
         currentStatusText.text = GetSoilOccupancyText(targetTile) + " and " + GetSoilMoistureText(targetTile);
     }
@@ -56,6 +84,12 @@ public class TileCheck : MonoBehaviour
             currentStatusText = null;
             hasLastCell = false;
         }
+    }
+    */
+    private void HideHint()
+    {
+        interactionHint.HideHint();
+        hasPreviousTile = false;
     }
     private string GetSoilOccupancyText(Vector3Int targetTile)
     {
@@ -69,10 +103,6 @@ public class TileCheck : MonoBehaviour
             ? "watered"
             : "dry";
     }
-    public bool HasSoilTile(Vector3Int targetTile)
-    {
-        return soilTilemap.HasTile(targetTile);
-    }
     public bool HasPlant(Vector3Int targetTile)
     {
         return tileManager.HasPlant(targetTile);
@@ -80,16 +110,5 @@ public class TileCheck : MonoBehaviour
     public bool IsWatered(Vector3Int targetTile)
     {
         return tileManager.IsWatered(targetTile);
-    }
-    public Vector3 GetSpawnPosition(Vector3Int targetTile)
-    {
-        Vector3 worldPos = soilTilemap.GetCellCenterWorld(targetTile);
-        worldPos.y += 1f;
-
-        return worldPos;
-    }
-    public Vector3Int GetTileAtPosition(Vector3 playerPosition)
-    {
-        return soilTilemap.WorldToCell(playerPosition);
     }
 }

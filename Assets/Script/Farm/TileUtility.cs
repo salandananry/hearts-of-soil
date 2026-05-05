@@ -12,21 +12,17 @@ public class TileUtility : MonoBehaviour
         return SoilTileMap.WorldToCell(worldPosition);
     }
 
-    public Vector3 CellToWorldCenter(Vector3Int cell)
-    {
-        return SoilTileMap.GetCellCenterWorld(cell);
-    }
-
-    public Vector3 GetSpawnPosition(Vector3Int cell, float yOffset = 0.1f)
+    public Vector3 GetTileWorldPosition(Vector3Int cell, float xOffset, float yOffset)
     {
         Vector3 pos = SoilTileMap.GetCellCenterWorld(cell);
+        pos.x += xOffset;
         pos.y += yOffset;
         return pos;
     }
 
-    public bool HasTile(Vector3Int cell)
+    public bool HasTile(Vector3Int targetTile)
     {
-        return SoilTileMap.HasTile(cell);
+        return SoilTileMap.HasTile(targetTile);
     }
 
     public BoundsInt GetBounds()

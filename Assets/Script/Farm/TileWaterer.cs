@@ -2,9 +2,12 @@ using UnityEngine;
 
 public class TileWaterer : MonoBehaviour
 {
+    [Header("Script reference:")]
     [SerializeField] private TileManager tileManager;
     [SerializeField] private TileMapController tileMapController;
     [SerializeField] private TileUtility tileUtility;
+
+    [Header("Tile Sprites:")]
     [SerializeField] private IsometricRuleTile drySoil; //future use
     [SerializeField] private IsometricRuleTile wetSoil;
 

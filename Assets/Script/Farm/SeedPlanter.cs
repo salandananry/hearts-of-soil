@@ -2,8 +2,11 @@ using UnityEngine;
 
 public class SeedPlanter : MonoBehaviour
 {
+    [Header("Script reference:")]
     [SerializeField] private TileManager tileManager;
     [SerializeField] private TileUtility tileUtility;
+
+    [Header("Seed prefab:")]
     [SerializeField] private GameObject seedPrefab;
 
     private void Start()
@@ -32,7 +35,7 @@ public class SeedPlanter : MonoBehaviour
     }
     private void SpawnSeed(Vector3Int targetTile)
     {
-        Instantiate(seedPrefab, tileUtility.GetSpawnPosition(targetTile), Quaternion.identity, transform);
+        Instantiate(seedPrefab, tileUtility.GetTileWorldPosition(targetTile, 0f, 0.1f), Quaternion.identity, transform);
     }
     private bool HasPlant(Vector3Int targetTile)
     {
