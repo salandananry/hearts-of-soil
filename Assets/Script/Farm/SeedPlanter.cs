@@ -14,6 +14,8 @@ public class SeedPlanter : MonoBehaviour
     [SerializeField] private GameObject playerObject;
 
     public event Action<Vector3Int> OnTilePlant;
+
+    #region Spawn plants from save
     private void Start()
     {
         SpawnExistingPlants();
@@ -22,35 +24,31 @@ public class SeedPlanter : MonoBehaviour
     {
         tileUtility.ForEachTile(targetTile =>
         {
-            if (!HasTile(targetTile)) return;
-            if (!HasPlant(targetTile)) return;
+            if (!tileUtility.HasTile(targetTile)) return;
+            if (!tileManager.HasPlant(targetTile)) return;
 
             SpawnSeed(targetTile);
         });
     }
+    #endregion
+
+    #region Planting mechanic
     public void PlantSeed()
     {
         Vector3 pos = playerObject.transform.position;
         Vector3Int targetTile = tileUtility.WorldToCell(pos);
 
-        if (!HasTile(targetTile)) return;
-        if (HasPlant(targetTile)) return;
+        if (!tileUtility.HasTile(targetTile)) return;
+        if (tileManager.HasPlant(targetTile)) return;
 
         SpawnSeed(targetTile);
         tileManager.SetHasPlant(targetTile, true);
 
         OnTilePlant?.Invoke(targetTile);
     }
+    #endregion
     private void SpawnSeed(Vector3Int targetTile)
     {
         Instantiate(seedPrefab, tileUtility.GetTileWorldPosition(targetTile, 0f, 0.1f), Quaternion.identity, transform);
-    }
-    private bool HasPlant(Vector3Int targetTile)
-    {
-        return tileManager.HasPlant(targetTile);
-    }
-    private bool HasTile(Vector3Int targetTile)
-    {
-        return tileUtility.HasTile(targetTile);
     }
 }

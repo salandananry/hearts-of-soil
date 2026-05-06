@@ -18,6 +18,7 @@ public class TileWaterer : MonoBehaviour
 
     public event Action <Vector3Int> OnTileWatered;
 
+    #region Spawn water tiles from save
     private void Start()
     {
         SpawnExistingWateredTiles();
@@ -26,41 +27,33 @@ public class TileWaterer : MonoBehaviour
     {
         tileUtility.ForEachTile(targetTile =>
         {
-            if (!HasTile(targetTile)) return;
-            if (!IsWatered(targetTile)) return;
+            if (!tileUtility.HasTile(targetTile)) return;
+            if (!tileManager.IsWatered(targetTile)) return;
 
             ApplyWaterToTile(targetTile);
         });
     }
+    #endregion
+
+    #region Watering mechanic
     public void WaterSoil()
     {
         Vector3 pos = playerObject.transform.position;
         Vector3Int targetTile = tileUtility.WorldToCell(pos);
 
-        if (!HasTile(targetTile)) return;
-        if (!HasPlant(targetTile)) return;
-        if (IsWatered(targetTile)) return;
+        if (!tileUtility.HasTile(targetTile)) return;
+        if (!tileManager.HasPlant(targetTile)) return;
+        if (tileManager.IsWatered(targetTile)) return;
 
         ApplyWaterToTile(targetTile);
 
         OnTileWatered?.Invoke(targetTile);
 
     }
+    #endregion
     private void ApplyWaterToTile(Vector3Int targetTile)
     {
         tileMapController.SetTileSprite(targetTile, wetSoil);
         tileManager.SetHasWater(targetTile, true);
-    }
-    private bool HasPlant(Vector3Int targetTile)
-    {
-        return tileManager.HasPlant(targetTile);
-    }
-    private bool IsWatered(Vector3Int targetTile)
-    {
-        return tileManager.IsWatered(targetTile);  
-    }
-    private bool HasTile(Vector3Int targetTile)
-    {
-        return tileUtility.HasTile(targetTile);
     }
 }

@@ -15,6 +15,8 @@ public class TileStatus : MonoBehaviour
     [SerializeField] private GameObject statusPanel;
     [SerializeField] private Image tileImage;
     [SerializeField] private Image seedImage;
+    [SerializeField] private Button goPlantButton;
+    [SerializeField] private Button goWaterButton;
 
     [Header("Sprite variants")]
     [Header("Tiles:")]
@@ -42,6 +44,8 @@ public class TileStatus : MonoBehaviour
         seedPlanter.OnTilePlant -= UpdatePlantPreview;
         playerController.OnPlayerInteract -= ShowTileStatusAt;
     }
+
+    #region Pop Up Hint
     private void OnTriggerStay2D(Collider2D collision)
     {
         if(collision.gameObject.CompareTag("Player"))
@@ -71,6 +75,14 @@ public class TileStatus : MonoBehaviour
         
         CloseTileStatus();
     }
+    private void HideHint()
+    {
+        interactionHint.HideHint();
+        hasPreviousTile = false;
+    }
+    #endregion
+
+    #region Status Panel
     private void ShowTileStatusAt(Vector2 playerPosition)
     {
         Vector3Int targetTile = tileUtility.WorldToCell(playerPosition);
@@ -92,10 +104,12 @@ public class TileStatus : MonoBehaviour
         if(tileManager.IsWatered(targetTile))
         {
             tileImage.sprite = wetTile;
+            goWaterButton.interactable = false;
         }
         else
         {
             tileImage.sprite = dryTile;
+            goWaterButton.interactable = true;
         }
     }
     private void UpdatePlantPreview(Vector3Int targetTile)
@@ -104,19 +118,17 @@ public class TileStatus : MonoBehaviour
         {
             seedImage.gameObject.SetActive(true);
             seedImage.sprite = seedPlantStage1;
+            goPlantButton.interactable = false;
         }
         else
         {
             seedImage.gameObject.SetActive(false);
+            goPlantButton.interactable = true;
         }
     }
     private void CloseTileStatus()
     {
         statusPanel.SetActive(false);
     }
-    private void HideHint()
-    {
-        interactionHint.HideHint();
-        hasPreviousTile = false;
-    }
+    #endregion
 }
