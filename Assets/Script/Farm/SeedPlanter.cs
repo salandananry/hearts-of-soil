@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public class SeedPlanter : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class SeedPlanter : MonoBehaviour
     [Header("Player object:")]
     [SerializeField] private GameObject playerObject;
 
+    public event Action<Vector3Int> OnTilePlant;
     private void Start()
     {
         SpawnExistingPlants();
@@ -36,6 +38,8 @@ public class SeedPlanter : MonoBehaviour
 
         SpawnSeed(targetTile);
         tileManager.SetHasPlant(targetTile, true);
+
+        OnTilePlant?.Invoke(targetTile);
     }
     private void SpawnSeed(Vector3Int targetTile)
     {

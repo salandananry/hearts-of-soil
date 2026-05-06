@@ -1,9 +1,9 @@
 using UnityEngine;
-
+using System;
 [RequireComponent (typeof(PlayerMovement))]
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private TileCheck tileCheck;
+    public event Action <Vector2> OnPlayerInteract;
     private PlayerMovement movement;
 
     private void Awake()
@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.E))
         {
-            InspectTile();
+            OnPlayerInteract?.Invoke(transform.position);
         }
     }
     private void MovementInput()
@@ -28,9 +28,5 @@ public class PlayerController : MonoBehaviour
         ).normalized;
 
         movement.Move(input);
-    }
-    private void InspectTile()
-    {
-        tileCheck.ShowTileStatusAt(transform.position);
     }
 }

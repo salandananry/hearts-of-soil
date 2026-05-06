@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public class TileWaterer : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class TileWaterer : MonoBehaviour
 
     [Header("Player object:")]
     [SerializeField] private GameObject playerObject;
+
+    public event Action <Vector3Int> OnTileWatered;
 
     private void Start()
     {
@@ -39,6 +42,8 @@ public class TileWaterer : MonoBehaviour
         if (IsWatered(targetTile)) return;
 
         ApplyWaterToTile(targetTile);
+
+        OnTileWatered?.Invoke(targetTile);
 
     }
     private void ApplyWaterToTile(Vector3Int targetTile)

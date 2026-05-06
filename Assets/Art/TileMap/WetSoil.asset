@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5e6f3fbb560bd6041a202ea918fa4f23, type: 3}
-  m_Name: Wet_Soil
+  m_Name: WetSoil
   m_EditorClassIdentifier: Unity.2D.Tilemap.Extras::UnityEngine.IsometricRuleTile
   m_DefaultSprite: {fileID: 5953528405987175621, guid: d2ecfde7aecc6b143b90cb57f3044078, type: 3}
   m_DefaultGameObject: {fileID: 0}
