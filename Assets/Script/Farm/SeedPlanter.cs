@@ -9,6 +9,9 @@ public class SeedPlanter : MonoBehaviour
     [Header("Seed prefab:")]
     [SerializeField] private GameObject seedPrefab;
 
+    [Header("Player object:")]
+    [SerializeField] private GameObject playerObject;
+
     private void Start()
     {
         SpawnExistingPlants();
@@ -23,9 +26,10 @@ public class SeedPlanter : MonoBehaviour
             SpawnSeed(targetTile);
         });
     }
-    public void PlantSeed(Vector2 position)
+    public void PlantSeed()
     {
-        Vector3Int targetTile = tileUtility.WorldToCell(position);
+        Vector3 pos = playerObject.transform.position;
+        Vector3Int targetTile = tileUtility.WorldToCell(pos);
 
         if (!HasTile(targetTile)) return;
         if (HasPlant(targetTile)) return;

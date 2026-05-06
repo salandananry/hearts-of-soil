@@ -8,8 +8,12 @@ public class TileWaterer : MonoBehaviour
     [SerializeField] private TileUtility tileUtility;
 
     [Header("Tile Sprites:")]
-    [SerializeField] private IsometricRuleTile drySoil; //future use
+    [SerializeField] private IsometricRuleTile drySoil;
     [SerializeField] private IsometricRuleTile wetSoil;
+
+
+    [Header("Player object:")]
+    [SerializeField] private GameObject playerObject;
 
     private void Start()
     {
@@ -25,9 +29,10 @@ public class TileWaterer : MonoBehaviour
             ApplyWaterToTile(targetTile);
         });
     }
-    public void WaterSoil(Vector2 position)
+    public void WaterSoil()
     {
-        Vector3Int targetTile = tileUtility.WorldToCell(position);
+        Vector3 pos = playerObject.transform.position;
+        Vector3Int targetTile = tileUtility.WorldToCell(pos);
 
         if (!HasTile(targetTile)) return;
         if (!HasPlant(targetTile)) return;
