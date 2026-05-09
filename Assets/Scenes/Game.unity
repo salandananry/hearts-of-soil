@@ -5607,7 +5607,7 @@ GameObject:
   - component: {fileID: 551294545}
   - component: {fileID: 551294544}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: CanvasCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5846,7 +5846,7 @@ GameObject:
   - component: {fileID: 695939556}
   - component: {fileID: 695939555}
   m_Layer: 5
-  m_Name: Tile
+  m_Name: TileImagePreview
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15764,7 +15764,7 @@ MonoBehaviour:
   goWaterButton: {fileID: 1014062497}
   dryTile: {fileID: 6539996646824347746, guid: d2ecfde7aecc6b143b90cb57f3044078, type: 3}
   wetTile: {fileID: 5953528405987175621, guid: d2ecfde7aecc6b143b90cb57f3044078, type: 3}
-  seedPlantStage1: {fileID: 1816340692, guid: d2ecfde7aecc6b143b90cb57f3044078, type: 3}
+  seedPlantStage1: {fileID: -1886275107, guid: d2ecfde7aecc6b143b90cb57f3044078, type: 3}
   seedPlantStage2: {fileID: 0}
   seedPlantStage3: {fileID: 0}
   seedPlantStage4: {fileID: 0}
@@ -21254,7 +21254,7 @@ GameObject:
   - component: {fileID: 2086843870}
   - component: {fileID: 2086843869}
   m_Layer: 5
-  m_Name: Seed/Plant
+  m_Name: PlantImagePreview
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21276,8 +21276,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.237}
-  m_SizeDelta: {x: 0.4, y: 0.4}
+  m_AnchoredPosition: {x: -0.0079, y: 0.03075}
+  m_SizeDelta: {x: 1, y: 0.8595}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2086843869
 MonoBehaviour:
@@ -21299,7 +21299,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1816340692, guid: d2ecfde7aecc6b143b90cb57f3044078, type: 3}
+  m_Sprite: {fileID: -1886275107, guid: d2ecfde7aecc6b143b90cb57f3044078, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

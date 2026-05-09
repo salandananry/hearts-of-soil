@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2219084799888741150}
   - component: {fileID: 2174054922667207871}
   m_Layer: 0
-  m_Name: Seed
+  m_Name: PlantStage1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -81,7 +81,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 1816340692, guid: d2ecfde7aecc6b143b90cb57f3044078, type: 3}
+  m_Sprite: {fileID: -1886275107, guid: d2ecfde7aecc6b143b90cb57f3044078, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
