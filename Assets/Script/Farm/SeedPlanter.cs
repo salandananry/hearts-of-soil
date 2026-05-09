@@ -13,7 +13,7 @@ public class SeedPlanter : MonoBehaviour
     [Header("Player object:")]
     [SerializeField] private GameObject playerObject;
 
-    public event Action<Vector3Int> OnTilePlant;
+    public event Action<Vector3Int> OnTilePlanted;
 
     #region Spawn plants from save
     private void Start()
@@ -44,7 +44,7 @@ public class SeedPlanter : MonoBehaviour
         SpawnSeed(targetTile);
         tileManager.SetHasPlant(targetTile, true);
 
-        OnTilePlant?.Invoke(targetTile);
+        OnTilePlanted?.Invoke(targetTile);
     }
     #endregion
     private void SpawnSeed(Vector3Int targetTile)

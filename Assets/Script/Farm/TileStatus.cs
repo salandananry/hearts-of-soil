@@ -35,17 +35,17 @@ public class TileStatus : MonoBehaviour
     private void OnEnable()
     {
         tileWaterer.OnTileWatered += UpdateSoilPreview;
-        seedPlanter.OnTilePlant += UpdatePlantPreview;
+        seedPlanter.OnTilePlanted += UpdatePlantPreview;
         playerController.OnPlayerInteract += ShowTileStatusAt;
     }
     private void OnDisable()
     {
         tileWaterer.OnTileWatered -= UpdateSoilPreview;
-        seedPlanter.OnTilePlant -= UpdatePlantPreview;
+        seedPlanter.OnTilePlanted -= UpdatePlantPreview;
         playerController.OnPlayerInteract -= ShowTileStatusAt;
     }
 
-    #region Pop Up Hint
+    #region Interaction Hint
     private void OnTriggerStay2D(Collider2D collision)
     {
         if(collision.gameObject.CompareTag("Player"))
@@ -57,7 +57,8 @@ public class TileStatus : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            HideHint();
+            interactionHint.HideHint();
+            hasPreviousTile = false;
             CloseTileStatus();
         }
     }
@@ -74,11 +75,6 @@ public class TileStatus : MonoBehaviour
         interactionHint.ShowHint(tileUtility.GetTileWorldPosition(targetTile, 0f, 1.1f), "Press (e) to inspect");
         
         CloseTileStatus();
-    }
-    private void HideHint()
-    {
-        interactionHint.HideHint();
-        hasPreviousTile = false;
     }
     #endregion
 
