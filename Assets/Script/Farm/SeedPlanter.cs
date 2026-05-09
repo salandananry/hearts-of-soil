@@ -49,6 +49,6 @@ public class SeedPlanter : MonoBehaviour
     #endregion
     private void SpawnSeed(Vector3Int targetTile)
     {
-        Instantiate(seedPrefab, tileUtility.GetTileWorldPosition(targetTile, 0f, 0.1f), Quaternion.identity, transform);
+        Instantiate(seedPrefab, tileUtility.GetTileWorldPosition(targetTile, 0f, 0f), Quaternion.identity, transform);
     }
 }
