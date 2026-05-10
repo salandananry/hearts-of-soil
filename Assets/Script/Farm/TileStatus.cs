@@ -64,15 +64,15 @@ public class TileStatus : MonoBehaviour
     }
     private void ShowHint(Vector2 playerPosition)
     {
-        Vector3Int targetTile = tileUtility.WorldToCell(playerPosition);
+        Vector3Int targetCell = tileUtility.WorldToCell(playerPosition);
 
-        if (!tileUtility.HasTile(targetTile)) return;
-        if (hasPreviousTile && targetTile == previousTile) return;
+        if (!tileUtility.HasTile(targetCell)) return;
+        if (hasPreviousTile && targetCell == previousTile) return;
 
-        previousTile = targetTile;
+        previousTile = targetCell;
         hasPreviousTile = true;
 
-        interactionHint.ShowHint(tileUtility.GetTileWorldPosition(targetTile, 0f, 1.1f), "Press (e) to inspect");
+        interactionHint.ShowHint(tileUtility.GetTileWorldPosition(targetCell, 0f, 1.1f), "Press (e) to inspect");
         
         CloseTileStatus();
     }

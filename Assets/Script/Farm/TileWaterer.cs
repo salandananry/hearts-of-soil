@@ -39,15 +39,15 @@ public class TileWaterer : MonoBehaviour
     public void WaterSoil()
     {
         Vector3 pos = playerObject.transform.position;
-        Vector3Int targetTile = tileUtility.WorldToCell(pos);
+        Vector3Int targetCell = tileUtility.WorldToCell(pos);
 
-        if (!tileUtility.HasTile(targetTile)) return;
-        if (!tileManager.HasPlant(targetTile)) return;
-        if (tileManager.IsWatered(targetTile)) return;
+        if (!tileUtility.HasTile(targetCell)) return;
+        if (!tileManager.HasPlant(targetCell)) return;
+        if (tileManager.IsWatered(targetCell)) return;
 
-        ApplyWaterToTile(targetTile);
+        ApplyWaterToTile(targetCell);
 
-        OnTileWatered?.Invoke(targetTile);
+        OnTileWatered?.Invoke(targetCell);
 
     }
     #endregion
