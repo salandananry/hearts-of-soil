@@ -30023,6 +30023,7 @@ GameObject:
   - component: {fileID: 1412187120}
   - component: {fileID: 1412187121}
   - component: {fileID: 1412187122}
+  - component: {fileID: 1412187123}
   m_Layer: 0
   m_Name: Grid - Level
   m_TagString: Untagged
@@ -30098,6 +30099,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TileUtility
   tileMapController: {fileID: 1412187121}
+--- !u!114 &1412187123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1412187117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e5a3c483f5b70540afc584a059598e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlantGrowthManager
+  tileManager: {fileID: 1412187120}
+  plantMaxStage: 3
+  plantStageVariants:
+  - {fileID: -1886275107, guid: d2ecfde7aecc6b143b90cb57f3044078, type: 3}
+  - {fileID: 1594385066, guid: d2ecfde7aecc6b143b90cb57f3044078, type: 3}
+  - {fileID: 107945558, guid: d2ecfde7aecc6b143b90cb57f3044078, type: 3}
+  - {fileID: 456726380, guid: d2ecfde7aecc6b143b90cb57f3044078, type: 3}
 --- !u!1 &1440679046
 GameObject:
   m_ObjectHideFlags: 0
@@ -30740,16 +30760,6 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
-  - first: {x: 37, y: -7, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 7
-      m_TileSpriteIndex: 7
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
   - first: {x: 20, y: -6, z: 0}
     second:
       serializedVersion: 2
@@ -31184,7 +31194,7 @@ Tilemap:
     m_RefCount: 0
     m_Data: {fileID: 11400000, guid: 14c5bd0473837d34eba5ac33065427d3, type: 2}
   - serializedVersion: 2
-    m_RefCount: 78
+    m_RefCount: 77
     m_Data: {fileID: 11400000, guid: 52ccb658818b31146bd428d3c889bd0f, type: 2}
   m_TileSpriteArray:
   - serializedVersion: 2
@@ -31209,11 +31219,11 @@ Tilemap:
     m_RefCount: 0
     m_Data: {fileID: 5953528405987175621, guid: d2ecfde7aecc6b143b90cb57f3044078, type: 3}
   - serializedVersion: 2
-    m_RefCount: 78
+    m_RefCount: 77
     m_Data: {fileID: 6539996646824347746, guid: d2ecfde7aecc6b143b90cb57f3044078, type: 3}
   m_TileMatrixArray:
   - serializedVersion: 2
-    m_RefCount: 78
+    m_RefCount: 77
     m_Data:
       e00: 1
       e01: 0
@@ -31233,7 +31243,7 @@ Tilemap:
       e33: 1
   m_TileColorArray:
   - serializedVersion: 2
-    m_RefCount: 78
+    m_RefCount: 77
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -31315,6 +31325,7 @@ MonoBehaviour:
   tileWaterer: {fileID: 1502021443}
   seedPlanter: {fileID: 1502021444}
   playerController: {fileID: 1957621590}
+  plantGrowthManager: {fileID: 1412187123}
   statusPanel: {fileID: 1450413448}
   tileImage: {fileID: 695939555}
   seedImage: {fileID: 2086843869}
@@ -31322,11 +31333,11 @@ MonoBehaviour:
   goWaterButton: {fileID: 1014062497}
   dryTile: {fileID: 6539996646824347746, guid: d2ecfde7aecc6b143b90cb57f3044078, type: 3}
   wetTile: {fileID: 5953528405987175621, guid: d2ecfde7aecc6b143b90cb57f3044078, type: 3}
-  seedPlantStage1: {fileID: -1886275107, guid: d2ecfde7aecc6b143b90cb57f3044078, type: 3}
-  seedPlantStage2: {fileID: 0}
-  seedPlantStage3: {fileID: 0}
-  seedPlantStage4: {fileID: 0}
-  seedPlantStage5: {fileID: 0}
+  plantVariant:
+  - {fileID: -1886275107, guid: d2ecfde7aecc6b143b90cb57f3044078, type: 3}
+  - {fileID: 1594385066, guid: d2ecfde7aecc6b143b90cb57f3044078, type: 3}
+  - {fileID: 107945558, guid: d2ecfde7aecc6b143b90cb57f3044078, type: 3}
+  - {fileID: 456726380, guid: d2ecfde7aecc6b143b90cb57f3044078, type: 3}
 --- !u!114 &1502021443
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31359,7 +31370,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SeedPlanter
   tileManager: {fileID: 1412187120}
   tileUtility: {fileID: 1412187122}
-  seedPrefab: {fileID: 8288105724622253802, guid: ac81294335707da42a5e271aeec1adf4, type: 3}
+  plantGrowthManager: {fileID: 1412187123}
+  plantPrefab: {fileID: 8288105724622253802, guid: ac81294335707da42a5e271aeec1adf4, type: 3}
   playerObject: {fileID: 1957621583}
 --- !u!1 &1531648485
 GameObject:

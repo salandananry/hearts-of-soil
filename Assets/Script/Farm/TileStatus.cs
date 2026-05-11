@@ -10,6 +10,7 @@ public class TileStatus : MonoBehaviour
     [SerializeField] private TileWaterer tileWaterer;
     [SerializeField] private SeedPlanter seedPlanter;
     [SerializeField] private PlayerController playerController;
+    [SerializeField] private PlantGrowthManager plantGrowthManager;
 
     [Header("Status panel")]
     [SerializeField] private GameObject statusPanel;
@@ -18,16 +19,11 @@ public class TileStatus : MonoBehaviour
     [SerializeField] private Button goPlantButton;
     [SerializeField] private Button goWaterButton;
 
-    [Header("Sprite variants")]
-    [Header("Tiles:")]
+    [Header("Soil variants:")]
     [SerializeField] private Sprite dryTile;
     [SerializeField] private Sprite wetTile;
-    [Header("Seeds and Plants:")]
-    [SerializeField] private Sprite seedPlantStage1;
-    [SerializeField] private Sprite seedPlantStage2;
-    [SerializeField] private Sprite seedPlantStage3;
-    [SerializeField] private Sprite seedPlantStage4;
-    [SerializeField] private Sprite seedPlantStage5;
+    [Header("Plant variants")]
+    [SerializeField] private Sprite[] plantVariant;
     
     private Vector3Int previousTile;
     private bool hasPreviousTile;
@@ -37,12 +33,15 @@ public class TileStatus : MonoBehaviour
         tileWaterer.OnTileWatered += UpdateSoilPreview;
         seedPlanter.OnTilePlanted += UpdatePlantPreview;
         playerController.OnPlayerInteract += ShowTileStatusAt;
+        plantGrowthManager.OnGrowthStageChanged += UpdatePlantPreview;
+
     }
     private void OnDisable()
     {
         tileWaterer.OnTileWatered -= UpdateSoilPreview;
         seedPlanter.OnTilePlanted -= UpdatePlantPreview;
         playerController.OnPlayerInteract -= ShowTileStatusAt;
+        plantGrowthManager.OnGrowthStageChanged -= UpdatePlantPreview;
     }
 
     #region Interaction Hint
@@ -113,7 +112,9 @@ public class TileStatus : MonoBehaviour
         if(tileManager.HasPlant(targetTile))
         {
             seedImage.gameObject.SetActive(true);
-            seedImage.sprite = seedPlantStage1;
+            //seedImage.sprite = seedPlantStage1;
+            //seedImage.sprite = plantVariant[tileManager.GetGrowthStage(targetTile)];
+            seedImage.sprite = plantGrowthManager.GetPlantSprite(tileManager.GetGrowthStage(targetTile));
             goPlantButton.interactable = false;
         }
         else

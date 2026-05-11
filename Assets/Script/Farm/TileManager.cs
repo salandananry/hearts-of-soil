@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class TileManager : MonoBehaviour
 {
+    #region SET
     public void SetHasPlant(Vector3Int targetTile, bool hasPlant)
     {
         var save = SaveManager.Instance.CurrentSave;
@@ -44,6 +45,30 @@ public class TileManager : MonoBehaviour
 
         SaveManager.Instance.SaveGame();
     }
+    public void SetGrowthStage(Vector3Int targetTile, int growthStage)
+    {
+        var save = SaveManager.Instance.CurrentSave;
+
+        var tile = save.tiles.Find(t => t.position == targetTile);
+
+        if (tile != null)
+        {
+            tile.growthStage = growthStage;
+        }
+        else
+        {
+            save.tiles.Add(new TileSaveData
+            {
+                position = targetTile,
+                growthStage = growthStage
+            });
+        }
+
+        SaveManager.Instance.SaveGame();
+    }
+    #endregion
+
+    #region CHECK
     public bool HasPlant(Vector3Int targetTile)
     {
         var save = SaveManager.Instance.CurrentSave;
@@ -62,4 +87,17 @@ public class TileManager : MonoBehaviour
 
         return tile.isWatered;
     }
+    #endregion
+
+    #region GET
+    public int GetGrowthStage(Vector3Int targetTile)
+    {
+        var save = SaveManager.Instance.CurrentSave;
+        var tile = save.tiles.Find(t => t.position == targetTile);
+
+        if (tile == null) return 0;
+
+        return tile.growthStage;
+    }
+    #endregion
 }
