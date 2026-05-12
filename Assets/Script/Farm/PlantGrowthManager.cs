@@ -33,7 +33,6 @@ public class PlantGrowthManager : MonoBehaviour
             tile.growthTimer = 0f;
             tile.growthStage++;
             OnGrowthStageChanged?.Invoke(tile.position);
-            //tileManager.SetGrowthStage(tile.position, tile.growthStage);
         }
     }
     public Sprite GetPlantSprite(int growthStage)

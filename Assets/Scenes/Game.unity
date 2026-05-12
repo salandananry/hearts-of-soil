@@ -153,8 +153,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -947.6, y: -537.1}
-  m_SizeDelta: {x: -1873.9, y: -1051.4878}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &51372082
 MonoBehaviour:
@@ -31509,15 +31509,10 @@ MonoBehaviour:
   statusPanel: {fileID: 1450413448}
   tileImage: {fileID: 695939555}
   seedImage: {fileID: 2086843869}
-  goPlantButton: {fileID: 304878989}
-  goWaterButton: {fileID: 1014062497}
+  plantButton: {fileID: 304878989}
+  waterButton: {fileID: 1014062497}
   dryTile: {fileID: 6539996646824347746, guid: d2ecfde7aecc6b143b90cb57f3044078, type: 3}
   wetTile: {fileID: 5953528405987175621, guid: d2ecfde7aecc6b143b90cb57f3044078, type: 3}
-  plantVariant:
-  - {fileID: -1886275107, guid: d2ecfde7aecc6b143b90cb57f3044078, type: 3}
-  - {fileID: 1594385066, guid: d2ecfde7aecc6b143b90cb57f3044078, type: 3}
-  - {fileID: 107945558, guid: d2ecfde7aecc6b143b90cb57f3044078, type: 3}
-  - {fileID: 456726380, guid: d2ecfde7aecc6b143b90cb57f3044078, type: 3}
 --- !u!114 &1502021443
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36686,7 +36681,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.2657007, y: 3.4222}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 3.3756, y: 0.3148}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &2792346326759614764

@@ -16,14 +16,13 @@ public class TileStatus : MonoBehaviour
     [SerializeField] private GameObject statusPanel;
     [SerializeField] private Image tileImage;
     [SerializeField] private Image seedImage;
-    [SerializeField] private Button goPlantButton;
-    [SerializeField] private Button goWaterButton;
+    [Header("Action buttons")]
+    [SerializeField] private Button plantButton;
+    [SerializeField] private Button waterButton;
 
     [Header("Soil variants:")]
     [SerializeField] private Sprite dryTile;
     [SerializeField] private Sprite wetTile;
-    [Header("Plant variants")]
-    [SerializeField] private Sprite[] plantVariant;
     
     private Vector3Int previousTile;
     private bool hasPreviousTile;
@@ -31,18 +30,18 @@ public class TileStatus : MonoBehaviour
 
     private void OnEnable()
     {
-        tileWaterer.OnTileWatered += UpdateSoilPreview;
-        seedPlanter.OnTilePlanted += UpdatePlantPreview;
+        tileWaterer.OnTileWatered += UpdatePreviewImage;
+        seedPlanter.OnTilePlanted += UpdatePreviewImage;
         playerController.OnPlayerInteract += ShowTileStatusAt;
-        plantGrowthManager.OnGrowthStageChanged += UpdatePlantPreview;
+        plantGrowthManager.OnGrowthStageChanged += UpdatePreviewImage;
 
     }
     private void OnDisable()
     {
-        tileWaterer.OnTileWatered -= UpdateSoilPreview;
-        seedPlanter.OnTilePlanted -= UpdatePlantPreview;
+        tileWaterer.OnTileWatered -= UpdatePreviewImage;
+        seedPlanter.OnTilePlanted -= UpdatePreviewImage;
         playerController.OnPlayerInteract -= ShowTileStatusAt;
-        plantGrowthManager.OnGrowthStageChanged -= UpdatePlantPreview;
+        plantGrowthManager.OnGrowthStageChanged -= UpdatePreviewImage;
     }
 
     #region Interaction Hint
@@ -93,37 +92,44 @@ public class TileStatus : MonoBehaviour
     }
     private void UpdatePreviewImage(Vector3Int targetTile)
     {
+        if (targetTile != currentViewedTile) return;
+
         UpdateSoilPreview(targetTile);
         UpdatePlantPreview(targetTile);
+        UpdateActionButtons(targetTile);
     }
     private void UpdateSoilPreview(Vector3Int targetTile)
     {
-        if(tileManager.IsWatered(targetTile))
-        {
-            tileImage.sprite = wetTile;
-            goWaterButton.interactable = false;
-        }
-        else
-        {
-            tileImage.sprite = dryTile;
-            goWaterButton.interactable = true;
-        }
+        tileImage.sprite =
+            tileManager.IsWatered(targetTile)
+            ? wetTile
+            : dryTile;
     }
     private void UpdatePlantPreview(Vector3Int targetTile)
     {
         if (targetTile != currentViewedTile) return;
 
-        if (tileManager.HasPlant(targetTile))
-        {
-            seedImage.gameObject.SetActive(true);
-            seedImage.sprite = plantGrowthManager.GetPlantSprite(tileManager.GetGrowthStage(targetTile));
-            goPlantButton.interactable = false;
-        }
-        else
-        {
-            seedImage.gameObject.SetActive(false);
-            goPlantButton.interactable = true;
-        }
+        bool hasPlant = tileManager.HasPlant(targetTile);
+
+        seedImage.gameObject.SetActive(hasPlant);
+
+        if (!hasPlant) return;
+
+        seedImage.sprite =
+            plantGrowthManager.GetPlantSprite(
+                tileManager.GetGrowthStage(targetTile)
+            );
+    }
+    private void UpdateActionButtons(Vector3Int targetTile)
+    {
+        bool hasPlant = tileManager.HasPlant(targetTile);
+        bool isWatered = tileManager.IsWatered(targetTile);
+
+        plantButton.interactable = !hasPlant;
+
+        waterButton.interactable =
+            hasPlant &&
+            !isWatered;
     }
     #endregion
 }
