@@ -19,7 +19,7 @@ public class PlantGrowthManager : MonoBehaviour
     }
     private void GrowthTimer()
     {
-        var tiles = SaveManager.Instance.CurrentSave.tiles;
+        var tiles = SaveManager.Instance.CurrentSave.tileDict.Values;
         foreach (var tile in tiles)
         {
             if (!tile.hasPlant) continue;
@@ -33,7 +33,7 @@ public class PlantGrowthManager : MonoBehaviour
             tile.growthTimer = 0f;
             tile.growthStage++;
             OnGrowthStageChanged?.Invoke(tile.position);
-            tileManager.SetGrowthStage(tile.position, tile.growthStage);
+            //tileManager.SetGrowthStage(tile.position, tile.growthStage);
         }
     }
     public Sprite GetPlantSprite(int growthStage)

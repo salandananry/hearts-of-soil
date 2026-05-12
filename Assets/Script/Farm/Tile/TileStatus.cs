@@ -27,6 +27,7 @@ public class TileStatus : MonoBehaviour
     
     private Vector3Int previousTile;
     private bool hasPreviousTile;
+    private Vector3Int currentViewedTile;
 
     private void OnEnable()
     {
@@ -84,10 +85,11 @@ public class TileStatus : MonoBehaviour
 
         if (!tileUtility.HasTile(targetTile)) return;
 
+        currentViewedTile = targetTile;
         interactionHint.HideHint();
 
-        statusPanel.SetActive(true);
         UpdatePreviewImage(targetTile);
+        statusPanel.SetActive(true);
     }
     private void UpdatePreviewImage(Vector3Int targetTile)
     {
@@ -109,7 +111,9 @@ public class TileStatus : MonoBehaviour
     }
     private void UpdatePlantPreview(Vector3Int targetTile)
     {
-        if(tileManager.HasPlant(targetTile))
+        if (targetTile != currentViewedTile) return;
+
+        if (tileManager.HasPlant(targetTile))
         {
             seedImage.gameObject.SetActive(true);
             seedImage.sprite = plantGrowthManager.GetPlantSprite(tileManager.GetGrowthStage(targetTile));
