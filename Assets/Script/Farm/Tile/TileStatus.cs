@@ -58,26 +58,26 @@ public class TileStatus : MonoBehaviour
         {
             interactionHint.HideHint();
             hasPreviousTile = false;
-            CloseTileStatus();
+            statusPanel.SetActive(false);
         }
     }
     private void ShowHint(Vector2 playerPosition)
     {
         Vector3Int targetCell = tileUtility.WorldToCell(playerPosition);
 
-        if (!tileUtility.HasTile(targetCell)) return;
         if (hasPreviousTile && targetCell == previousTile) return;
+        if (!tileUtility.HasTile(targetCell)) return;
 
         previousTile = targetCell;
         hasPreviousTile = true;
 
         interactionHint.ShowHint(tileUtility.GetTileWorldPosition(targetCell, 0f, 1.1f), "Press (e) to inspect");
-        
-        CloseTileStatus();
+
+        statusPanel.SetActive(false);
     }
     #endregion
 
-    #region Status Panel
+    #region STATUS PANEL
     private void ShowTileStatusAt(Vector2 playerPosition)
     {
         Vector3Int targetTile = tileUtility.WorldToCell(playerPosition);
@@ -112,8 +112,6 @@ public class TileStatus : MonoBehaviour
         if(tileManager.HasPlant(targetTile))
         {
             seedImage.gameObject.SetActive(true);
-            //seedImage.sprite = seedPlantStage1;
-            //seedImage.sprite = plantVariant[tileManager.GetGrowthStage(targetTile)];
             seedImage.sprite = plantGrowthManager.GetPlantSprite(tileManager.GetGrowthStage(targetTile));
             goPlantButton.interactable = false;
         }
@@ -122,10 +120,6 @@ public class TileStatus : MonoBehaviour
             seedImage.gameObject.SetActive(false);
             goPlantButton.interactable = true;
         }
-    }
-    private void CloseTileStatus()
-    {
-        statusPanel.SetActive(false);
     }
     #endregion
 }

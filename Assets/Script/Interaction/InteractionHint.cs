@@ -3,8 +3,13 @@ using UnityEngine;
 
 public class InteractionHint : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI hintText
-        ;
+    [SerializeField] private TextMeshProUGUI hintText;
+    private void Start()
+    {
+        hintText.gameObject.SetActive(true);
+        hintText.text = " ";
+        hintText.gameObject.SetActive(false);
+    }
     public void ShowHint(Vector3 position, string message)
     {
         hintText.gameObject.SetActive(true);
@@ -13,7 +18,10 @@ public class InteractionHint : MonoBehaviour
     }
     public void HideHint()
     {
-        if (hintText == null && !hintText.gameObject.activeInHierarchy) return;
+        if (hintText == null) return;
+
+        if (!hintText.gameObject.activeInHierarchy) return;
+
         hintText.gameObject.SetActive(false);
     }
 }
