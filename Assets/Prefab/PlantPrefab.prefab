@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2219084799888741150}
   - component: {fileID: 2174054922667207871}
   m_Layer: 0
-  m_Name: PlantStage1
+  m_Name: PlantPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
