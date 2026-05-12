@@ -19,7 +19,7 @@ public class PlantGrowthManager : MonoBehaviour
     }
     private void GrowthTimer()
     {
-        var tiles = SaveManager.Instance.CurrentSave.tileDict.Values;
+        var tiles = SaveManager.instance.CurrentSave.tileDict.Values;
         foreach (var tile in tiles)
         {
             if (!tile.hasPlant) continue;

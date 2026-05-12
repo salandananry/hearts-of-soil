@@ -6,7 +6,7 @@ public class TileManager : MonoBehaviour
 
     public void SetHasPlant(Vector3Int targetTile, bool hasPlant)
     {
-        var save = SaveManager.Instance.CurrentSave;
+        var save = SaveManager.instance.CurrentSave;
 
         if (!save.tileDict.TryGetValue(targetTile, out var tile))
         {
@@ -21,7 +21,7 @@ public class TileManager : MonoBehaviour
 
     public void SetHasWater(Vector3Int targetTile, bool hasWater)
     {
-        var save = SaveManager.Instance.CurrentSave;
+        var save = SaveManager.instance.CurrentSave;
 
         if (!save.tileDict.TryGetValue(targetTile, out var tile))
         {
@@ -36,7 +36,7 @@ public class TileManager : MonoBehaviour
 
     public void SetGrowthStage(Vector3Int targetTile, int growthStage)
     {
-        var save = SaveManager.Instance.CurrentSave;
+        var save = SaveManager.instance.CurrentSave;
 
         if (!save.tileDict.TryGetValue(targetTile, out var tile))
         {
@@ -55,7 +55,7 @@ public class TileManager : MonoBehaviour
 
     public bool HasPlant(Vector3Int targetTile)
     {
-        var save = SaveManager.Instance.CurrentSave;
+        var save = SaveManager.instance.CurrentSave;
 
         return save.tileDict.TryGetValue(targetTile, out var tile) &&
                tile.hasPlant;
@@ -63,7 +63,7 @@ public class TileManager : MonoBehaviour
 
     public bool IsWatered(Vector3Int targetTile)
     {
-        var save = SaveManager.Instance.CurrentSave;
+        var save = SaveManager.instance.CurrentSave;
 
         return save.tileDict.TryGetValue(targetTile, out var tile) &&
                tile.isWatered;
@@ -75,7 +75,7 @@ public class TileManager : MonoBehaviour
 
     public int GetGrowthStage(Vector3Int targetTile)
     {
-        var save = SaveManager.Instance.CurrentSave;
+        var save = SaveManager.instance.CurrentSave;
 
         if (save.tileDict.TryGetValue(targetTile, out var tile))
             return tile.growthStage;

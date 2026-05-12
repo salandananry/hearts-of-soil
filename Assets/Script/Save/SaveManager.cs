@@ -6,15 +6,16 @@ using UnityEngine;
 [Serializable]
 public class SaveData
 {
-    // Volume Toggle
     public bool masterToggle = true;
     public bool musicToggle = true;
     public bool sfxToggle = true;
 
-    // SAVE FORMAT (JSON SAFE)
+    public float masterVolume = 1f;
+    public float musicVolume = 1f;
+    public float sfxVolume = 1f;
+
     public List<TileSaveData> tiles = new List<TileSaveData>();
 
-    // RUNTIME ONLY (NOT SAVED)
     [NonSerialized]
     public Dictionary<Vector3Int, TileSaveData> tileDict =
         new Dictionary<Vector3Int, TileSaveData>();
@@ -34,7 +35,7 @@ public class TileSaveData
 
 public class SaveManager : MonoBehaviour
 {
-    public static SaveManager Instance;
+    public static SaveManager instance;
 
     private string filePath;
     private string fileName = "Master_Save";
@@ -43,14 +44,12 @@ public class SaveManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null)
+        if (instance != null)
         {
             Destroy(gameObject);
             return;
         }
-
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
+        instance = this;
 
         filePath = Path.Combine(Application.persistentDataPath, fileName);
 
@@ -85,7 +84,6 @@ public class SaveManager : MonoBehaviour
 
     public void SaveGame()
     {
-        // Convert dictionary back to list
         if (CurrentSave.tileDict != null)
         {
             CurrentSave.tiles.Clear();
