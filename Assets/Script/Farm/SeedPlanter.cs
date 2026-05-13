@@ -4,10 +4,7 @@ using UnityEngine;
 
 public class SeedPlanter : MonoBehaviour
 {
-    [Header("Script reference:")]
-    [SerializeField] private TileManager tileManager;
-    [SerializeField] private TileUtility tileUtility;
-    [SerializeField] private PlantGrowthManager plantGrowthManager;
+    private FarmMechanics farmMechanics;
 
     [Header("Plant prefab:")]
     [SerializeField] private GameObject plantPrefab;
@@ -19,44 +16,37 @@ public class SeedPlanter : MonoBehaviour
 
     private Dictionary<Vector3Int, GameObject> spawnedPlants =
     new Dictionary<Vector3Int, GameObject>();
-
-    #region Spawn plants from save
-    private void Start()
+    public void Initalize(
+        FarmMechanics farmMechanics)
     {
+        this.farmMechanics = farmMechanics;
         SpawnExistingPlants();
+        SubscribeEvents();
     }
-    private void OnEnable()
-    {
-        plantGrowthManager.OnGrowthStageChanged += UpdatePlantSprite;
-    }
-
-    private void OnDisable()
-    {
-        plantGrowthManager.OnGrowthStageChanged -= UpdatePlantSprite;
-    }
+    #region SPAWN EXISTING PLANTS
     private void SpawnExistingPlants()
     {
-        tileUtility.ForEachTile(targetTile =>
+        farmMechanics.TileUtility.ForEachTile(targetTile =>
         {
-            if (!tileUtility.HasTile(targetTile)) return;
-            if (!tileManager.HasPlant(targetTile)) return;
+            if (!farmMechanics.TileUtility.HasTile(targetTile)) return;
+            if (!farmMechanics.TileManager.HasPlant(targetTile)) return;
 
             SpawnSeed(targetTile);
         });
     }
     #endregion
 
-    #region Planting mechanic
+    #region PLANTING MECHANIC
     public void PlantSeed()
     {
         Vector3 pos = playerObject.transform.position;
-        Vector3Int targetTile = tileUtility.WorldToCell(pos);
+        Vector3Int targetTile = farmMechanics.TileUtility.WorldToCell(pos);
 
-        if (!tileUtility.HasTile(targetTile)) return;
-        if (tileManager.HasPlant(targetTile)) return;
+        if (!farmMechanics.TileUtility.HasTile(targetTile)) return;
+        if (farmMechanics.TileManager.HasPlant(targetTile)) return;
 
-        tileManager.SetHasPlant(targetTile, true);
-        tileManager.SetGrowthStage(targetTile, 0);
+        farmMechanics.TileManager.SetHasPlant(targetTile, true);
+        farmMechanics.TileManager.SetGrowthStage(targetTile, 0);
 
         SpawnSeed(targetTile);
 
@@ -67,7 +57,7 @@ public class SeedPlanter : MonoBehaviour
     {
         GameObject plant = Instantiate(
             plantPrefab,
-            tileUtility.GetTileWorldPosition(targetTile, 0f, 0f),
+            farmMechanics.TileUtility.GetTileWorldPosition(targetTile, 0f, 0f),
             Quaternion.identity,
             transform
          );
@@ -82,12 +72,23 @@ public class SeedPlanter : MonoBehaviour
 
         SpriteRenderer spriteRenderer = plant.GetComponent<SpriteRenderer>();
 
-        int growthStage = tileManager.GetGrowthStage(targetTile);
-        Sprite sprite = plantGrowthManager.GetPlantSprite(growthStage);
+        int growthStage = farmMechanics.TileManager.GetGrowthStage(targetTile);
+        Sprite sprite = farmMechanics.PlantGrowthManager.GetPlantSprite(growthStage);
 
         if (sprite != null)
         {
             spriteRenderer.sprite = sprite;
         }
+    }
+    private void SubscribeEvents()
+    {
+        farmMechanics.PlantGrowthManager.OnGrowthStageChanged += UpdatePlantSprite;
+    }
+    private void OnDestroy()
+    {
+        if (farmMechanics == null) return;
+
+        if(farmMechanics.PlantGrowthManager != null)
+           farmMechanics.PlantGrowthManager.OnGrowthStageChanged -= UpdatePlantSprite;
     }
 }

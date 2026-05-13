@@ -3,16 +3,12 @@ using UnityEngine;
 
 public class PlantGrowthManager : MonoBehaviour
 {
-    [Header("Script reference")]
-    [SerializeField] private TileManager tileManager;
-
     [Header("Growth settings")]
     [SerializeField] private int plantMaxStage;
     [SerializeField] private Sprite[] plantStageVariants;
 
     private float growthInterval = 60f;
     public event Action<Vector3Int> OnGrowthStageChanged;
-
     private void Update()
     {
         GrowthTimer();

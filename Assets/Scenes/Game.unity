@@ -18412,6 +18412,62 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &546482473
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 546482475}
+  - component: {fileID: 546482474}
+  m_Layer: 0
+  m_Name: Bootstrap
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &546482474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 546482473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2794b7ccf60d704594ca890f046c99c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameSceneBootstrap
+  farmMechanics:
+    TileManager: {fileID: 1412187120}
+    TileUtility: {fileID: 1412187122}
+    PlantGrowthManager: {fileID: 1412187123}
+    TileWaterer: {fileID: 1502021443}
+    SeedPlanter: {fileID: 1502021444}
+    TileMapController: {fileID: 1412187121}
+  playerController: {fileID: 1957621590}
+  interactionHint: {fileID: 51372082}
+  tileStatus: {fileID: 1502021442}
+  seedPlanter: {fileID: 1502021444}
+  tileWaterer: {fileID: 1502021443}
+--- !u!4 &546482475
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 546482473}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &551294542
 GameObject:
   m_ObjectHideFlags: 0
@@ -30291,7 +30347,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e5a3c483f5b70540afc584a059598e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlantGrowthManager
-  tileManager: {fileID: 1412187120}
   plantMaxStage: 3
   plantStageVariants:
   - {fileID: -1886275107, guid: d2ecfde7aecc6b143b90cb57f3044078, type: 3}
@@ -31499,13 +31554,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17c12d253fdfaa643b990057b0f93e5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CheckSoil
-  tileManager: {fileID: 1412187120}
-  tileUtility: {fileID: 1412187122}
-  interactionHint: {fileID: 51372082}
-  tileWaterer: {fileID: 1502021443}
-  seedPlanter: {fileID: 1502021444}
-  playerController: {fileID: 1957621590}
-  plantGrowthManager: {fileID: 1412187123}
   statusPanel: {fileID: 1450413448}
   tileImage: {fileID: 695939555}
   seedImage: {fileID: 2086843869}
@@ -31525,9 +31573,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e64f2fe5e07d8c54fade706b0be75074, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TileWaterer
-  tileManager: {fileID: 1412187120}
-  tileMapController: {fileID: 1412187121}
-  tileUtility: {fileID: 1412187122}
   drySoil: {fileID: 11400000, guid: 2872fb5c6f2d7fd4eb7fef90ce68e6c3, type: 2}
   wetSoil: {fileID: 11400000, guid: b51074e6b1391ba4fafb5c0872e2279f, type: 2}
   playerObject: {fileID: 1957621583}
@@ -31543,9 +31588,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67cb3cf422f812b4fb31772997b7fec1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SeedPlanter
-  tileManager: {fileID: 1412187120}
-  tileUtility: {fileID: 1412187122}
-  plantGrowthManager: {fileID: 1412187123}
   plantPrefab: {fileID: 8288105724622253802, guid: ac81294335707da42a5e271aeec1adf4, type: 3}
   playerObject: {fileID: 1957621583}
 --- !u!1 &1531648485
@@ -36915,3 +36957,4 @@ SceneRoots:
   - {fileID: 1957621585}
   - {fileID: 311674947}
   - {fileID: 391635572}
+  - {fileID: 546482475}

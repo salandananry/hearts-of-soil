@@ -3,10 +3,7 @@ using System;
 
 public class TileWaterer : MonoBehaviour
 {
-    [Header("Script reference:")]
-    [SerializeField] private TileManager tileManager;
-    [SerializeField] private TileMapController tileMapController;
-    [SerializeField] private TileUtility tileUtility;
+    private FarmMechanics farmMechanics;
 
     [Header("Tile Sprites:")]
     [SerializeField] private IsometricRuleTile drySoil;
@@ -18,17 +15,19 @@ public class TileWaterer : MonoBehaviour
 
     public event Action <Vector3Int> OnTileWatered;
 
-    #region Spawn water tiles from save
-    private void Start()
+    public void Initialize(
+        FarmMechanics farmMechanics)
     {
+        this.farmMechanics = farmMechanics;
         SpawnExistingWateredTiles();
     }
+    #region Spawn water tiles from save
     private void SpawnExistingWateredTiles()
     {
-        tileUtility.ForEachTile(targetTile =>
+        farmMechanics.TileUtility.ForEachTile(targetTile =>
         {
-            if (!tileUtility.HasTile(targetTile)) return;
-            if (!tileManager.IsWatered(targetTile)) return;
+            if (!farmMechanics.TileUtility.HasTile(targetTile)) return;
+            if (!farmMechanics.TileManager.IsWatered(targetTile)) return;
 
             ApplyWaterToTile(targetTile);
         });
@@ -39,11 +38,11 @@ public class TileWaterer : MonoBehaviour
     public void WaterSoil()
     {
         Vector3 pos = playerObject.transform.position;
-        Vector3Int targetCell = tileUtility.WorldToCell(pos);
+        Vector3Int targetCell = farmMechanics.TileUtility.WorldToCell(pos);
 
-        if (!tileUtility.HasTile(targetCell)) return;
-        if (!tileManager.HasPlant(targetCell)) return;
-        if (tileManager.IsWatered(targetCell)) return;
+        if (!farmMechanics.TileUtility.HasTile(targetCell)) return;
+        if (!farmMechanics.TileManager.HasPlant(targetCell)) return;
+        if (farmMechanics.TileManager.IsWatered(targetCell)) return;
 
         ApplyWaterToTile(targetCell);
 
@@ -53,7 +52,7 @@ public class TileWaterer : MonoBehaviour
     #endregion
     private void ApplyWaterToTile(Vector3Int targetTile)
     {
-        tileMapController.SetTileSprite(targetTile, wetSoil);
-        tileManager.SetHasWater(targetTile, true);
+        farmMechanics.TileMapController.SetTileSprite(targetTile, wetSoil);
+        farmMechanics.TileManager.SetHasWater(targetTile, true);
     }
 }

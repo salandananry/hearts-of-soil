@@ -4,13 +4,10 @@ using UnityEngine.UI;
 public class TileStatus : MonoBehaviour
 {
     [Header("Script reference:")]
-    [SerializeField] private TileManager tileManager;
-    [SerializeField] private TileUtility tileUtility;
-    [SerializeField] private InteractionHint interactionHint;
-    [SerializeField] private TileWaterer tileWaterer;
-    [SerializeField] private SeedPlanter seedPlanter;
-    [SerializeField] private PlayerController playerController;
-    [SerializeField] private PlantGrowthManager plantGrowthManager;
+    private FarmMechanics farmMechanics;
+    private InteractionHint interactionHint;
+    private PlayerController playerController;
+
 
     [Header("Status panel")]
     [SerializeField] private GameObject statusPanel;
@@ -28,20 +25,16 @@ public class TileStatus : MonoBehaviour
     private bool hasPreviousTile;
     private Vector3Int currentViewedTile;
 
-    private void OnEnable()
+    public void Initialize(
+        FarmMechanics farmMechanics,
+        PlayerController playerController,
+        InteractionHint interactionHint)
     {
-        tileWaterer.OnTileWatered += UpdatePreviewImage;
-        seedPlanter.OnTilePlanted += UpdatePreviewImage;
-        playerController.OnPlayerInteract += ShowTileStatusAt;
-        plantGrowthManager.OnGrowthStageChanged += UpdatePreviewImage;
+        this.farmMechanics = farmMechanics;
+        this.playerController = playerController;
+        this.interactionHint = interactionHint;
 
-    }
-    private void OnDisable()
-    {
-        tileWaterer.OnTileWatered -= UpdatePreviewImage;
-        seedPlanter.OnTilePlanted -= UpdatePreviewImage;
-        playerController.OnPlayerInteract -= ShowTileStatusAt;
-        plantGrowthManager.OnGrowthStageChanged -= UpdatePreviewImage;
+        SubscribeEvents();
     }
 
     #region Interaction Hint
@@ -63,15 +56,15 @@ public class TileStatus : MonoBehaviour
     }
     private void ShowHint(Vector2 playerPosition)
     {
-        Vector3Int targetCell = tileUtility.WorldToCell(playerPosition);
+        Vector3Int targetCell = farmMechanics.TileUtility.WorldToCell(playerPosition);
 
         if (hasPreviousTile && targetCell == previousTile) return;
-        if (!tileUtility.HasTile(targetCell)) return;
+        if (!farmMechanics.TileUtility.HasTile(targetCell)) return;
 
         previousTile = targetCell;
         hasPreviousTile = true;
 
-        interactionHint.ShowHint(tileUtility.GetTileWorldPosition(targetCell, 0f, 1.1f), "Press (e) to inspect");
+        interactionHint.ShowHint(farmMechanics.TileUtility.GetTileWorldPosition(targetCell, 0f, 1.1f), "Press (e) to inspect");
 
         statusPanel.SetActive(false);
     }
@@ -80,9 +73,9 @@ public class TileStatus : MonoBehaviour
     #region STATUS PANEL
     private void ShowTileStatusAt(Vector2 playerPosition)
     {
-        Vector3Int targetTile = tileUtility.WorldToCell(playerPosition);
+        Vector3Int targetTile = farmMechanics.TileUtility.WorldToCell(playerPosition);
 
-        if (!tileUtility.HasTile(targetTile)) return;
+        if (!farmMechanics.TileUtility.HasTile(targetTile)) return;
 
         currentViewedTile = targetTile;
         interactionHint.HideHint();
@@ -101,7 +94,7 @@ public class TileStatus : MonoBehaviour
     private void UpdateSoilPreview(Vector3Int targetTile)
     {
         tileImage.sprite =
-            tileManager.IsWatered(targetTile)
+            farmMechanics.TileManager.IsWatered(targetTile)
             ? wetTile
             : dryTile;
     }
@@ -109,27 +102,53 @@ public class TileStatus : MonoBehaviour
     {
         if (targetTile != currentViewedTile) return;
 
-        bool hasPlant = tileManager.HasPlant(targetTile);
+        bool hasPlant = farmMechanics.TileManager.HasPlant(targetTile);
 
         seedImage.gameObject.SetActive(hasPlant);
 
         if (!hasPlant) return;
 
         seedImage.sprite =
-            plantGrowthManager.GetPlantSprite(
-                tileManager.GetGrowthStage(targetTile)
+            farmMechanics.PlantGrowthManager.GetPlantSprite(
+                farmMechanics.TileManager.GetGrowthStage(targetTile)
             );
     }
     private void UpdateActionButtons(Vector3Int targetTile)
     {
-        bool hasPlant = tileManager.HasPlant(targetTile);
-        bool isWatered = tileManager.IsWatered(targetTile);
+        bool hasPlant = farmMechanics.TileManager.HasPlant(targetTile);
+        bool isWatered = farmMechanics.TileManager.IsWatered(targetTile);
 
         plantButton.interactable = !hasPlant;
 
         waterButton.interactable =
             hasPlant &&
             !isWatered;
+    }
+    #endregion
+
+    #region EVENTS
+    private void SubscribeEvents()
+    {
+        farmMechanics.TileWaterer.OnTileWatered += UpdatePreviewImage;
+        farmMechanics.SeedPlanter.OnTilePlanted += UpdatePreviewImage;
+        playerController.OnPlayerInteract += ShowTileStatusAt;
+        farmMechanics.PlantGrowthManager.OnGrowthStageChanged += UpdatePreviewImage;
+    }
+    private void OnDestroy()
+    {
+        if (farmMechanics == null) return;
+
+        if (farmMechanics.TileWaterer != null)
+            farmMechanics.TileWaterer.OnTileWatered -= UpdatePreviewImage;
+
+        if (farmMechanics.SeedPlanter != null)
+            farmMechanics.SeedPlanter.OnTilePlanted -= UpdatePreviewImage;
+
+        if (playerController != null)
+            playerController.OnPlayerInteract -= ShowTileStatusAt;
+
+        if (farmMechanics.PlantGrowthManager != null)
+            farmMechanics.PlantGrowthManager.OnGrowthStageChanged -= UpdatePreviewImage;
     }
     #endregion
 }
