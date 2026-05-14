@@ -6,9 +6,9 @@ using UnityEngine;
 [Serializable]
 public class SaveData
 {
-    public bool masterToggle = true;
-    public bool musicToggle = true;
-    public bool sfxToggle = true;
+    public bool isMasterVolumeUnmute = true;
+    public bool isMusicVolumeUnmute = true;
+    public bool isSFXVolumeUnmute = true;
 
     public float masterVolume = 1f;
     public float musicVolume = 1f;

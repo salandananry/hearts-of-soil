@@ -15,10 +15,14 @@ public class AudioSlider : MonoBehaviour
 
     private void Start()
     {
-        InitializeSlider();
         slider.onValueChanged.AddListener(OnValueChanged);
+        AudioManager.OnAudioSettingsLoaded += InitializeSlider;
+        InitializeSlider();
     }
-
+    private void OnDestroy()
+    {
+        AudioManager.OnAudioSettingsLoaded -= InitializeSlider;
+    }
     private void InitializeSlider()
     {
         switch (audioType)

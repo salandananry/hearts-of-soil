@@ -1,9 +1,11 @@
 using UnityEngine;
 using UnityEngine.Audio;
+using System;
 
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
+    public static event Action OnAudioSettingsLoaded;
 
     [Header("Mixer")]
     [SerializeField] private AudioMixer mixer;
@@ -19,82 +21,13 @@ public class AudioManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
         instance = this;
-        DontDestroyOnLoad(gameObject);
     }
-
+    #region LOAD AUDIO SETTINGS
     private void Start()
     {
         LoadAudioSettings();
     }
-
-    #region SET VOLUME
-
-    public void SetMasterVolume(float value)
-    {
-        mixer.SetFloat(MASTER, AudioUtility.LinearToDB(value));
-        SaveManager.instance.CurrentSave.masterVolume = value;
-    }
-
-    public void SetMusicVolume(float value)
-    {
-        mixer.SetFloat(MUSIC, AudioUtility.LinearToDB(value));
-        SaveManager.instance.CurrentSave.musicVolume = value;
-    }
-
-    public void SetSFXVolume(float value)
-    {
-        mixer.SetFloat(SFX, AudioUtility.LinearToDB(value));
-        SaveManager.instance.CurrentSave.sfxVolume = value;
-    }
-
-    #endregion
-
-    #region SET TOGGLE
-
-    public void ToggleMaster()
-    {
-        var save = SaveManager.instance.CurrentSave;
-        save.masterToggle = !save.masterToggle;
-
-        mixer.SetFloat("MasterVolume",
-            save.masterToggle ? 0f : -80f);
-    }
-
-    public void ToggleMusic()
-    {
-        var save = SaveManager.instance.CurrentSave;
-        save.musicToggle = !save.musicToggle;
-
-        mixer.SetFloat("MusicVolume",
-            save.musicToggle ? 0f : -80f);
-    }
-
-    public void ToggleSFX()
-    {
-        var save = SaveManager.instance.CurrentSave;
-        save.sfxToggle = !save.sfxToggle;
-
-        mixer.SetFloat("SFXVolume",
-            save.sfxToggle ? 0f : -80f);
-    }
-
-    #endregion
-
-    #region GET VOLUME
-
-    public float GetMasterVolume() => SaveManager.instance.CurrentSave.masterVolume;
-    public float GetMusicVolume() => SaveManager.instance.CurrentSave.musicVolume;
-    public float GetSFXVolume() => SaveManager.instance.CurrentSave.sfxVolume;
-    public bool GetMasterToggle() => SaveManager.instance.CurrentSave.masterToggle;
-    public bool GetMusicToggle() => SaveManager.instance.CurrentSave.musicToggle;
-    public bool GetSFXToggle() => SaveManager.instance.CurrentSave.sfxToggle;
-
-    #endregion
-
-    #region LOAD
-
     public void LoadAudioSettings()
     {
         var save = SaveManager.instance.CurrentSave;
@@ -102,7 +35,103 @@ public class AudioManager : MonoBehaviour
         SetMasterVolume(save.masterVolume);
         SetMusicVolume(save.musicVolume);
         SetSFXVolume(save.sfxVolume);
+
+        OnAudioSettingsLoaded?.Invoke();
     }
+
+    #endregion
+
+    #region SET VOLUME VIA SLIDER
+
+    public void SetMasterVolume(float value)
+    {
+        var save = SaveManager.instance.CurrentSave;
+        save.masterVolume = value;
+        ApplyMasterAudio();
+    }
+
+    public void SetMusicVolume(float value)
+    {
+        var save = SaveManager.instance.CurrentSave;
+        save.musicVolume = value;
+        ApplyMusicAudio();
+    }
+
+    public void SetSFXVolume(float value)
+    {
+        var save = SaveManager.instance.CurrentSave;
+        save.sfxVolume = value;
+        ApplySFXAudio();
+    }
+
+    #endregion
+
+    #region SET TOGGLE
+
+    public void MuteUnmuteMaster(bool isUnmute)
+    {
+        var save = SaveManager.instance.CurrentSave;
+        save.isMasterVolumeUnmute = isUnmute;
+        ApplyMasterAudio();
+    }
+
+    public void MuteUnmuteMusic(bool isUnmute)
+    {
+        var save = SaveManager.instance.CurrentSave;
+        save.isMusicVolumeUnmute = isUnmute;
+        ApplyMusicAudio();
+    }
+
+    public void MuteUnmuteSFX(bool isUnmute)
+    {
+        var save = SaveManager.instance.CurrentSave;
+        save.isSFXVolumeUnmute = isUnmute;
+        ApplySFXAudio();
+    }
+
+    #endregion
+
+    private void ApplyMasterAudio()
+    {
+        var save = SaveManager.instance.CurrentSave;
+
+        mixer.SetFloat(
+            MASTER,
+            save.isMasterVolumeUnmute
+                ? AudioUtility.LinearToDB(save.masterVolume)
+                : -80f
+        );
+    }
+    private void ApplyMusicAudio()
+    {
+        var save = SaveManager.instance.CurrentSave;
+
+        mixer.SetFloat(
+            MUSIC,
+            save.isMusicVolumeUnmute
+                ? AudioUtility.LinearToDB(save.musicVolume)
+                : -80f
+        );
+    }
+    private void ApplySFXAudio()
+    {
+        var save = SaveManager.instance.CurrentSave;
+
+        mixer.SetFloat(
+            SFX,
+            save.isSFXVolumeUnmute
+                ? AudioUtility.LinearToDB(save.sfxVolume)
+                : -80f
+        );
+    }
+    #region GET VOLUME
+
+    public float GetMasterVolume() => SaveManager.instance.CurrentSave.masterVolume;
+    public float GetMusicVolume() => SaveManager.instance.CurrentSave.musicVolume;
+    public float GetSFXVolume() => SaveManager.instance.CurrentSave.sfxVolume;
+    public bool GetMasterToggle() => SaveManager.instance.CurrentSave.isMasterVolumeUnmute;
+    public bool GetMusicToggle() => SaveManager.instance.CurrentSave.isMusicVolumeUnmute;
+    public bool GetSFXToggle() => SaveManager.instance.CurrentSave.isSFXVolumeUnmute;
 
     #endregion
 }
