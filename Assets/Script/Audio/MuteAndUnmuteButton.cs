@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using UnityEngine.UI;
 public class MuteAndUnmuteButton : MonoBehaviour
 {
     public enum AudioType
@@ -10,7 +10,9 @@ public class MuteAndUnmuteButton : MonoBehaviour
     }
 
     [SerializeField] private AudioType audioType;
-    [SerializeField] private GameObject muteIcon;
+    [SerializeField] private Image targetIcon;
+    [SerializeField] private Sprite unmuteIcon;
+    [SerializeField] private Sprite muteIcon;
 
     private void Start()
     {
@@ -59,6 +61,6 @@ public class MuteAndUnmuteButton : MonoBehaviour
                 isOn = AudioManager.instance.GetSFXToggle();
                 break;
         }
-        muteIcon.SetActive(!isOn);
+        targetIcon.sprite = isOn? unmuteIcon : unmuteIcon;
     }
 }
