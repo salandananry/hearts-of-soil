@@ -94,7 +94,7 @@ public class TileStatus : MonoBehaviour
     private void UpdateSoilPreview(Vector3Int targetTile)
     {
         tileImage.sprite =
-            farmMechanics.TileManager.IsWatered(targetTile)
+            farmMechanics.FarmManager.IsWatered(targetTile)
             ? wetTile
             : dryTile;
     }
@@ -102,21 +102,21 @@ public class TileStatus : MonoBehaviour
     {
         if (targetTile != currentViewedTile) return;
 
-        bool hasPlant = farmMechanics.TileManager.HasPlant(targetTile);
+        bool hasPlant = farmMechanics.FarmManager.HasPlant(targetTile);
 
         seedImage.gameObject.SetActive(hasPlant);
 
         if (!hasPlant) return;
 
-        seedImage.sprite =
-            farmMechanics.PlantGrowthManager.GetPlantSprite(
-                farmMechanics.TileManager.GetGrowthStage(targetTile)
-            );
+        int growthStage = farmMechanics.PlantGrowthManager.GetGrowthStage(targetTile);
+        Sprite sprite = farmMechanics.PlantGrowthManager.GetPlantSprite(growthStage);
+
+        seedImage.sprite = sprite;
     }
     private void UpdateActionButtons(Vector3Int targetTile)
     {
-        bool hasPlant = farmMechanics.TileManager.HasPlant(targetTile);
-        bool isWatered = farmMechanics.TileManager.IsWatered(targetTile);
+        bool hasPlant = farmMechanics.FarmManager.HasPlant(targetTile);
+        bool isWatered = farmMechanics.FarmManager.IsWatered(targetTile);
 
         plantButton.interactable = !hasPlant;
 
@@ -129,8 +129,8 @@ public class TileStatus : MonoBehaviour
     #region EVENTS
     private void SubscribeEvents()
     {
-        farmMechanics.TileWaterer.OnTileWatered += UpdatePreviewImage;
-        farmMechanics.SeedPlanter.OnTilePlanted += UpdatePreviewImage;
+        farmMechanics.FarmManager.OnPlantCreated += UpdatePreviewImage;
+        farmMechanics.FarmManager.OnSoilWatered += UpdatePreviewImage;
         playerController.OnPlayerInteract += ShowTileStatusAt;
         farmMechanics.PlantGrowthManager.OnGrowthStageChanged += UpdatePreviewImage;
     }
@@ -138,11 +138,11 @@ public class TileStatus : MonoBehaviour
     {
         if (farmMechanics == null) return;
 
-        if (farmMechanics.TileWaterer != null)
-            farmMechanics.TileWaterer.OnTileWatered -= UpdatePreviewImage;
+        if (farmMechanics.FarmManager != null)
+            farmMechanics.FarmManager.OnPlantCreated -= UpdatePreviewImage;
 
-        if (farmMechanics.SeedPlanter != null)
-            farmMechanics.SeedPlanter.OnTilePlanted -= UpdatePreviewImage;
+        if (farmMechanics.FarmManager != null)
+            farmMechanics.FarmManager.OnSoilWatered -= UpdatePreviewImage;
 
         if (playerController != null)
             playerController.OnPlayerInteract -= ShowTileStatusAt;

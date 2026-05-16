@@ -3,11 +3,11 @@ using UnityEngine;
 [System.Serializable]
 public class FarmMechanics
 {
-    public TileManager TileManager;
+    public FarmManager FarmManager;
     public TileUtility TileUtility;
     public PlantGrowthManager PlantGrowthManager;
-    public TileWaterer TileWaterer;
-    public SeedPlanter SeedPlanter;
+    public WaterController TileWaterer;
+    public PlantController SeedPlanter;
     public TileMapController TileMapController;
 }
 public class GameSceneBootstrap : MonoBehaviour
@@ -21,12 +21,15 @@ public class GameSceneBootstrap : MonoBehaviour
     [Header("UI")]
     [SerializeField] private InteractionHint interactionHint;
 
+    [SerializeField] private FarmManager farmManager;
     [SerializeField] private TileStatus tileStatus;
-    [SerializeField] private SeedPlanter seedPlanter;
-    [SerializeField] private TileWaterer tileWaterer;
+    [SerializeField] private PlantController seedPlanter;
+    [SerializeField] private WaterController tileWaterer;
+    [SerializeField] private PlantHarvestController plantHarvestController;
 
     private void Awake()
     {
+        farmManager.Initialize(farmMechanics);
         tileStatus.Initialize(
             farmMechanics,
             playerController,
@@ -35,5 +38,6 @@ public class GameSceneBootstrap : MonoBehaviour
 
         seedPlanter.Initalize(farmMechanics);
         tileWaterer.Initialize(farmMechanics);
+        plantHarvestController.Initialize(farmMechanics);
     }
 }

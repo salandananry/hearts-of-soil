@@ -28,6 +28,7 @@ public class TileSaveData
 
     public bool hasPlant = false;
     public bool isWatered = false;
+    public bool isFullyGrown = false;
 
     public int growthStage = 0;
     public float growthTimer = 0;

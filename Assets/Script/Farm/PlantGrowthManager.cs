@@ -28,6 +28,15 @@ public class PlantGrowthManager : MonoBehaviour
 
             tile.growthTimer = 0f;
             tile.growthStage++;
+
+            if (tile.growthStage >= plantMaxStage)
+            {
+                tile.isFullyGrown = true;
+            }
+            else
+            {
+                tile.isFullyGrown = false;
+            }
             OnGrowthStageChanged?.Invoke(tile.position);
         }
     }
@@ -37,5 +46,18 @@ public class PlantGrowthManager : MonoBehaviour
             return null;
 
         return plantStageVariants[growthStage];
+    }
+    public int GetGrowthStage(Vector3Int targetTile)
+    {
+        var save = SaveManager.instance.CurrentSave;
+
+        if (save.tileDict.TryGetValue(targetTile, out var tile))
+            return tile.growthStage;
+
+        return 0;
+    }
+    public Sprite GetPlantSprite(Vector3Int targetTile)
+    {
+        return GetPlantSprite(GetGrowthStage(targetTile));
     }
 }
