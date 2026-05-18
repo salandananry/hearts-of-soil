@@ -31,7 +31,7 @@ public class PlantGrowthManager : MonoBehaviour
 
             if (tile.growthStage >= plantMaxStage)
             {
-                tile.isFullyGrown = true;
+                tile.isFullyGrown = true;         
             }
             else
             {

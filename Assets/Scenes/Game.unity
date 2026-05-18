@@ -18446,8 +18446,8 @@ MonoBehaviour:
     FarmManager: {fileID: 1412187120}
     TileUtility: {fileID: 1412187122}
     PlantGrowthManager: {fileID: 1412187123}
-    TileWaterer: {fileID: 1502021443}
-    SeedPlanter: {fileID: 1502021444}
+    waterController: {fileID: 1502021443}
+    plantController: {fileID: 1502021444}
     TileMapController: {fileID: 1412187121}
   playerController: {fileID: 1957621590}
   interactionHint: {fileID: 51372082}
@@ -31698,6 +31698,7 @@ MonoBehaviour:
   seedImage: {fileID: 2086843869}
   plantButton: {fileID: 304878989}
   waterButton: {fileID: 1014062497}
+  harvestButton: {fileID: 1471009203}
   dryTile: {fileID: 6539996646824347746, guid: d2ecfde7aecc6b143b90cb57f3044078, type: 3}
   wetTile: {fileID: 5953528405987175621, guid: d2ecfde7aecc6b143b90cb57f3044078, type: 3}
 --- !u!114 &1502021443

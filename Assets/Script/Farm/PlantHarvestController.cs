@@ -11,41 +11,32 @@ public class PlantHarvestController : MonoBehaviour
     public void Initialize(FarmMechanics farmMechanics)
     {
         this.farmMechanics = farmMechanics;
-        InitialButtonSetUp();
         SubscribeEvents();
+        harvestButton.onClick.AddListener(() => HarvestPlant());
     }
-    #region SET BUTTON INTERACTABLE
-    private void InitialButtonSetUp()
+    private void HarvestPlant()
     {
         var pos = playerPosition.transform.position;
         Vector3Int targetTile = farmMechanics.TileUtility.WorldToCell(pos);
-        SetButtonInteractable(targetTile);
-    }
-    private void SetButtonInteractable(Vector3Int targetTile)
-    {
-        bool isFullyGrown = farmMechanics.FarmManager.IsFullyGrown(targetTile);
-
-        harvestButton.interactable = isFullyGrown;
-        harvestButton.onClick.RemoveAllListeners();
-
-        if (isFullyGrown)
-        {
-            harvestButton.onClick.AddListener(() => HarvestPlant(targetTile));
-        }
-    }
-    #endregion
-    private void HarvestPlant(Vector3Int targetTile)
-    {
         farmMechanics.FarmManager.HarvestPlant(targetTile);
+        Debug.Log("harvesting plant" + targetTile);
+    }
+    private void OnHarvestPlantHandler(Vector3Int targetTile)
+    {
+        GameObject targetPlant =
+            farmMechanics.plantController.GetPlant(targetTile);
+
+        Destroy(targetPlant);
+        farmMechanics.plantController.RemovePlant(targetTile);
     }
     #region SUBSCRIBE AND UNSUBSCRIBE EVENT
     private void SubscribeEvents()
     {
-        farmMechanics.PlantGrowthManager.OnGrowthStageChanged += SetButtonInteractable;
+        farmMechanics.FarmManager.OnHarvestPlant += OnHarvestPlantHandler;
     }
     private void OnDestroy()
     {
-        farmMechanics.PlantGrowthManager.OnGrowthStageChanged -= SetButtonInteractable;
+        farmMechanics.FarmManager.OnHarvestPlant -= OnHarvestPlantHandler;
     }
     #endregion
 }

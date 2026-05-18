@@ -16,6 +16,7 @@ public class TileStatus : MonoBehaviour
     [Header("Action buttons")]
     [SerializeField] private Button plantButton;
     [SerializeField] private Button waterButton;
+    [SerializeField] private Button harvestButton;
 
     [Header("Soil variants:")]
     [SerializeField] private Sprite dryTile;
@@ -117,12 +118,14 @@ public class TileStatus : MonoBehaviour
     {
         bool hasPlant = farmMechanics.FarmManager.HasPlant(targetTile);
         bool isWatered = farmMechanics.FarmManager.IsWatered(targetTile);
+        bool isFullyGrown = farmMechanics.FarmManager.IsFullyGrown(targetTile);
 
         plantButton.interactable = !hasPlant;
 
         waterButton.interactable =
             hasPlant &&
             !isWatered;
+        harvestButton.interactable = hasPlant && isFullyGrown;
     }
     #endregion
 
@@ -131,24 +134,17 @@ public class TileStatus : MonoBehaviour
     {
         farmMechanics.FarmManager.OnPlantCreated += UpdatePreviewImage;
         farmMechanics.FarmManager.OnSoilWatered += UpdatePreviewImage;
+        farmMechanics.FarmManager.OnHarvestPlant += UpdatePreviewImage;
         playerController.OnPlayerInteract += ShowTileStatusAt;
         farmMechanics.PlantGrowthManager.OnGrowthStageChanged += UpdatePreviewImage;
     }
     private void OnDestroy()
     {
-        if (farmMechanics == null) return;
-
-        if (farmMechanics.FarmManager != null)
-            farmMechanics.FarmManager.OnPlantCreated -= UpdatePreviewImage;
-
-        if (farmMechanics.FarmManager != null)
-            farmMechanics.FarmManager.OnSoilWatered -= UpdatePreviewImage;
-
-        if (playerController != null)
-            playerController.OnPlayerInteract -= ShowTileStatusAt;
-
-        if (farmMechanics.PlantGrowthManager != null)
-            farmMechanics.PlantGrowthManager.OnGrowthStageChanged -= UpdatePreviewImage;
+        farmMechanics.FarmManager.OnPlantCreated -= UpdatePreviewImage;
+        farmMechanics.FarmManager.OnSoilWatered -= UpdatePreviewImage;
+        farmMechanics.FarmManager.OnHarvestPlant -= UpdatePreviewImage;
+        playerController.OnPlayerInteract -= ShowTileStatusAt;
+        farmMechanics.PlantGrowthManager.OnGrowthStageChanged -= UpdatePreviewImage;
     }
     #endregion
 }

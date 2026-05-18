@@ -4,9 +4,9 @@ using UnityEngine;
 public class FarmManager : MonoBehaviour
 {
     public event Action <Vector3Int> OnPlantCreated;
-    public event Action<Vector3Int> OnSoilWatered;
+    public event Action <Vector3Int> OnSoilWatered;
 
-    public event Action OnHarvestPlant;
+    public event Action <Vector3Int> OnHarvestPlant;
 
     private FarmMechanics farmMechanics;
 
@@ -38,12 +38,6 @@ public class FarmManager : MonoBehaviour
         SetGrowthStage(targetTile, 0);
         OnPlantCreated?.Invoke(targetTile);
     }
-    public void HarvestPlant(Vector3Int targetTile)
-    {
-        SetHasPlant(targetTile, false);
-        SetGrowthStage(targetTile, 0);
-        OnHarvestPlant?.Invoke();
-    }
     public void RestoreWateredSoil()
     {
         var farmUtility = farmMechanics.TileUtility;
@@ -66,6 +60,20 @@ public class FarmManager : MonoBehaviour
         SetHasWater(targetTile, true);
         OnSoilWatered?.Invoke(targetTile);
     }
+    public void HarvestPlant(Vector3Int targetTile)
+    {
+        var farmUtility = farmMechanics.TileUtility;
+
+        if (!farmUtility.HasTile(targetTile)) return;
+        if (!HasPlant(targetTile)) return;
+        if (!IsFullyGrown(targetTile)) return;
+
+        SetHasPlant(targetTile, false);
+        SetGrowthStage(targetTile, 0);
+        SetGrowthTimer(targetTile, 0);
+        SetFullyGrown(targetTile, false);
+        OnHarvestPlant?.Invoke(targetTile);
+    }
     #endregion
 
     #region SET
@@ -81,6 +89,14 @@ public class FarmManager : MonoBehaviour
     public void SetGrowthStage(Vector3Int targetTile, int growthStage)
     {
         GetOrCreateTile(targetTile).growthStage = growthStage;
+    }
+    public void SetGrowthTimer(Vector3Int targetTile, float growthTimer)
+    {
+        GetOrCreateTile(targetTile).growthTimer = growthTimer;
+    }
+    public void SetFullyGrown(Vector3Int targetTile, bool isFullyGrown)
+    {
+        GetOrCreateTile(targetTile).isFullyGrown = isFullyGrown;
     }
     #endregion
 

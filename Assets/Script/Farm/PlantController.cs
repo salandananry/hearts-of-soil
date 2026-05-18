@@ -65,7 +65,19 @@ public class PlantController : MonoBehaviour
         spriteRenderer.sprite = newSprite;
     }
     #endregion
+    public GameObject GetPlant(Vector3Int targetTile)
+    {
+        spawnedPlants.TryGetValue(targetTile, out GameObject plant);
+        return plant;
+    }
+    public void RemovePlant(Vector3Int targetTile)
+    {
+        if (!spawnedPlants.TryGetValue(targetTile, out GameObject plant))
+            return;
 
+        Destroy(plant);
+        spawnedPlants.Remove(targetTile);
+    }
     #region SUBSCRIPTIONS
     private void SubscribeEvents()
     {

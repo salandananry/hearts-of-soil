@@ -6,8 +6,8 @@ public class FarmMechanics
     public FarmManager FarmManager;
     public TileUtility TileUtility;
     public PlantGrowthManager PlantGrowthManager;
-    public WaterController TileWaterer;
-    public PlantController SeedPlanter;
+    public WaterController waterController;
+    public PlantController plantController;
     public TileMapController TileMapController;
 }
 public class GameSceneBootstrap : MonoBehaviour
