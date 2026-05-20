@@ -3,17 +3,21 @@ using UnityEngine;
 
 public class FarmManager : MonoBehaviour
 {
+    #region FIELDS
     public event Action <Vector3Int> OnPlantCreated;
     public event Action <Vector3Int> OnSoilWatered;
 
     public event Action <Vector3Int> OnHarvestPlant;
 
     private FarmMechanics farmMechanics;
+    #endregion
 
+    #region INITIALIZE
     public void Initialize(FarmMechanics farmMechanics)
     {
         this.farmMechanics = farmMechanics;
     }
+    #endregion
 
     #region FARM ACTION
     public void RestorePlants()
@@ -69,6 +73,7 @@ public class FarmManager : MonoBehaviour
         if (!IsFullyGrown(targetTile)) return;
 
         SetHasPlant(targetTile, false);
+        SetHasWater(targetTile, false);
         SetGrowthStage(targetTile, 0);
         SetGrowthTimer(targetTile, 0);
         SetFullyGrown(targetTile, false);
@@ -126,6 +131,7 @@ public class FarmManager : MonoBehaviour
     }
     #endregion
 
+    #region HELPER
     private TileSaveData GetOrCreateTile(Vector3Int targetTile)
     {
         var save = SaveManager.instance.CurrentSave;
@@ -140,4 +146,5 @@ public class FarmManager : MonoBehaviour
         }
         return tile;
     }
+    #endregion
 }

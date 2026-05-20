@@ -60,17 +60,15 @@ public class PlantController : MonoBehaviour
         if (!spawnedPlants.TryGetValue(targetTile, out GameObject plant)) return;
 
         SpriteRenderer spriteRenderer = plant.GetComponent<SpriteRenderer>();
-        var newSprite = farmMechanics.PlantGrowthManager.GetPlantSprite(targetTile);
+        Sprite newSprite = farmMechanics.PlantGrowthManager.GetPlantSpriteAtTile(targetTile);
         if (newSprite == null) return;
         spriteRenderer.sprite = newSprite;
     }
-    #endregion
-    public GameObject GetPlant(Vector3Int targetTile)
+    private void OnPlantHarvestHandler(Vector3Int targetTile)
     {
-        spawnedPlants.TryGetValue(targetTile, out GameObject plant);
-        return plant;
+        RemovePlantAt(targetTile);
     }
-    public void RemovePlant(Vector3Int targetTile)
+    private void RemovePlantAt(Vector3Int targetTile)
     {
         if (!spawnedPlants.TryGetValue(targetTile, out GameObject plant))
             return;
@@ -78,21 +76,21 @@ public class PlantController : MonoBehaviour
         Destroy(plant);
         spawnedPlants.Remove(targetTile);
     }
+    #endregion
+
     #region SUBSCRIPTIONS
     private void SubscribeEvents()
     {
         farmMechanics.FarmManager.OnPlantCreated += OnSeedPlantHandler;
         farmMechanics.PlantGrowthManager.OnGrowthStageChanged += UpdatePlantSprite;
+        farmMechanics.FarmManager.OnHarvestPlant += OnPlantHarvestHandler;
 
     }
     private void OnDestroy()
     {
-        if (farmMechanics == null) return;
-
-        var FM = farmMechanics.FarmManager;
-        if (FM != null) FM.OnPlantCreated -= OnSeedPlantHandler;
-        var PGM = farmMechanics.PlantGrowthManager;
-        if (PGM != null) PGM.OnGrowthStageChanged -= UpdatePlantSprite;
+        farmMechanics.FarmManager.OnPlantCreated -= OnSeedPlantHandler;
+        farmMechanics.PlantGrowthManager.OnGrowthStageChanged -= UpdatePlantSprite;
+        farmMechanics.FarmManager.OnHarvestPlant -= OnPlantHarvestHandler;
     }
     #endregion
 }

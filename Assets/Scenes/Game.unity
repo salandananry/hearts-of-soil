@@ -18453,8 +18453,8 @@ MonoBehaviour:
   interactionHint: {fileID: 51372082}
   farmManager: {fileID: 1412187120}
   tileStatus: {fileID: 1502021442}
-  seedPlanter: {fileID: 1502021444}
-  tileWaterer: {fileID: 1502021443}
+  plantController: {fileID: 1502021444}
+  waterController: {fileID: 1502021443}
   plantHarvestController: {fileID: 1471009206}
 --- !u!4 &546482475
 Transform:
@@ -18761,7 +18761,7 @@ GameObject:
   - component: {fileID: 695939556}
   - component: {fileID: 695939555}
   m_Layer: 5
-  m_Name: TileImagePreview
+  m_Name: SoilImagePreview
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31690,12 +31690,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1502021435}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17c12d253fdfaa643b990057b0f93e5f, type: 3}
+  m_Script: {fileID: 11500000, guid: e0d58a05c2e74334381513a11ad5390b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CheckSoil
   statusPanel: {fileID: 1450413448}
-  tileImage: {fileID: 695939555}
-  seedImage: {fileID: 2086843869}
+  soilImagePreview: {fileID: 695939555}
+  plantImagePreview: {fileID: 2086843869}
   plantButton: {fileID: 304878989}
   waterButton: {fileID: 1014062497}
   harvestButton: {fileID: 1471009203}

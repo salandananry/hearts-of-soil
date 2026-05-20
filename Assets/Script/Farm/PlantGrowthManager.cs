@@ -40,14 +40,18 @@ public class PlantGrowthManager : MonoBehaviour
             OnGrowthStageChanged?.Invoke(tile.position);
         }
     }
-    public Sprite GetPlantSprite(int growthStage)
+    public Sprite GetPlantSpriteAtTile(Vector3Int targetTile)
+    {
+        return GetPlantSpriteByGrowthStage(GetGrowthStage(targetTile));
+    }
+    private Sprite GetPlantSpriteByGrowthStage(int growthStage)
     {
         if (growthStage < 0 || growthStage >= plantStageVariants.Length)
             return null;
 
         return plantStageVariants[growthStage];
     }
-    public int GetGrowthStage(Vector3Int targetTile)
+    private int GetGrowthStage(Vector3Int targetTile)
     {
         var save = SaveManager.instance.CurrentSave;
 
@@ -55,9 +59,5 @@ public class PlantGrowthManager : MonoBehaviour
             return tile.growthStage;
 
         return 0;
-    }
-    public Sprite GetPlantSprite(Vector3Int targetTile)
-    {
-        return GetPlantSprite(GetGrowthStage(targetTile));
     }
 }

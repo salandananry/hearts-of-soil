@@ -43,16 +43,22 @@ public class WaterController : MonoBehaviour
     {
         farmMechanics.TileMapController.SetTileSprite(targetTile, wetSoil);
     }
+    private void OnPlantHarvestHandler(Vector3Int targetTile)
+    {
+        farmMechanics.TileMapController.SetTileSprite(targetTile, drySoil);
+    }
     #endregion
 
     #region SUBSCRIPTIONS
     private void SubscribeEvents()
     {
         farmMechanics.FarmManager.OnSoilWatered += OnSoilWateredHandler;
+        farmMechanics.FarmManager.OnHarvestPlant += OnPlantHarvestHandler;
     }
     private void OnDestroy()
     {
         farmMechanics.FarmManager.OnSoilWatered -= OnSoilWateredHandler;
+        farmMechanics.FarmManager.OnHarvestPlant -= OnPlantHarvestHandler;
     }
     #endregion
 }
