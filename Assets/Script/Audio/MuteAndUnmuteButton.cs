@@ -61,6 +61,6 @@ public class MuteAndUnmuteButton : MonoBehaviour
                 isOn = AudioManager.instance.GetSFXToggle();
                 break;
         }
-        targetIcon.sprite = isOn? unmuteIcon : unmuteIcon;
+        targetIcon.sprite = isOn? unmuteIcon : muteIcon;
     }
 }
