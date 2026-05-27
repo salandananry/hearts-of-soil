@@ -21,6 +21,11 @@ public class PlayerController : MonoBehaviour
         {
             OnPlayerInteract?.Invoke(transform.position);
         }
+        if(Input.GetMouseButtonDown(1))
+        {
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            OnPlayerInteract?.Invoke(mousePos);
+        }
     }
     private void MovementInput()
     {

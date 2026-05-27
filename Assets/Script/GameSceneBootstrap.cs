@@ -9,6 +9,7 @@ public class FarmMechanics
     public WaterController waterController;
     public PlantController plantController;
     public TileMapController TileMapController;
+    public FarmModeController FarmModeController;
 }
 public class GameSceneBootstrap : MonoBehaviour
 {
@@ -18,27 +19,21 @@ public class GameSceneBootstrap : MonoBehaviour
     [Header("Player References")]
     [SerializeField] private PlayerController playerController;
 
-    [Header("UI References")]
-    [SerializeField] private InteractionHint interactionHint;
-
     [Header("Gameplay Controllers")]
     [SerializeField] private FarmManager farmManager;
     [SerializeField] private TileStatusController tileStatus;
     [SerializeField] private PlantController plantController;
     [SerializeField] private WaterController waterController;
     [SerializeField] private PlantHarvestController plantHarvestController;
+    [SerializeField] private FarmModeUI farmModeUI;
 
     private void Awake()
     {
         farmManager.Initialize(farmMechanics);
-        tileStatus.Initialize(
-            farmMechanics,
-            playerController,
-            interactionHint
-        );
-
-        plantController.Initalize(farmMechanics);
-        waterController.Initialize(farmMechanics);
-        plantHarvestController.Initialize(farmMechanics);
+        tileStatus.Initialize(farmMechanics, playerController);
+        plantController.Initalize(farmMechanics, playerController);
+        waterController.Initialize(farmMechanics, playerController);
+        plantHarvestController.Initialize(farmMechanics, playerController);
+        farmModeUI.Initalize(farmMechanics);
     }
 }

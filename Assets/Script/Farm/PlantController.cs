@@ -5,6 +5,7 @@ public class PlantController : MonoBehaviour
 {
     #region FIELDS
     private FarmMechanics farmMechanics;
+    private PlayerController playerController;
 
     [Header("Plant prefab:")]
     [SerializeField] private GameObject plantPrefab;
@@ -18,9 +19,11 @@ public class PlantController : MonoBehaviour
 
     #region INITIALIZE
     public void Initalize(
-        FarmMechanics farmMechanics)
+        FarmMechanics farmMechanics,
+        PlayerController playerController)
     {
         this.farmMechanics = farmMechanics;
+        this.playerController = playerController;
         SubscribeEvents();
         LoadExistingPlants();
     }
@@ -33,16 +36,14 @@ public class PlantController : MonoBehaviour
     }
     #endregion
 
-    #region PLAYER ACTION
-    public void PlantSeed()
+    #region EVENT HANDLERS
+    private void PlantSeed(Vector2 mousePos)
     {
-        Vector3 pos = playerObject.transform.position;
-        Vector3Int targetTile = farmMechanics.TileUtility.WorldToCell(pos);
+        if (farmMechanics.FarmModeController.CurrentFarmMode != FarmMode.Plant) return;
+
+        Vector3Int targetTile = farmMechanics.TileUtility.WorldToCell(mousePos);
         farmMechanics.FarmManager.SpawnNewPlant(targetTile);
     }
-    #endregion
-
-    #region EVENT HANDLERS
     private void OnSeedPlantHandler(Vector3Int targetTile)
     {
         GameObject plant = Instantiate(
@@ -81,6 +82,8 @@ public class PlantController : MonoBehaviour
     #region SUBSCRIPTIONS
     private void SubscribeEvents()
     {
+        playerController.OnPlayerInteract += PlantSeed;
+
         farmMechanics.FarmManager.OnPlantCreated += OnSeedPlantHandler;
         farmMechanics.PlantGrowthManager.OnGrowthStageChanged += UpdatePlantSprite;
         farmMechanics.FarmManager.OnHarvestPlant += OnPlantHarvestHandler;
@@ -88,6 +91,8 @@ public class PlantController : MonoBehaviour
     }
     private void OnDestroy()
     {
+        playerController.OnPlayerInteract -= PlantSeed;
+
         farmMechanics.FarmManager.OnPlantCreated -= OnSeedPlantHandler;
         farmMechanics.PlantGrowthManager.OnGrowthStageChanged -= UpdatePlantSprite;
         farmMechanics.FarmManager.OnHarvestPlant -= OnPlantHarvestHandler;

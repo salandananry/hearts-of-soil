@@ -1,29 +1,41 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PlantHarvestController : MonoBehaviour
 {
     #region FIELDS
-    [SerializeField] private GameObject playerPosition;
-    [SerializeField] private Button harvestButton;
-
     private FarmMechanics farmMechanics;
+    private PlayerController playerController;
     #endregion
 
     #region INITIALIZE
-    public void Initialize(FarmMechanics farmMechanics)
+    public void Initialize(
+        FarmMechanics farmMechanics,
+        PlayerController playerController)
     {
         this.farmMechanics = farmMechanics;
-        harvestButton.onClick.AddListener(() => HarvestPlant());
+        this.playerController = playerController;
+        SubscribeEvents();
     }
     #endregion
 
-    #region PLAYER ACTION
-    private void HarvestPlant()
+    #region EVENT HANDLERS
+    private void HarvestPlant(Vector2 mousePos)
     {
-        var pos = playerPosition.transform.position;
-        Vector3Int targetTile = farmMechanics.TileUtility.WorldToCell(pos);
+        if (farmMechanics.FarmModeController.CurrentFarmMode != FarmMode.Harvest) return;
+
+        Vector3Int targetTile = farmMechanics.TileUtility.WorldToCell(mousePos);
         farmMechanics.FarmManager.HarvestPlant(targetTile);
+    }
+    #endregion
+
+    #region SUBSCRIPTIONS
+    private void SubscribeEvents()
+    {
+        playerController.OnPlayerInteract += HarvestPlant;
+    }
+    private void OnDestroy()
+    {
+        playerController.OnPlayerInteract -= HarvestPlant;
     }
     #endregion
 }

@@ -4,6 +4,7 @@ public class WaterController : MonoBehaviour
 {
     #region FIELDS
     private FarmMechanics farmMechanics;
+    private PlayerController playerController;
 
     [Header("Tile Sprites:")]
     [SerializeField] private IsometricRuleTile drySoil;
@@ -14,9 +15,12 @@ public class WaterController : MonoBehaviour
     #endregion
 
     #region INITIALIZE
-    public void Initialize(FarmMechanics farmMechanics)
+    public void Initialize(
+        FarmMechanics farmMechanics,
+        PlayerController playerController)
     {
         this.farmMechanics = farmMechanics;
+        this.playerController = playerController;
         SubscribeEvents();
         SpawnExistingWateredTiles();
     }
@@ -29,16 +33,14 @@ public class WaterController : MonoBehaviour
     }
     #endregion
 
-    #region PLAYER ACTION
-    public void WaterSoil()
+    #region EVENT HANDLERS
+    private void WaterSoil(Vector2 mousePos)
     {
-        Vector3 pos = playerObject.transform.position;
-        Vector3Int targetTile = farmMechanics.TileUtility.WorldToCell(pos);
+        if (farmMechanics.FarmModeController.CurrentFarmMode != FarmMode.Water) return;
+
+        Vector3Int targetTile = farmMechanics.TileUtility.WorldToCell(mousePos);
         farmMechanics.FarmManager.WaterSoil(targetTile);
     }
-    #endregion
-
-    #region EVENT HANDLERS
     private void OnSoilWateredHandler(Vector3Int targetTile)
     {
         farmMechanics.TileMapController.SetTileSprite(targetTile, wetSoil);
@@ -52,11 +54,15 @@ public class WaterController : MonoBehaviour
     #region SUBSCRIPTIONS
     private void SubscribeEvents()
     {
+        playerController.OnPlayerInteract += WaterSoil;
+
         farmMechanics.FarmManager.OnSoilWatered += OnSoilWateredHandler;
         farmMechanics.FarmManager.OnHarvestPlant += OnPlantHarvestHandler;
     }
     private void OnDestroy()
     {
+        playerController.OnPlayerInteract -= WaterSoil;
+
         farmMechanics.FarmManager.OnSoilWatered -= OnSoilWateredHandler;
         farmMechanics.FarmManager.OnHarvestPlant -= OnPlantHarvestHandler;
     }
