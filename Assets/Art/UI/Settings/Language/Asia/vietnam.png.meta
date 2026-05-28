@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: a8492caadcdbd474b8ce146a1acce136
+guid: 46ea262a3bc5e0244aec36efcd978b0c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7267828462667370698
-    second: Setting menu_0
-  - first:
-      213: -7390560224966502635
-    second: Setting menu_1
+      213: -8399525118551099766
+    second: vietnam_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -129,23 +126,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Setting menu_1
+      name: vietnam_0
       rect:
         serializedVersion: 2
-        x: 138
-        y: 9
-        width: 108
-        height: 124
+        x: 0
+        y: 0
+        width: 16
+        height: 12
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 5, y: 5, z: 5, w: 5}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5179dbbd1a47f6990800000000000000
-      internalID: -7390560224966502635
+      spriteID: a867ac24864ee6b80800000000000000
+      internalID: -8399525118551099766
       vertices: []
       indices: 
       edges: []
@@ -154,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 974975d6e53c9b9459531ae4e6d59d73
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -164,8 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Setting menu_0: 7267828462667370698
-      Setting menu_1: -7390560224966502635
+      vietnam_0: -8399525118551099766
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
