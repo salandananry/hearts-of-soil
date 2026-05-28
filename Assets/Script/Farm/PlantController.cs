@@ -37,7 +37,7 @@ public class PlantController : MonoBehaviour
     #endregion
 
     #region EVENT HANDLERS
-    private void PlantSeed(Vector2 mousePos)
+    private void HandlePlayerPlant(Vector2 mousePos)
     {
         if (farmMechanics.FarmModeController.CurrentFarmMode != FarmMode.Plant) return;
 
@@ -65,10 +65,6 @@ public class PlantController : MonoBehaviour
         if (newSprite == null) return;
         spriteRenderer.sprite = newSprite;
     }
-    private void OnPlantHarvestHandler(Vector3Int targetTile)
-    {
-        RemovePlantAt(targetTile);
-    }
     private void RemovePlantAt(Vector3Int targetTile)
     {
         if (!spawnedPlants.TryGetValue(targetTile, out GameObject plant))
@@ -82,20 +78,20 @@ public class PlantController : MonoBehaviour
     #region SUBSCRIPTIONS
     private void SubscribeEvents()
     {
-        playerController.OnPlayerInteract += PlantSeed;
+        playerController.OnPlayerInteract += HandlePlayerPlant;
 
         farmMechanics.FarmManager.OnPlantCreated += OnSeedPlantHandler;
         farmMechanics.PlantGrowthManager.OnGrowthStageChanged += UpdatePlantSprite;
-        farmMechanics.FarmManager.OnHarvestPlant += OnPlantHarvestHandler;
+        farmMechanics.FarmManager.OnHarvestPlant += RemovePlantAt;
 
     }
     private void OnDestroy()
     {
-        playerController.OnPlayerInteract -= PlantSeed;
+        playerController.OnPlayerInteract -= HandlePlayerPlant;
 
         farmMechanics.FarmManager.OnPlantCreated -= OnSeedPlantHandler;
         farmMechanics.PlantGrowthManager.OnGrowthStageChanged -= UpdatePlantSprite;
-        farmMechanics.FarmManager.OnHarvestPlant -= OnPlantHarvestHandler;
+        farmMechanics.FarmManager.OnHarvestPlant -= RemovePlantAt;
     }
     #endregion
 }

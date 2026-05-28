@@ -34,7 +34,7 @@ public class TileStatusController : MonoBehaviour
     #endregion
 
     #region EVENT HANDLERS
-    private void ShowTileStatusAt(Vector2 mousePos)
+    private void HandlePlayerInspect(Vector2 mousePos)
     {
         statusPanel.SetActive(false);
         if (farmMechanics.FarmModeController.CurrentFarmMode != FarmMode.Inspect) return;
@@ -45,27 +45,25 @@ public class TileStatusController : MonoBehaviour
 
         currentViewedTile = targetTile;
 
-        UpdateTileStatusUI(targetTile);
+        RefreshTileStatus(targetTile);
         statusPanel.SetActive(true);
     }
-    private void UpdateTileStatusUI(Vector3Int targetTile)
+    private void RefreshTileStatus(Vector3Int targetTile)
     {
         if (targetTile != currentViewedTile) return;
 
-        UpdateSoilPreview(targetTile);
-        UpdatePlantPreview(targetTile);
+        RefreshSoilPreview(targetTile);
+        RefreshPlantPreview(targetTile);
     }
-    private void UpdateSoilPreview(Vector3Int targetTile)
+    private void RefreshSoilPreview(Vector3Int targetTile)
     {
         soilImagePreview.sprite =
             farmMechanics.FarmManager.IsWatered(targetTile)
             ? wetTile
             : dryTile;
     }
-    private void UpdatePlantPreview(Vector3Int targetTile)
+    private void RefreshPlantPreview(Vector3Int targetTile)
     {
-        if (targetTile != currentViewedTile) return;
-
         bool hasPlant = farmMechanics.FarmManager.HasPlant(targetTile);
 
         plantImagePreview.gameObject.SetActive(hasPlant);
@@ -80,21 +78,21 @@ public class TileStatusController : MonoBehaviour
     #region SUBSCRIPTIONS
     private void SubscribeEvents()
     {
-        playerController.OnPlayerInteract += ShowTileStatusAt;
+        playerController.OnPlayerInteract += HandlePlayerInspect;
 
-        farmMechanics.FarmManager.OnPlantCreated += UpdateTileStatusUI;
-        farmMechanics.FarmManager.OnSoilWatered += UpdateTileStatusUI;
-        farmMechanics.FarmManager.OnHarvestPlant += UpdateTileStatusUI;
-        farmMechanics.PlantGrowthManager.OnGrowthStageChanged += UpdateTileStatusUI;
+        farmMechanics.FarmManager.OnPlantCreated += RefreshTileStatus;
+        farmMechanics.FarmManager.OnSoilWatered += RefreshTileStatus;
+        farmMechanics.FarmManager.OnHarvestPlant += RefreshTileStatus;
+        farmMechanics.PlantGrowthManager.OnGrowthStageChanged += RefreshTileStatus;
     }
     private void OnDestroy()
     {
-        playerController.OnPlayerInteract -= ShowTileStatusAt;
+        playerController.OnPlayerInteract -= HandlePlayerInspect;
 
-        farmMechanics.FarmManager.OnPlantCreated -= UpdateTileStatusUI;
-        farmMechanics.FarmManager.OnSoilWatered -= UpdateTileStatusUI;
-        farmMechanics.FarmManager.OnHarvestPlant -= UpdateTileStatusUI;
-        farmMechanics.PlantGrowthManager.OnGrowthStageChanged -= UpdateTileStatusUI;
+        farmMechanics.FarmManager.OnPlantCreated -= RefreshTileStatus;
+        farmMechanics.FarmManager.OnSoilWatered -= RefreshTileStatus;
+        farmMechanics.FarmManager.OnHarvestPlant -= RefreshTileStatus;
+        farmMechanics.PlantGrowthManager.OnGrowthStageChanged -= RefreshTileStatus;
     }
     #endregion
 }

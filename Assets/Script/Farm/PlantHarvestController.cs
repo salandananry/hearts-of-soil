@@ -19,7 +19,7 @@ public class PlantHarvestController : MonoBehaviour
     #endregion
 
     #region EVENT HANDLERS
-    private void HarvestPlant(Vector2 mousePos)
+    private void HandlePlayerHarvest(Vector2 mousePos)
     {
         if (farmMechanics.FarmModeController.CurrentFarmMode != FarmMode.Harvest) return;
 
@@ -31,11 +31,11 @@ public class PlantHarvestController : MonoBehaviour
     #region SUBSCRIPTIONS
     private void SubscribeEvents()
     {
-        playerController.OnPlayerInteract += HarvestPlant;
+        playerController.OnPlayerInteract += HandlePlayerHarvest;
     }
     private void OnDestroy()
     {
-        playerController.OnPlayerInteract -= HarvestPlant;
+        playerController.OnPlayerInteract -= HandlePlayerHarvest;
     }
     #endregion
 }

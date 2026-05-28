@@ -34,7 +34,7 @@ public class WaterController : MonoBehaviour
     #endregion
 
     #region EVENT HANDLERS
-    private void WaterSoil(Vector2 mousePos)
+    private void HandlePlayerWater(Vector2 mousePos)
     {
         if (farmMechanics.FarmModeController.CurrentFarmMode != FarmMode.Water) return;
 
@@ -54,14 +54,14 @@ public class WaterController : MonoBehaviour
     #region SUBSCRIPTIONS
     private void SubscribeEvents()
     {
-        playerController.OnPlayerInteract += WaterSoil;
+        playerController.OnPlayerInteract += HandlePlayerWater;
 
         farmMechanics.FarmManager.OnSoilWatered += OnSoilWateredHandler;
         farmMechanics.FarmManager.OnHarvestPlant += OnPlantHarvestHandler;
     }
     private void OnDestroy()
     {
-        playerController.OnPlayerInteract -= WaterSoil;
+        playerController.OnPlayerInteract -= HandlePlayerWater;
 
         farmMechanics.FarmManager.OnSoilWatered -= OnSoilWateredHandler;
         farmMechanics.FarmManager.OnHarvestPlant -= OnPlantHarvestHandler;

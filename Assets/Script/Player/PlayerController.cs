@@ -4,6 +4,7 @@ using System;
 public class PlayerController : MonoBehaviour
 {
     public event Action <Vector2> OnPlayerInteract;
+    [SerializeField] private float interactDistance;
     private PlayerMovement movement;
 
     private void Awake()
@@ -17,13 +18,10 @@ public class PlayerController : MonoBehaviour
 
         MovementInput();
 
-        if(Input.GetKeyDown(KeyCode.E))
-        {
-            OnPlayerInteract?.Invoke(transform.position);
-        }
         if(Input.GetMouseButtonDown(1))
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            if (!IsWithinInteractRange(mousePos)) return;
             OnPlayerInteract?.Invoke(mousePos);
         }
     }
@@ -35,5 +33,10 @@ public class PlayerController : MonoBehaviour
         ).normalized;
 
         movement.Move(input);
+    }
+    private bool IsWithinInteractRange(Vector2 targetPos)
+    {
+        return Vector2.Distance(transform.position, targetPos)
+               <= interactDistance;
     }
 }
