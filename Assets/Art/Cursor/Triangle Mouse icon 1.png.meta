@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 96ffd5222dabdff4f84023a6f42bd6b5
+guid: 6dd1a66fa6349534b9c35e9f9bbf0b29
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -9146953939417719847
-    second: C_SoundOff_0
+      213: -3973867170597721767
+    second: Triangle Mouse icon 1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -24,7 +24,7 @@ TextureImporter:
     heightScale: 0.25
     normalMapFilter: 0
     flipGreenChannel: 0
-  isReadable: 0
+  isReadable: 1
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: C_SoundOff_0
+      name: Triangle Mouse icon 1_0
       rect:
         serializedVersion: 2
-        x: 8
-        y: 6
-        width: 85
-        height: 88
+        x: 1
+        y: 0
+        width: 14
+        height: 15
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9db9520dadd7f0180800000000000000
-      internalID: -9146953939417719847
+      spriteID: 959afefdcdcf9d8c0800000000000000
+      internalID: -3973867170597721767
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      C_SoundOff_0: -9146953939417719847
+      Triangle Mouse icon 1_0: -3973867170597721767
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
