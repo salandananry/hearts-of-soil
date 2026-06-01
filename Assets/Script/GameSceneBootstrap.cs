@@ -25,7 +25,7 @@ public class GameSceneBootstrap : MonoBehaviour
     [SerializeField] private PlantController plantController;
     [SerializeField] private WaterController waterController;
     [SerializeField] private PlantHarvestController plantHarvestController;
-    [SerializeField] private FarmModeUI farmModeUI;
+    [SerializeField] private CursorController cursorController;
 
     private void Awake()
     {
@@ -34,6 +34,6 @@ public class GameSceneBootstrap : MonoBehaviour
         plantController.Initalize(farmMechanics, playerController);
         waterController.Initialize(farmMechanics, playerController);
         plantHarvestController.Initialize(farmMechanics, playerController);
-        farmModeUI.Initalize(farmMechanics);
+        //cursorController.Initialize(farmMechanics);
     }
 }

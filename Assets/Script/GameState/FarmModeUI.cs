@@ -4,15 +4,14 @@ using UnityEngine;
 public class FarmModeUI : MonoBehaviour
 {
     #region FIELDS
+    [SerializeField] private FarmModeController controller;
     [SerializeField] private GameObject displayUI;
     [SerializeField] private TextMeshProUGUI displayText;
-    private FarmMechanics farmMechanic;
     #endregion
 
-    #region INITIALIZE
-    public void Initalize(FarmMechanics farmMechanic)
+    #region START
+    private void Start()
     {
-        this.farmMechanic = farmMechanic;
         SubscriveEvents();
     }
     #endregion
@@ -22,17 +21,20 @@ public class FarmModeUI : MonoBehaviour
     {
         switch (farmMode)
         {
+            case FarmMode.Normal: 
+                displayUI.SetActive(false);
+                return;
             case FarmMode.Inspect:
-                displayText.text = "[inspecting mode]";
+                displayText.text = "inspecting mode";
                 break;
             case FarmMode.Plant:
-                displayText.text = "[planting mode]";
+                displayText.text = "planting mode";
                 break;
             case FarmMode.Water:
-                displayText.text = "[watering mode]"; ;
+                displayText.text = "watering mode"; ;
                 break;
             case FarmMode.Harvest:
-                displayText.text = "[harvesting mode]";
+                displayText.text = "harvesting mode";
                 break;
         }
         displayUI.SetActive(true);
@@ -42,11 +44,11 @@ public class FarmModeUI : MonoBehaviour
     #region SUBSCRIPTIONS
     private void SubscriveEvents()
     {
-        farmMechanic.FarmModeController.OnFarmModeChange += OnFarmModeChangeHandler;
+        controller.OnFarmModeChange += OnFarmModeChangeHandler;
     }
     private void OnDestroy()
     {
-        farmMechanic.FarmModeController.OnFarmModeChange -= OnFarmModeChangeHandler;
+        controller.OnFarmModeChange -= OnFarmModeChangeHandler;
     }
     #endregion
 }
