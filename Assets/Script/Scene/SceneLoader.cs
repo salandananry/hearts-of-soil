@@ -41,7 +41,7 @@ public class SceneLoader : MonoBehaviour
             displayedProgress = Mathf.MoveTowards(
                 displayedProgress,
                 targetProgress,
-                Time.deltaTime * 0.5f
+                Time.unscaledDeltaTime * 0.8f
             );
 
             progressBar.value = displayedProgress;

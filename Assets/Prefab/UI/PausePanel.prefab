@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1936899546521788835}
   - component: {fileID: 696731837317175776}
   - component: {fileID: 3599498018370749700}
+  - component: {fileID: 2504715229361411696}
   m_Layer: 5
   m_Name: SettingButton
   m_TagString: Untagged
@@ -121,6 +122,19 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2504715229361411696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 244943385803440430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a40d80092c027fa4da6ed16147874809, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSFX
+  buttonClick: {fileID: 8300000, guid: d54dd09f28c6d0149b1b7dd06c513e3d, type: 3}
 --- !u!1 &2269032678993175408
 GameObject:
   m_ObjectHideFlags: 0
@@ -133,6 +147,7 @@ GameObject:
   - component: {fileID: 8709767524379446434}
   - component: {fileID: 8084018190399601304}
   - component: {fileID: 1600699262788544199}
+  - component: {fileID: 9136653738029048042}
   m_Layer: 5
   m_Name: UnpauseButton
   m_TagString: Untagged
@@ -227,8 +242,8 @@ MonoBehaviour:
     m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 1133473247, guid: 637ccd18b85893944ac977ee3f1f1547, type: 3}
-    m_PressedSprite: {fileID: 1133473247, guid: 637ccd18b85893944ac977ee3f1f1547, type: 3}
-    m_SelectedSprite: {fileID: 1133473247, guid: 637ccd18b85893944ac977ee3f1f1547, type: 3}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -253,6 +268,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &9136653738029048042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2269032678993175408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a40d80092c027fa4da6ed16147874809, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSFX
+  buttonClick: {fileID: 8300000, guid: 5aebc47fa39d2b843a48105d9b5338ce, type: 3}
 --- !u!1 &2444790244473430899
 GameObject:
   m_ObjectHideFlags: 0
@@ -265,6 +293,8 @@ GameObject:
   - component: {fileID: 7904366999756649302}
   - component: {fileID: 6114231922672390906}
   - component: {fileID: 7201624717630118573}
+  - component: {fileID: 6988483683760836541}
+  - component: {fileID: 7661319297372133309}
   m_Layer: 5
   m_Name: MainMenuButton
   m_TagString: Untagged
@@ -373,7 +403,44 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6114231922672390906}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7661319297372133309}
+        m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
+        m_MethodName: ChangeScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: MainMenu
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &6988483683760836541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2444790244473430899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a40d80092c027fa4da6ed16147874809, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSFX
+  buttonClick: {fileID: 8300000, guid: d54dd09f28c6d0149b1b7dd06c513e3d, type: 3}
+--- !u!114 &7661319297372133309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2444790244473430899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afb53255535727e4ba646e9b71900b15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SceneController
 --- !u!1 &3150515399882840656
 GameObject:
   m_ObjectHideFlags: 0
@@ -928,6 +995,7 @@ GameObject:
   - component: {fileID: 520947926094979308}
   - component: {fileID: 4211227171046155841}
   - component: {fileID: 3471736881945495841}
+  - component: {fileID: 7655378443880733158}
   m_Layer: 5
   m_Name: SaveButton
   m_TagString: Untagged
@@ -1061,6 +1129,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8307de6001733645b4c019ee7529fb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SaveButton
+--- !u!114 &7655378443880733158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6392414275292616964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a40d80092c027fa4da6ed16147874809, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSFX
+  buttonClick: {fileID: 8300000, guid: d54dd09f28c6d0149b1b7dd06c513e3d, type: 3}
 --- !u!1 &6582829547455404242
 GameObject:
   m_ObjectHideFlags: 0
