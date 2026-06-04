@@ -1225,6 +1225,7 @@ GameObject:
   - component: {fileID: 4381178599378115664}
   - component: {fileID: 7518723612793800318}
   - component: {fileID: 7846962703098890640}
+  - component: {fileID: 8310052729143226088}
   m_Layer: 5
   m_Name: LanguageButton
   m_TagString: Untagged
@@ -1370,6 +1371,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &8310052729143226088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1353969706117791856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a40d80092c027fa4da6ed16147874809, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSFX
+  buttonClick: {fileID: 8300000, guid: d54dd09f28c6d0149b1b7dd06c513e3d, type: 3}
 --- !u!1 &1419832442213823159
 GameObject:
   m_ObjectHideFlags: 0
@@ -1916,6 +1930,7 @@ GameObject:
   - component: {fileID: 3717411174279090431}
   - component: {fileID: 364925504905188328}
   - component: {fileID: 3884047651045275753}
+  - component: {fileID: 48082025962199725}
   m_Layer: 5
   m_Name: Mute/Unmute
   m_TagString: Untagged
@@ -2052,6 +2067,19 @@ MonoBehaviour:
   targetIcon: {fileID: 3717411174279090431}
   unmuteIcon: {fileID: -2111125003, guid: 637ccd18b85893944ac977ee3f1f1547, type: 3}
   muteIcon: {fileID: 1400905864, guid: 637ccd18b85893944ac977ee3f1f1547, type: 3}
+--- !u!114 &48082025962199725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2155295916356588357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a40d80092c027fa4da6ed16147874809, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSFX
+  buttonClick: {fileID: 8300000, guid: d530ac75836ffd1439abaeca0228e272, type: 3}
 --- !u!1 &2209390291948957267
 GameObject:
   m_ObjectHideFlags: 0
@@ -2064,6 +2092,7 @@ GameObject:
   - component: {fileID: 2254999400536021325}
   - component: {fileID: 8754796687018657044}
   - component: {fileID: 8646205483752448208}
+  - component: {fileID: 3819418880328328067}
   m_Layer: 5
   m_Name: AudioButton
   m_TagString: Untagged
@@ -2209,6 +2238,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &3819418880328328067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2209390291948957267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a40d80092c027fa4da6ed16147874809, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSFX
+  buttonClick: {fileID: 8300000, guid: d54dd09f28c6d0149b1b7dd06c513e3d, type: 3}
 --- !u!1 &2210557019121912332
 GameObject:
   m_ObjectHideFlags: 0
@@ -2498,6 +2540,7 @@ GameObject:
   - component: {fileID: 3623033432154734245}
   - component: {fileID: 7342447762104527566}
   - component: {fileID: 8943760773481943417}
+  - component: {fileID: 6805812418727243144}
   m_Layer: 5
   m_Name: Mute/Unmute
   m_TagString: Untagged
@@ -2634,6 +2677,19 @@ MonoBehaviour:
   targetIcon: {fileID: 3623033432154734245}
   unmuteIcon: {fileID: -2111125003, guid: 637ccd18b85893944ac977ee3f1f1547, type: 3}
   muteIcon: {fileID: 1400905864, guid: 637ccd18b85893944ac977ee3f1f1547, type: 3}
+--- !u!114 &6805812418727243144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2521216036941421751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a40d80092c027fa4da6ed16147874809, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSFX
+  buttonClick: {fileID: 8300000, guid: d530ac75836ffd1439abaeca0228e272, type: 3}
 --- !u!1 &3055403001119252571
 GameObject:
   m_ObjectHideFlags: 0
@@ -2766,6 +2822,7 @@ GameObject:
   - component: {fileID: 16993309619969378}
   - component: {fileID: 1914215424552129363}
   - component: {fileID: 478751859476696124}
+  - component: {fileID: 8156881252186543988}
   m_Layer: 5
   m_Name: CreditsButton
   m_TagString: Untagged
@@ -2911,6 +2968,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &8156881252186543988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3100411001637811547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a40d80092c027fa4da6ed16147874809, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSFX
+  buttonClick: {fileID: 8300000, guid: d54dd09f28c6d0149b1b7dd06c513e3d, type: 3}
 --- !u!1 &3139564259090308042
 GameObject:
   m_ObjectHideFlags: 0
@@ -3895,6 +3965,7 @@ GameObject:
   - component: {fileID: 4309414596129367266}
   - component: {fileID: 5806242177071320573}
   - component: {fileID: 527706385174787477}
+  - component: {fileID: 9038701759668068477}
   m_Layer: 5
   m_Name: Mute/Unmute
   m_TagString: Untagged
@@ -4031,6 +4102,19 @@ MonoBehaviour:
   targetIcon: {fileID: 4309414596129367266}
   unmuteIcon: {fileID: -2111125003, guid: 637ccd18b85893944ac977ee3f1f1547, type: 3}
   muteIcon: {fileID: 1400905864, guid: 637ccd18b85893944ac977ee3f1f1547, type: 3}
+--- !u!114 &9038701759668068477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4986738691659658048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a40d80092c027fa4da6ed16147874809, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSFX
+  buttonClick: {fileID: 8300000, guid: d530ac75836ffd1439abaeca0228e272, type: 3}
 --- !u!1 &5033364818597524584
 GameObject:
   m_ObjectHideFlags: 0
@@ -4492,7 +4576,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -53.00003}
+  m_AnchoredPosition: {x: 0, y: -53}
   m_SizeDelta: {x: 0, y: -106}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2830565790417034942
@@ -6059,6 +6143,7 @@ GameObject:
   - component: {fileID: 3571957981728611025}
   - component: {fileID: 7578248727580474631}
   - component: {fileID: 6305128443862571868}
+  - component: {fileID: 2343909466968081388}
   m_Layer: 5
   m_Name: ExitButton
   m_TagString: Untagged
@@ -6203,6 +6288,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8307de6001733645b4c019ee7529fb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SaveButton
+--- !u!114 &2343909466968081388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7564325797408290285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a40d80092c027fa4da6ed16147874809, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSFX
+  buttonClick: {fileID: 8300000, guid: 5aebc47fa39d2b843a48105d9b5338ce, type: 3}
 --- !u!1 &7788976011913720014
 GameObject:
   m_ObjectHideFlags: 0
