@@ -36,7 +36,6 @@ public class TileStatusController : MonoBehaviour
     #region EVENT HANDLERS
     private void HandlePlayerInspect(Vector2 mousePos)
     {
-        statusPanel.SetActive(false);
         if (farmMechanics.FarmModeController.CurrentFarmMode != FarmMode.Inspect) return;
 
         Vector3Int targetTile = farmMechanics.TileUtility.WorldToCell(mousePos);
@@ -73,6 +72,14 @@ public class TileStatusController : MonoBehaviour
         Sprite newSprite = farmMechanics.PlantGrowthManager.GetPlantSpriteAtTile(targetTile);
         plantImagePreview.sprite = newSprite;
     }
+
+    private void OnFarmModeChangeHandler(FarmMode farmMode)
+    {
+        if(farmMode != FarmMode.Inspect && statusPanel.activeInHierarchy)
+        {
+            statusPanel.SetActive(false);
+        }
+    }
     #endregion
 
     #region SUBSCRIPTIONS
@@ -84,6 +91,7 @@ public class TileStatusController : MonoBehaviour
         farmMechanics.FarmManager.OnSoilWatered += RefreshTileStatus;
         farmMechanics.FarmManager.OnHarvestPlant += RefreshTileStatus;
         farmMechanics.PlantGrowthManager.OnGrowthStageChanged += RefreshTileStatus;
+        farmMechanics.FarmModeController.OnFarmModeChange += OnFarmModeChangeHandler;
     }
     private void OnDestroy()
     {
@@ -93,6 +101,7 @@ public class TileStatusController : MonoBehaviour
         farmMechanics.FarmManager.OnSoilWatered -= RefreshTileStatus;
         farmMechanics.FarmManager.OnHarvestPlant -= RefreshTileStatus;
         farmMechanics.PlantGrowthManager.OnGrowthStageChanged -= RefreshTileStatus;
+        farmMechanics.FarmModeController.OnFarmModeChange -= OnFarmModeChangeHandler;
     }
     #endregion
 }
