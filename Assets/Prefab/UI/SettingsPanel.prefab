@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5363159363133729563}
   - component: {fileID: 2077415616724722009}
   - component: {fileID: 709409427715251086}
+  - component: {fileID: 6831030996965519725}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -92,12 +93,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 65
+  m_fontSize: 40
   m_fontSizeBase: 65
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 65
+  m_fontSizeMax: 40
   m_fontStyle: 32
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 4096
@@ -137,6 +138,20 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6831030996965519725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 640541253823068388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2502a901e2efe3f40a24dca2dd7d77c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TranslateText
+  translationKey: credits_button
+  fallback: credits
 --- !u!1 &647422721474373638
 GameObject:
   m_ObjectHideFlags: 0
@@ -148,6 +163,7 @@ GameObject:
   - component: {fileID: 8926082360845682636}
   - component: {fileID: 783116563471173144}
   - component: {fileID: 194487461404670701}
+  - component: {fileID: 8977970294099842145}
   m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
@@ -274,6 +290,20 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &8977970294099842145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 647422721474373638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2502a901e2efe3f40a24dca2dd7d77c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TranslateText
+  translationKey: audio_settings
+  fallback: audio settings
 --- !u!1 &726935085359355982
 GameObject:
   m_ObjectHideFlags: 0
@@ -428,6 +458,7 @@ GameObject:
   - component: {fileID: 996399151779459644}
   - component: {fileID: 7972697121947574989}
   - component: {fileID: 2119628136180547148}
+  - component: {fileID: 5986707828915378619}
   m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
@@ -554,6 +585,20 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &5986707828915378619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 880258710218127802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2502a901e2efe3f40a24dca2dd7d77c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TranslateText
+  translationKey: sfx_volume
+  fallback: sfx volume
 --- !u!1 &1014819139307025053
 GameObject:
   m_ObjectHideFlags: 0
@@ -602,6 +647,7 @@ GameObject:
   - component: {fileID: 7528398192361448682}
   - component: {fileID: 7350864002540895385}
   - component: {fileID: 2744496711173331947}
+  - component: {fileID: 8251303922467785320}
   m_Layer: 5
   m_Name: norway
   m_TagString: Untagged
@@ -709,7 +755,32 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7350864002540895385}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8994726986618824450}
+        m_TargetAssemblyTypeName: LanguageSelector, Assembly-CSharp
+        m_MethodName: ChangeLanguage
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: norwegian
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &8251303922467785320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1016410505213923102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a40d80092c027fa4da6ed16147874809, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSFX
+  buttonClick: {fileID: 8300000, guid: d54dd09f28c6d0149b1b7dd06c513e3d, type: 3}
 --- !u!1 &1033235530289537097
 GameObject:
   m_ObjectHideFlags: 0
@@ -793,6 +864,7 @@ GameObject:
   - component: {fileID: 727285206956347044}
   - component: {fileID: 4719273640564137721}
   - component: {fileID: 8873136367236179437}
+  - component: {fileID: 8162258215458542415}
   m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
@@ -919,6 +991,20 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &8162258215458542415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1279431688658834549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2502a901e2efe3f40a24dca2dd7d77c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TranslateText
+  translationKey: credits_button
+  fallback: credits
 --- !u!1 &1287265248577070148
 GameObject:
   m_ObjectHideFlags: 0
@@ -1068,6 +1154,7 @@ GameObject:
   - component: {fileID: 755386944707439291}
   - component: {fileID: 242200613730117141}
   - component: {fileID: 2201182202939235861}
+  - component: {fileID: 7258764290140901041}
   m_Layer: 5
   m_Name: uk
   m_TagString: Untagged
@@ -1175,7 +1262,32 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 242200613730117141}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8994726986618824450}
+        m_TargetAssemblyTypeName: LanguageSelector, Assembly-CSharp
+        m_MethodName: ChangeLanguage
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: english
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &7258764290140901041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1320484026470501428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a40d80092c027fa4da6ed16147874809, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSFX
+  buttonClick: {fileID: 8300000, guid: d54dd09f28c6d0149b1b7dd06c513e3d, type: 3}
 --- !u!1 &1338816301307044517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1185,6 +1297,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6968859497301629825}
+  - component: {fileID: 8994726986618824450}
   m_Layer: 5
   m_Name: LanguageSettings
   m_TagString: Untagged
@@ -1204,8 +1317,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8955981687893649336}
   - {fileID: 3218989169569229150}
+  - {fileID: 8955981687893649336}
   m_Father: {fileID: 6298704582550139965}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1213,6 +1326,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &8994726986618824450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1338816301307044517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2b012f97bd4c9b49844342d8d0fb0ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LanguageSelector
 --- !u!1 &1353969706117791856
 GameObject:
   m_ObjectHideFlags: 0
@@ -2299,6 +2424,7 @@ GameObject:
   - component: {fileID: 7638921900462604824}
   - component: {fileID: 5922982619485411071}
   - component: {fileID: 6410207424136871668}
+  - component: {fileID: 5464287331158018010}
   m_Layer: 5
   m_Name: thailand
   m_TagString: Untagged
@@ -2322,7 +2448,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 195, y: -90}
+  m_AnchoredPosition: {x: 140, y: -90}
   m_SizeDelta: {x: 40, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7638921900462604824
@@ -2406,7 +2532,32 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5922982619485411071}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8994726986618824450}
+        m_TargetAssemblyTypeName: LanguageSelector, Assembly-CSharp
+        m_MethodName: ChangeLanguage
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: thai
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &5464287331158018010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2402268073491478489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a40d80092c027fa4da6ed16147874809, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSFX
+  buttonClick: {fileID: 8300000, guid: d54dd09f28c6d0149b1b7dd06c513e3d, type: 3}
 --- !u!1 &2469390739805412077
 GameObject:
   m_ObjectHideFlags: 0
@@ -2419,6 +2570,7 @@ GameObject:
   - component: {fileID: 1319674791522199406}
   - component: {fileID: 6424506977733180540}
   - component: {fileID: 6477700099123800366}
+  - component: {fileID: 6058135026344037248}
   m_Layer: 5
   m_Name: germany
   m_TagString: Untagged
@@ -2526,7 +2678,32 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6424506977733180540}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8994726986618824450}
+        m_TargetAssemblyTypeName: LanguageSelector, Assembly-CSharp
+        m_MethodName: ChangeLanguage
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: german
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &6058135026344037248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2469390739805412077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a40d80092c027fa4da6ed16147874809, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSFX
+  buttonClick: {fileID: 8300000, guid: d54dd09f28c6d0149b1b7dd06c513e3d, type: 3}
 --- !u!1 &2521216036941421751
 GameObject:
   m_ObjectHideFlags: 0
@@ -2702,6 +2879,7 @@ GameObject:
   - component: {fileID: 6529534176257966413}
   - component: {fileID: 2665365469671701916}
   - component: {fileID: 6265001116096137640}
+  - component: {fileID: 4774407934519980697}
   m_Layer: 5
   m_Name: finland
   m_TagString: Untagged
@@ -2809,7 +2987,32 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2665365469671701916}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8994726986618824450}
+        m_TargetAssemblyTypeName: LanguageSelector, Assembly-CSharp
+        m_MethodName: ChangeLanguage
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: finnish
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &4774407934519980697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3055403001119252571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a40d80092c027fa4da6ed16147874809, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSFX
+  buttonClick: {fileID: 8300000, guid: d54dd09f28c6d0149b1b7dd06c513e3d, type: 3}
 --- !u!1 &3100411001637811547
 GameObject:
   m_ObjectHideFlags: 0
@@ -2993,6 +3196,7 @@ GameObject:
   - component: {fileID: 8589270338599005114}
   - component: {fileID: 7547387572029123082}
   - component: {fileID: 2458175498912296341}
+  - component: {fileID: 6908425135025641243}
   m_Layer: 5
   m_Name: china
   m_TagString: Untagged
@@ -3100,7 +3304,32 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7547387572029123082}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8994726986618824450}
+        m_TargetAssemblyTypeName: LanguageSelector, Assembly-CSharp
+        m_MethodName: ChangeLanguage
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: chinese simplified
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &6908425135025641243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3139564259090308042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a40d80092c027fa4da6ed16147874809, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSFX
+  buttonClick: {fileID: 8300000, guid: d54dd09f28c6d0149b1b7dd06c513e3d, type: 3}
 --- !u!1 &3334170094805094642
 GameObject:
   m_ObjectHideFlags: 0
@@ -3112,6 +3341,7 @@ GameObject:
   - component: {fileID: 77040974254591043}
   - component: {fileID: 1984355342302431784}
   - component: {fileID: 1885328040977607311}
+  - component: {fileID: 8208225167997969438}
   m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
@@ -3235,9 +3465,23 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &8208225167997969438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3334170094805094642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2502a901e2efe3f40a24dca2dd7d77c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TranslateText
+  translationKey: language_settings
+  fallback: language settings
 --- !u!1 &3341727092389997594
 GameObject:
   m_ObjectHideFlags: 0
@@ -3461,6 +3705,7 @@ GameObject:
   - component: {fileID: 368917723168985036}
   - component: {fileID: 765416576599775709}
   - component: {fileID: 4703900263817547925}
+  - component: {fileID: 8238446943637681292}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -3542,12 +3787,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 65
+  m_fontSize: 40
   m_fontSizeBase: 72
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 65
+  m_fontSizeMax: 40
   m_fontStyle: 32
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 4096
@@ -3587,6 +3832,20 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &8238446943637681292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3821857526509227650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2502a901e2efe3f40a24dca2dd7d77c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TranslateText
+  translationKey: language_button
+  fallback: language
 --- !u!1 &3939196008029005518
 GameObject:
   m_ObjectHideFlags: 0
@@ -3787,6 +4046,7 @@ GameObject:
   - component: {fileID: 1683893052871525827}
   - component: {fileID: 998327504504675950}
   - component: {fileID: 1667611465781824816}
+  - component: {fileID: 8194791222322533095}
   m_Layer: 5
   m_Name: sweden
   m_TagString: Untagged
@@ -3894,7 +4154,32 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 998327504504675950}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8994726986618824450}
+        m_TargetAssemblyTypeName: LanguageSelector, Assembly-CSharp
+        m_MethodName: ChangeLanguage
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: swedish
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &8194791222322533095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4417294937048300149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a40d80092c027fa4da6ed16147874809, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSFX
+  buttonClick: {fileID: 8300000, guid: d54dd09f28c6d0149b1b7dd06c513e3d, type: 3}
 --- !u!1 &4490570187454727596
 GameObject:
   m_ObjectHideFlags: 0
@@ -3907,6 +4192,7 @@ GameObject:
   - component: {fileID: 5381729544249544157}
   - component: {fileID: 850478009798788279}
   - component: {fileID: 6357504231933402197}
+  - component: {fileID: 6651576724556614642}
   m_Layer: 5
   m_Name: poland
   m_TagString: Untagged
@@ -4014,7 +4300,32 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 850478009798788279}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8994726986618824450}
+        m_TargetAssemblyTypeName: LanguageSelector, Assembly-CSharp
+        m_MethodName: ChangeLanguage
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: polish
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &6651576724556614642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4490570187454727596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a40d80092c027fa4da6ed16147874809, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSFX
+  buttonClick: {fileID: 8300000, guid: d54dd09f28c6d0149b1b7dd06c513e3d, type: 3}
 --- !u!1 &4566422221921567983
 GameObject:
   m_ObjectHideFlags: 0
@@ -4492,6 +4803,7 @@ GameObject:
   - component: {fileID: 4223668529039742152}
   - component: {fileID: 8168391267534287271}
   - component: {fileID: 4532182756130558068}
+  - component: {fileID: 5226145640816889783}
   m_Layer: 5
   m_Name: south korea
   m_TagString: Untagged
@@ -4515,7 +4827,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 85, y: -90}
+  m_AnchoredPosition: {x: 30, y: -90}
   m_SizeDelta: {x: 40, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4223668529039742152
@@ -4599,7 +4911,32 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8168391267534287271}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8994726986618824450}
+        m_TargetAssemblyTypeName: LanguageSelector, Assembly-CSharp
+        m_MethodName: ChangeLanguage
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: korean
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &5226145640816889783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5598565489809945534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a40d80092c027fa4da6ed16147874809, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSFX
+  buttonClick: {fileID: 8300000, guid: d54dd09f28c6d0149b1b7dd06c513e3d, type: 3}
 --- !u!1 &5789730392038399223
 GameObject:
   m_ObjectHideFlags: 0
@@ -4828,6 +5165,7 @@ GameObject:
   - component: {fileID: 7058160397912924456}
   - component: {fileID: 3879257501936388430}
   - component: {fileID: 7945893644791057898}
+  - component: {fileID: 67894605530707432}
   m_Layer: 5
   m_Name: vietnam
   m_TagString: Untagged
@@ -4851,7 +5189,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 140, y: -90}
+  m_AnchoredPosition: {x: 85, y: -90}
   m_SizeDelta: {x: 40, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7058160397912924456
@@ -4935,7 +5273,32 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3879257501936388430}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8994726986618824450}
+        m_TargetAssemblyTypeName: LanguageSelector, Assembly-CSharp
+        m_MethodName: ChangeLanguage
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: vietnamese
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &67894605530707432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5868788609389038011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a40d80092c027fa4da6ed16147874809, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSFX
+  buttonClick: {fileID: 8300000, guid: d54dd09f28c6d0149b1b7dd06c513e3d, type: 3}
 --- !u!1 &6534970917471124654
 GameObject:
   m_ObjectHideFlags: 0
@@ -5091,6 +5454,7 @@ GameObject:
   - component: {fileID: 1206855954390768926}
   - component: {fileID: 1107915713730572218}
   - component: {fileID: 5854945875757939547}
+  - component: {fileID: 1077493697991585452}
   m_Layer: 5
   m_Name: malaysia
   m_TagString: Untagged
@@ -5198,7 +5562,32 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1107915713730572218}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8994726986618824450}
+        m_TargetAssemblyTypeName: LanguageSelector, Assembly-CSharp
+        m_MethodName: ChangeLanguage
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: malay
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1077493697991585452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6746867279178191826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a40d80092c027fa4da6ed16147874809, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSFX
+  buttonClick: {fileID: 8300000, guid: d54dd09f28c6d0149b1b7dd06c513e3d, type: 3}
 --- !u!1 &6804211479337720870
 GameObject:
   m_ObjectHideFlags: 0
@@ -5210,6 +5599,7 @@ GameObject:
   - component: {fileID: 37015294037317462}
   - component: {fileID: 672098119333041869}
   - component: {fileID: 2709894754137205353}
+  - component: {fileID: 5619332659179617140}
   m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
@@ -5336,6 +5726,20 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &5619332659179617140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6804211479337720870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2502a901e2efe3f40a24dca2dd7d77c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TranslateText
+  translationKey: music_volume
+  fallback: music volume
 --- !u!1 &6812299322921758093
 GameObject:
   m_ObjectHideFlags: 0
@@ -5440,6 +5844,7 @@ GameObject:
   - component: {fileID: 4018943619378028690}
   - component: {fileID: 3958679947736345919}
   - component: {fileID: 5095492662074783456}
+  - component: {fileID: 593584436410748897}
   m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
@@ -5566,6 +5971,20 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &593584436410748897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7024571825486983739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2502a901e2efe3f40a24dca2dd7d77c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TranslateText
+  translationKey: master_volume
+  fallback: master volume
 --- !u!1 &7170620140739499798
 GameObject:
   m_ObjectHideFlags: 0
@@ -5578,6 +5997,7 @@ GameObject:
   - component: {fileID: 9102295138892759880}
   - component: {fileID: 5198793029575306632}
   - component: {fileID: 4392203061679735868}
+  - component: {fileID: 5375844828877649380}
   m_Layer: 5
   m_Name: netherlands
   m_TagString: Untagged
@@ -5685,7 +6105,32 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5198793029575306632}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8994726986618824450}
+        m_TargetAssemblyTypeName: LanguageSelector, Assembly-CSharp
+        m_MethodName: ChangeLanguage
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: dutch
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &5375844828877649380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7170620140739499798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a40d80092c027fa4da6ed16147874809, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSFX
+  buttonClick: {fileID: 8300000, guid: d54dd09f28c6d0149b1b7dd06c513e3d, type: 3}
 --- !u!1 &7203347512819948099
 GameObject:
   m_ObjectHideFlags: 0
@@ -5903,6 +6348,7 @@ GameObject:
   - component: {fileID: 7840610591909532397}
   - component: {fileID: 171663593309989464}
   - component: {fileID: 8920952672744528670}
+  - component: {fileID: 831748595633520064}
   m_Layer: 5
   m_Name: indonesia
   m_TagString: Untagged
@@ -6010,7 +6456,32 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 171663593309989464}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8994726986618824450}
+        m_TargetAssemblyTypeName: LanguageSelector, Assembly-CSharp
+        m_MethodName: ChangeLanguage
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: indonesian
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &831748595633520064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7247637793845140237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a40d80092c027fa4da6ed16147874809, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSFX
+  buttonClick: {fileID: 8300000, guid: d54dd09f28c6d0149b1b7dd06c513e3d, type: 3}
 --- !u!1 &7259978695734295155
 GameObject:
   m_ObjectHideFlags: 0
@@ -6160,13 +6631,14 @@ GameObject:
   - component: {fileID: 4587277447379862679}
   - component: {fileID: 5257238824767664259}
   - component: {fileID: 2032205584580525915}
+  - component: {fileID: 2179723435178610617}
   m_Layer: 5
   m_Name: singapore
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7409525843861999846
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6267,7 +6739,32 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5257238824767664259}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8994726986618824450}
+        m_TargetAssemblyTypeName: LanguageSelector, Assembly-CSharp
+        m_MethodName: ChangeLanguage
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2179723435178610617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7491649599570460794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a40d80092c027fa4da6ed16147874809, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSFX
+  buttonClick: {fileID: 8300000, guid: d54dd09f28c6d0149b1b7dd06c513e3d, type: 3}
 --- !u!1 &7564325797408290285
 GameObject:
   m_ObjectHideFlags: 0
@@ -6451,6 +6948,7 @@ GameObject:
   - component: {fileID: 6984443680152192982}
   - component: {fileID: 704395166794305912}
   - component: {fileID: 2302034470836654904}
+  - component: {fileID: 6673291116254448461}
   m_Layer: 5
   m_Name: japan
   m_TagString: Untagged
@@ -6558,7 +7056,32 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 704395166794305912}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8994726986618824450}
+        m_TargetAssemblyTypeName: LanguageSelector, Assembly-CSharp
+        m_MethodName: ChangeLanguage
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: japanese
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &6673291116254448461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7788976011913720014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a40d80092c027fa4da6ed16147874809, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSFX
+  buttonClick: {fileID: 8300000, guid: d54dd09f28c6d0149b1b7dd06c513e3d, type: 3}
 --- !u!1 &7836590680826987499
 GameObject:
   m_ObjectHideFlags: 0
@@ -6645,6 +7168,7 @@ GameObject:
   - component: {fileID: 4843878090006208034}
   - component: {fileID: 8028905493858203944}
   - component: {fileID: 8966266704414603950}
+  - component: {fileID: 1179153263024844457}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -6726,12 +7250,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 65
+  m_fontSize: 40
   m_fontSizeBase: 72
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 65
+  m_fontSizeMax: 40
   m_fontStyle: 32
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 4096
@@ -6771,6 +7295,20 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &1179153263024844457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8191090536642845045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2502a901e2efe3f40a24dca2dd7d77c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TranslateText
+  translationKey: audio_button
+  fallback: audio
 --- !u!1 &8849418962515531712
 GameObject:
   m_ObjectHideFlags: 0
@@ -6896,6 +7434,7 @@ GameObject:
   - component: {fileID: 6424669912077556540}
   - component: {fileID: 6499039144585276626}
   - component: {fileID: 4322587390769797676}
+  - component: {fileID: 227974101641530705}
   m_Layer: 5
   m_Name: denmark
   m_TagString: Untagged
@@ -7003,7 +7542,32 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6499039144585276626}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8994726986618824450}
+        m_TargetAssemblyTypeName: LanguageSelector, Assembly-CSharp
+        m_MethodName: ChangeLanguage
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: danish
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &227974101641530705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8964231036821240437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a40d80092c027fa4da6ed16147874809, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSFX
+  buttonClick: {fileID: 8300000, guid: d54dd09f28c6d0149b1b7dd06c513e3d, type: 3}
 --- !u!1 &8980727179200305655
 GameObject:
   m_ObjectHideFlags: 0
