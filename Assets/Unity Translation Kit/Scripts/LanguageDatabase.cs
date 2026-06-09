@@ -64,7 +64,7 @@ public class LanguageDatabase : MonoBehaviour
             LoadLocalTranslationFile();
             return;
         }
-        Debug.Log("Translation successfully fetched.");
+        //Debug.Log("Translation successfully fetched.");
         RemoveEmptyTranslations();
         SaveTranslationData();
     }
@@ -79,7 +79,7 @@ public class LanguageDatabase : MonoBehaviour
         if (data == null) return;
 
         SelectedLanguage = data.selectedLanguage ?? "en";
-        Debug.Log("Loaded selected language from local file.");
+        //Debug.Log("Loaded selected language from local file.");
 
     }
     private void LoadLocalTranslationFile()

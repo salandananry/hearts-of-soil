@@ -23,7 +23,7 @@ public class ConnectionStatus
             while (!operation.isDone)
                 await Task.Yield();
             bool result = request.result == UnityWebRequest.Result.Success;
-            Debug.Log(result);
+            //Debug.Log(result);
             return result;
         }
     }
