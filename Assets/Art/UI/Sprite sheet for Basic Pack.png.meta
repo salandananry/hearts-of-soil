@@ -1181,7 +1181,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: water_button_unselected
+      name: water_button_hotbar
       rect:
         serializedVersion: 2
         x: 678
@@ -1203,7 +1203,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: harvest_button_unselected
+      name: harvest_button_hotbar
       rect:
         serializedVersion: 2
         x: 646
@@ -1225,7 +1225,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Sprite sheet for Basic Pack_9
+      name: empty_button_hotbar
       rect:
         serializedVersion: 2
         x: 614
@@ -1673,7 +1673,7 @@ TextureImporter:
         width: 26
         height: 26
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 4, y: 4, z: 4, w: 4}
       customData: 
       outline: []
@@ -1682,6 +1682,28 @@ TextureImporter:
       bones: []
       spriteID: 035c6a95b9ec4db4599338d22453ebec
       internalID: -503205136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspect_icon
+      rect:
+        serializedVersion: 2
+        x: 771
+        y: 33
+        width: 10
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9694bbd6b2b75545b1bc063653bf344
+      internalID: -893191114
       vertices: []
       indices: 
       edges: []
@@ -1741,12 +1763,15 @@ TextureImporter:
       Sprite sheet for Basic Pack_4: -7351633071973409212
       Sprite sheet for Basic Pack_40: 6386441837321303921
       Sprite sheet for Basic Pack_41: -3978695104643251425
-      Sprite sheet for Basic Pack_9: 4658610957094169638
+      Sprite sheet for Basic Pack_5: 1780726644
+      Sprite sheet for Basic Pack_7: 947290968
       button_background: -8458084090015514730
       close_button_selected: 5893398131277028864
       close_button_unselected: -6947281443083930522
+      empty_button_hotbar: 4658610957094169638
+      harvest_button_hotbar: 4813360202715789574
       harvest_button_selected: -4104028942534283489
-      harvest_button_unselected: 4813360202715789574
+      inspect_icon: -893191114
       menu_button_selected: -153895495
       menu_button_unselected: 1045516713
       mute_button: 1400905864
@@ -1766,8 +1791,8 @@ TextureImporter:
       unmute_button_unselected: -2111125003
       unpause_button_selected: 1133473247
       unpause_button_unselected: -1727089647
+      water_button_hotbar: -5460758244943896435
       water_button_selected: -2217136615000497038
-      water_button_unselected: -5460758244943896435
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

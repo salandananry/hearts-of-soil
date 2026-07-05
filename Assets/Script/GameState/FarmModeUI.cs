@@ -21,9 +21,11 @@ public class FarmModeUI : MonoBehaviour
     {
         switch (farmMode)
         {
+            /*
             case FarmMode.Normal: 
                 displayUI.SetActive(false);
                 return;
+            */
             case FarmMode.Inspect:
                 displayText.text = "inspecting mode";
                 break;

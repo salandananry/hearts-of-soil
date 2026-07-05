@@ -1,7 +1,7 @@
 using UnityEngine;
 using DG.Tweening;
 
-public class UIPopUp : MonoBehaviour
+public class UIPanelTransition : MonoBehaviour
 {
     [SerializeField] private float startScale;
     [SerializeField] private float duration;
@@ -20,6 +20,7 @@ public class UIPopUp : MonoBehaviour
     }
     public void Close()
     {
+        rectTransform.DOKill();
         rectTransform.DOScale(Vector3.one * startScale, duration)
             .SetEase(Ease.InBack).SetUpdate(true).OnComplete(() =>
         {

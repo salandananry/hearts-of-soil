@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5024760178280387626}
   - component: {fileID: 2988751249269629672}
   - component: {fileID: 1106976650284928928}
+  - component: {fileID: 6517503279377818105}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -76,6 +77,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6517503279377818105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 271693090497208285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a66d499c8f02714da252e4e4cef26c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIPanelTransition
+  startScale: 0
+  duration: 0.25
+  easeType: 27
 --- !u!1 &435657657609062815
 GameObject:
   m_ObjectHideFlags: 0
@@ -277,7 +293,6 @@ GameObject:
   - component: {fileID: 3112911671497941279}
   - component: {fileID: 3890627186002285211}
   - component: {fileID: 6801440372331501233}
-  - component: {fileID: 6483260015864842898}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -343,21 +358,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 0.2
---- !u!114 &6483260015864842898
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7411227863663453303}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a66d499c8f02714da252e4e4cef26c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UIPopUp
-  startScale: 0
-  duration: 0.25
-  easeType: 27
 --- !u!1 &7780997725906474131
 GameObject:
   m_ObjectHideFlags: 0
