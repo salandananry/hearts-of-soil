@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +14,7 @@ public class TileStatusController : MonoBehaviour
     [SerializeField] private UIPanelTransition statusPanel;
     [SerializeField] private Image soilImagePreview;
     [SerializeField] private Image plantImagePreview;
+    [SerializeField] private TextMeshProUGUI growthStageCount;
 
     [Header("Soil variants:")]
     [SerializeField] private Sprite dryTile;
@@ -53,6 +55,7 @@ public class TileStatusController : MonoBehaviour
 
         RefreshSoilPreview(targetTile);
         RefreshPlantPreview(targetTile);
+        RefreshGrowthStageCount(targetTile);
     }
     private void RefreshSoilPreview(Vector3Int targetTile)
     {
@@ -72,7 +75,29 @@ public class TileStatusController : MonoBehaviour
         Sprite newSprite = farmMechanics.PlantGrowthManager.GetPlantSpriteAtTile(targetTile);
         plantImagePreview.sprite = newSprite;
     }
+    private void RefreshGrowthStageCount(Vector3Int targetTile)
+    {
+        int growthStage = farmMechanics.PlantGrowthManager.GetGrowthStage(targetTile);
+        switch (growthStage)
+        {
+            case 0:
+                growthStageCount.text = "Planted (Not Ready)";
+                break;
+            case 1:
+                growthStageCount.text = "Seedling (Not Ready)";
+                break;
+            case 2:
+                growthStageCount.text = "Growing (Not Ready)";
+                break;
+            case 3:
+                growthStageCount.text = "Mature (Ready to Harvest)";
+                break;
 
+            default:
+                growthStageCount.text = "Nothing Planted";
+                break;
+        }
+    }
     private void OnFarmModeChangeHandler(FarmMode farmMode)
     {
         if(farmMode != FarmMode.Inspect && statusPanel.gameObject.activeInHierarchy)

@@ -51,7 +51,7 @@ public class PlantGrowthManager : MonoBehaviour
 
         return plantStageVariants[growthStage];
     }
-    private int GetGrowthStage(Vector3Int targetTile)
+    public int GetGrowthStage(Vector3Int targetTile)
     {
         var save = SaveManager.instance.CurrentSave;
 
