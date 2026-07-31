@@ -12,11 +12,17 @@ public class UIPanelTransition : MonoBehaviour
     {
         rectTransform = GetComponent<RectTransform>();
     }
-    private void OnEnable()
+    public void Open()
     {
+        if (gameObject.activeSelf) return;
+
+        gameObject.SetActive(true);
+
         rectTransform.DOKill();
         rectTransform.localScale = Vector3.one * startScale;
-        rectTransform.DOScale(Vector3.one, duration).SetEase(easeType).SetUpdate(true);
+        rectTransform.DOScale(Vector3.one, duration)
+            .SetEase(easeType)
+            .SetUpdate(true);
     }
     public void Close()
     {

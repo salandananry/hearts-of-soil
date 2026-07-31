@@ -1708,6 +1708,28 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: coin_counter_hud
+      rect:
+        serializedVersion: 2
+        x: 552
+        y: 68
+        width: 35
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 175d4f77e6980584b97654abcc554b12
+      internalID: -95880208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline:
     - - {x: -371, y: 72}
       - {x: -326, y: 72}
@@ -1763,11 +1785,11 @@ TextureImporter:
       Sprite sheet for Basic Pack_4: -7351633071973409212
       Sprite sheet for Basic Pack_40: 6386441837321303921
       Sprite sheet for Basic Pack_41: -3978695104643251425
-      Sprite sheet for Basic Pack_5: 1780726644
       Sprite sheet for Basic Pack_7: 947290968
       button_background: -8458084090015514730
       close_button_selected: 5893398131277028864
       close_button_unselected: -6947281443083930522
+      coin_counter_hud: 1780726644
       empty_button_hotbar: 4658610957094169638
       harvest_button_hotbar: 4813360202715789574
       harvest_button_selected: -4104028942534283489

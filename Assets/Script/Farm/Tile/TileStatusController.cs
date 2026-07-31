@@ -10,7 +10,7 @@ public class TileStatusController : MonoBehaviour
 
 
     [Header("Status panel")]
-    [SerializeField] private GameObject statusPanel;
+    [SerializeField] private UIPanelTransition statusPanel;
     [SerializeField] private Image soilImagePreview;
     [SerializeField] private Image plantImagePreview;
 
@@ -45,7 +45,7 @@ public class TileStatusController : MonoBehaviour
         currentViewedTile = targetTile;
 
         RefreshTileStatus(targetTile);
-        statusPanel.SetActive(true);
+        statusPanel.Open();
     }
     private void RefreshTileStatus(Vector3Int targetTile)
     {
@@ -75,9 +75,9 @@ public class TileStatusController : MonoBehaviour
 
     private void OnFarmModeChangeHandler(FarmMode farmMode)
     {
-        if(farmMode != FarmMode.Inspect && statusPanel.activeInHierarchy)
+        if(farmMode != FarmMode.Inspect && statusPanel.gameObject.activeInHierarchy)
         {
-            statusPanel.SetActive(false);
+            statusPanel.Close();
         }
     }
     #endregion

@@ -7,16 +7,17 @@ public class SceneLoader : MonoBehaviour
 {
     public static SceneLoader instance { get; private set; }
 
-    [SerializeField] private GameObject loadingScreen;
+    [SerializeField] private UIPanelTransition loadingScreen;
     [SerializeField] private Slider progressBar;
 
-    private void Start()
+    private void Awake()
     {
-        if (instance != null)
+        if (instance != null && instance != this)
         {
             Destroy(gameObject);
             return;
         }
+
         instance = this;
     }
     public void SceneChange(string sceneName)
@@ -25,7 +26,7 @@ public class SceneLoader : MonoBehaviour
     }
     private IEnumerator LoadSceneRoutine(string sceneName)
     {
-        loadingScreen.SetActive(true);
+        loadingScreen.Open();
 
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
 
@@ -61,6 +62,6 @@ public class SceneLoader : MonoBehaviour
 
         yield return new WaitUntil(() => operation.isDone);
 
-        loadingScreen.SetActive(false);
+        loadingScreen.Close();
     }
 }

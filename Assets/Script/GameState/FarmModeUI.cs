@@ -5,7 +5,7 @@ public class FarmModeUI : MonoBehaviour
 {
     #region FIELDS
     [SerializeField] private FarmModeController controller;
-    [SerializeField] private GameObject displayUI;
+    [SerializeField] private UIPanelTransition displayUI;
     [SerializeField] private TextMeshProUGUI displayText;
     #endregion
 
@@ -39,7 +39,7 @@ public class FarmModeUI : MonoBehaviour
                 displayText.text = "harvesting mode";
                 break;
         }
-        displayUI.SetActive(true);
+        displayUI.Open();
     }
     #endregion
 
