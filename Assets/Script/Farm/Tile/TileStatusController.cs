@@ -15,6 +15,8 @@ public class TileStatusController : MonoBehaviour
     [SerializeField] private Image soilImagePreview;
     [SerializeField] private Image plantImagePreview;
     [SerializeField] private TextMeshProUGUI growthStageCount;
+    [SerializeField] private TextMeshProUGUI growthStatus;
+    [SerializeField] private TextMeshProUGUI tileCoordinate;
 
     [Header("Soil variants:")]
     [SerializeField] private Sprite dryTile;
@@ -56,6 +58,7 @@ public class TileStatusController : MonoBehaviour
         RefreshSoilPreview(targetTile);
         RefreshPlantPreview(targetTile);
         RefreshGrowthStageCount(targetTile);
+        RefreshTileCoordinates(targetTile);
     }
     private void RefreshSoilPreview(Vector3Int targetTile)
     {
@@ -77,26 +80,44 @@ public class TileStatusController : MonoBehaviour
     }
     private void RefreshGrowthStageCount(Vector3Int targetTile)
     {
+        if (!farmMechanics.FarmManager.HasPlant(targetTile))
+        {
+            growthStageCount.text = "Stage: 0/4";
+            growthStatus.text = "Status: No Plant";
+            return;
+        }
+        if (!farmMechanics.FarmManager.IsWatered(targetTile))
+        {
+            growthStageCount.text = "Stage: 0/4";
+            growthStatus.text = "Status: Not Growing (Needs Water)";
+            return;
+        }
+
         int growthStage = farmMechanics.PlantGrowthManager.GetGrowthStage(targetTile);
+
         switch (growthStage)
         {
             case 0:
-                growthStageCount.text = "Planted (Not Ready)";
+                growthStageCount.text = "Stage: 1/4";
+                growthStatus.text = "Status: Growing";
                 break;
             case 1:
-                growthStageCount.text = "Seedling (Not Ready)";
+                growthStageCount.text = "Stage: 2/4";
+                growthStatus.text = "Status: Growing";
                 break;
             case 2:
-                growthStageCount.text = "Growing (Not Ready)";
+                growthStageCount.text = "Stage: 3/4";
+                growthStatus.text = "Status: Growing";
                 break;
             case 3:
-                growthStageCount.text = "Mature (Ready to Harvest)";
-                break;
-
-            default:
-                growthStageCount.text = "Nothing Planted";
+                growthStageCount.text = "Stage: 4/4";
+                growthStatus.text = "Status: Mature";
                 break;
         }
+    }
+    private void RefreshTileCoordinates(Vector3Int targetTile)
+    {
+        tileCoordinate.text = $"Tile: ({targetTile.x},{targetTile.y})";
     }
     private void OnFarmModeChangeHandler(FarmMode farmMode)
     {
