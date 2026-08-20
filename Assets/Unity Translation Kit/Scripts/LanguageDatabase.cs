@@ -1,9 +1,13 @@
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading.Tasks;
 using UnityEngine;
-using System;
+
+#if UNITY_EDITOR
+using UnityEditor;
+using System.Threading.Tasks;
+#endif
 
 [System.Serializable]
 public class LanguageFileData
@@ -16,8 +20,14 @@ public class LanguageDatabase : MonoBehaviour
 {
     public static LanguageDatabase Instance { get; private set; }
 
+    [Header("Default Translation")]
+    [SerializeField] private TextAsset defaultTranslationFile;
+
+#if UNITY_EDITOR
+    [Header("Google Sheets - Editor Only")]
     [SerializeField] private string apiKey;
     [SerializeField] private string spreadSheetID;
+#endif
 
     [SerializeField] private string fileName = "translations.json";
 
@@ -35,85 +45,158 @@ public class LanguageDatabase : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+
         Instance = this;
-        //DontDestroyOnLoad(gameObject);
     }
+
     private async void Start()
     {
         LoadSelectedLanguage();
+        LoadDefaultTranslationFile();
 
-        bool HasConnection = await ConnectionStatus.HasConnection();
-        if (HasConnection)
+#if UNITY_EDITOR
+        bool hasConnection = await ConnectionStatus.HasConnection();
+
+        if (hasConnection)
         {
-            await UpdateTranslationFile();
+            await UpdateTranslationFromGoogleSheets();
         }
         else
         {
-            LoadLocalTranslationFile();
+            Debug.LogWarning("No internet connection. Using local translation file.");
         }
+
+#endif
+
         IsInitialized = true;
         OnInitalized?.Invoke();
     }
-    private async Task UpdateTranslationFile()
-    {
-        _translations = await TranslationSheet.FetchAllSheets(apiKey, spreadSheetID);
 
-        if (_translations == null)
+    private void LoadDefaultTranslationFile()
+    {
+        if (defaultTranslationFile == null)
         {
-            Debug.LogWarning("Failed to download spreadsheet data. Using cached file.");
-            LoadLocalTranslationFile();
+            Debug.LogError("Default Translation File is not assigned!");
             return;
         }
-        //Debug.Log("Translation successfully fetched.");
-        RemoveEmptyTranslations();
-        SaveTranslationData();
+
+        try
+        {
+            var data = JsonConvert.DeserializeObject<LanguageFileData>(
+                defaultTranslationFile.text
+            );
+
+            if (data == null || data.translations == null)
+            {
+                Debug.LogError("Failed to parse default translation file.");
+                return;
+            }
+
+            _translations = data.translations;
+
+            Debug.Log("Loaded translation file.");
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Failed to load translation file:\n{e}");
+        }
     }
+
     private void LoadSelectedLanguage()
     {
-        string path = Path.Combine(Application.persistentDataPath, fileName);
-        if (!File.Exists(path)) return;
+        string path = Path.Combine(
+            Application.persistentDataPath,
+            fileName
+        );
 
-        string json = File.ReadAllText(path);
-        var data = JsonConvert.DeserializeObject<LanguageFileData>(json);
+        if (!File.Exists(path))
+            return;
 
-        if (data == null) return;
+        try
+        {
+            string json = File.ReadAllText(path);
 
-        SelectedLanguage = data.selectedLanguage ?? "en";
-        //Debug.Log("Loaded selected language from local file.");
+            var data = JsonConvert.DeserializeObject<LanguageFileData>(
+                json
+            );
 
+            if (data == null)
+                return;
+
+            SelectedLanguage = data.selectedLanguage ?? "en";
+
+            Debug.Log($"Loaded selected language: {SelectedLanguage}");
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Failed to load selected language:\n{e}");
+        }
     }
-    private void LoadLocalTranslationFile()
+
+#if UNITY_EDITOR
+
+    private async Task UpdateTranslationFromGoogleSheets()
     {
-        string path = Path.Combine(Application.persistentDataPath, fileName);
+        Debug.Log("Updating translations from Google Sheets...");
 
-        if (!File.Exists(path)) return;
+        var translations =
+            await TranslationSheet.FetchAllSheets(
+                apiKey,
+                spreadSheetID
+            );
 
-        string json = File.ReadAllText(path);
+        if (translations == null)
+        {
+            Debug.LogWarning(
+                "Failed to download translations. " +
+                "Using local translation file."
+            );
 
-        var data = JsonConvert.DeserializeObject<LanguageFileData>(json);
+            return;
+        }
 
-        if (data == null || data.translations == null) return;
+        _translations = translations;
 
-        _translations = data.translations;
+        RemoveEmptyTranslations();
 
-        Debug.Log("Loaded translations from local file.");
+        SaveTranslationData();
+
+        Debug.Log("Translations successfully updated from Google Sheets.");
     }
+
     private void RemoveEmptyTranslations()
     {
+        if (_translations == null)
+            return;
+
         foreach (var entry in _translations)
         {
-            var LanguageCodes = new List<string>(entry.Value.Keys);
+            var languageCodes =
+                new List<string>(entry.Value.Keys);
 
-            foreach (var code in LanguageCodes)
+            foreach (var code in languageCodes)
             {
                 if (string.IsNullOrWhiteSpace(entry.Value[code]))
+                {
                     entry.Value.Remove(code);
+                }
             }
         }
     }
+
     public void SaveTranslationData()
     {
-        string path = Path.Combine(Application.persistentDataPath, fileName);
+        if (_translations == null)
+        {
+            Debug.LogWarning("Cannot save translations because translation data is null.");
+            return;
+        }
+
+        string path = Path.Combine(
+            Application.dataPath,
+            "Resources",
+            fileName
+        );
 
         var data = new LanguageFileData
         {
@@ -121,20 +204,65 @@ public class LanguageDatabase : MonoBehaviour
             translations = _translations
         };
 
-        string json = JsonConvert.SerializeObject(data, Formatting.Indented);
+        string json = JsonConvert.SerializeObject(
+            data,
+            Formatting.Indented
+        );
+
         File.WriteAllText(path, json);
-        //Debug.Log("Selected Language and Translations saved successfully.");
+
+        AssetDatabase.Refresh();
+
+        Debug.Log($"Translation file saved to:\n{path}");
     }
-    public string GetTranslation(string key, string fallback)
+
+#endif
+
+    public void SaveSelectedLanguage()
+    {
+        var data = new LanguageFileData
+        {
+            selectedLanguage = SelectedLanguage
+        };
+
+        string path = Path.Combine(
+            Application.persistentDataPath,
+            fileName
+        );
+
+        string json = JsonConvert.SerializeObject(
+            data,
+            Formatting.Indented
+        );
+
+        File.WriteAllText(path, json);
+
+        Debug.Log($"Selected language saved: {SelectedLanguage}");
+    }
+
+    public string GetTranslation(
+        string key,
+        string fallback
+    )
     {
         if (_translations == null)
             return fallback;
 
-        if (!_translations.ContainsKey(key))
+        if (!_translations.TryGetValue(
+            key,
+            out var translations
+        ))
+        {
             return fallback;
+        }
 
-        if (_translations[key].ContainsKey(SelectedLanguage))
-            return _translations[key][SelectedLanguage];
+        if (translations.TryGetValue(
+            SelectedLanguage,
+            out string translation
+        ))
+        {
+            return translation;
+        }
 
         return fallback;
     }
