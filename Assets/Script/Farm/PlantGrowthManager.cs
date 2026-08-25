@@ -5,7 +5,7 @@ public class PlantGrowthManager : MonoBehaviour
 {
     [Header("Growth settings")]
     [SerializeField] private int plantMaxStage;
-    [SerializeField] private Sprite[] plantStageVariants;
+    [SerializeField] private GameObject[] plantStageVariants;
 
     private float growthInterval = 60f;
     public event Action<Vector3Int> OnGrowthStageChanged;
@@ -40,16 +40,29 @@ public class PlantGrowthManager : MonoBehaviour
             OnGrowthStageChanged?.Invoke(tile.position);
         }
     }
-    public Sprite GetPlantSpriteAtTile(Vector3Int targetTile)
+    public GameObject GetPlantPrefabAtTile(Vector3Int targetTile)
     {
-        return GetPlantSpriteByGrowthStage(GetGrowthStage(targetTile));
-    }
-    private Sprite GetPlantSpriteByGrowthStage(int growthStage)
-    {
+        int growthStage = GetGrowthStage(targetTile);
+
         if (growthStage < 0 || growthStage >= plantStageVariants.Length)
             return null;
 
         return plantStageVariants[growthStage];
+    }
+    public Sprite GetPlantSpriteAtTile(Vector3Int targetTile)
+    {
+        GameObject plantPrefab = GetPlantPrefabAtTile(targetTile);
+
+        if (plantPrefab == null)
+            return null;
+
+        SpriteRenderer spriteRenderer =
+            plantPrefab.GetComponent<SpriteRenderer>();
+
+        if (spriteRenderer == null)
+            return null;
+
+        return spriteRenderer.sprite;
     }
     public int GetGrowthStage(Vector3Int targetTile)
     {

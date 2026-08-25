@@ -54,16 +54,36 @@ public class PlantController : MonoBehaviour
          );
 
         spawnedPlants[targetTile] = plant;
-        UpdatePlantSprite(targetTile);
+        UpdatePlantVisual(targetTile);
     }
-    private void UpdatePlantSprite(Vector3Int targetTile)
+    private void UpdatePlantVisual(Vector3Int targetTile)
     {
-        if (!spawnedPlants.TryGetValue(targetTile, out GameObject plant)) return;
+        if (!spawnedPlants.TryGetValue(targetTile, out GameObject plant))
+            return;
 
-        SpriteRenderer spriteRenderer = plant.GetComponent<SpriteRenderer>();
-        Sprite newSprite = farmMechanics.PlantGrowthManager.GetPlantSpriteAtTile(targetTile);
-        if (newSprite == null) return;
-        spriteRenderer.sprite = newSprite;
+        GameObject newPlant =
+            farmMechanics.PlantGrowthManager.GetPlantPrefabAtTile(targetTile);
+
+        if (newPlant == null)
+            return;
+
+        Vector3 position =
+            farmMechanics.TileUtility.GetTileWorldPosition(
+                targetTile,
+                0f,
+                0f
+            );
+
+        Destroy(plant);
+
+        GameObject newPlantInstance = Instantiate(
+            newPlant,
+            position,
+            Quaternion.identity,
+            transform
+        );
+
+        spawnedPlants[targetTile] = newPlantInstance;
     }
     private void RemovePlantAt(Vector3Int targetTile)
     {
@@ -81,7 +101,7 @@ public class PlantController : MonoBehaviour
         playerController.OnPlayerInteract += HandlePlayerPlant;
 
         farmMechanics.FarmManager.OnPlantCreated += OnSeedPlantHandler;
-        farmMechanics.PlantGrowthManager.OnGrowthStageChanged += UpdatePlantSprite;
+        farmMechanics.PlantGrowthManager.OnGrowthStageChanged += UpdatePlantVisual;
         farmMechanics.FarmManager.OnHarvestPlant += RemovePlantAt;
 
     }
@@ -90,7 +110,7 @@ public class PlantController : MonoBehaviour
         playerController.OnPlayerInteract -= HandlePlayerPlant;
 
         farmMechanics.FarmManager.OnPlantCreated -= OnSeedPlantHandler;
-        farmMechanics.PlantGrowthManager.OnGrowthStageChanged -= UpdatePlantSprite;
+        farmMechanics.PlantGrowthManager.OnGrowthStageChanged -= UpdatePlantVisual;
         farmMechanics.FarmManager.OnHarvestPlant -= RemovePlantAt;
     }
     #endregion
