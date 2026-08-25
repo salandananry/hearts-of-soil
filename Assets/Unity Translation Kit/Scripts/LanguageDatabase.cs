@@ -10,10 +10,14 @@ using System.Threading.Tasks;
 #endif
 
 [System.Serializable]
-public class LanguageFileData
+public class TranslationData
+{
+    public Dictionary<string, Dictionary<string, string>> translations;
+}
+[System.Serializable]
+public class SelectedLanguageData
 {
     public string selectedLanguage;
-    public Dictionary<string, Dictionary<string, string>> translations;
 }
 
 public class LanguageDatabase : MonoBehaviour
@@ -33,7 +37,7 @@ public class LanguageDatabase : MonoBehaviour
 
     private Dictionary<string, Dictionary<string, string>> _translations;
 
-    public string SelectedLanguage { get; set; } = "en";
+    public string SelectedLanguage { get; set; } = "english";
     public bool IsInitialized { get; private set; }
 
     public static event Action OnInitalized;
@@ -82,7 +86,7 @@ public class LanguageDatabase : MonoBehaviour
 
         try
         {
-            var data = JsonConvert.DeserializeObject<LanguageFileData>(
+            var data = JsonConvert.DeserializeObject<TranslationData>(
                 defaultTranslationFile.text
             );
 
@@ -105,25 +109,28 @@ public class LanguageDatabase : MonoBehaviour
     private void LoadSelectedLanguage()
     {
         string path = Path.Combine(
-            Application.persistentDataPath,
-            fileName
-        );
+       Application.persistentDataPath,
+       "selectedLanguage.json"
+   );
 
         if (!File.Exists(path))
+        {
+            Debug.Log($"No saved language found. Using default: {SelectedLanguage}");
             return;
+        }
 
         try
         {
             string json = File.ReadAllText(path);
 
-            var data = JsonConvert.DeserializeObject<LanguageFileData>(
+            var data = JsonConvert.DeserializeObject<SelectedLanguageData>(
                 json
             );
 
             if (data == null)
                 return;
 
-            SelectedLanguage = data.selectedLanguage ?? "en";
+            SelectedLanguage = data.selectedLanguage ?? "english";
 
             Debug.Log($"Loaded selected language: {SelectedLanguage}");
         }
@@ -184,11 +191,14 @@ public class LanguageDatabase : MonoBehaviour
         }
     }
 
-    public void SaveTranslationData()
+    private void SaveTranslationData()
     {
         if (_translations == null)
         {
-            Debug.LogWarning("Cannot save translations because translation data is null.");
+            Debug.LogWarning(
+                "Cannot save translations because translation data is null."
+            );
+
             return;
         }
 
@@ -198,9 +208,8 @@ public class LanguageDatabase : MonoBehaviour
             fileName
         );
 
-        var data = new LanguageFileData
+        var data = new TranslationData
         {
-            selectedLanguage = SelectedLanguage,
             translations = _translations
         };
 
@@ -220,14 +229,14 @@ public class LanguageDatabase : MonoBehaviour
 
     public void SaveSelectedLanguage()
     {
-        var data = new LanguageFileData
+        var data = new SelectedLanguageData
         {
             selectedLanguage = SelectedLanguage
         };
 
         string path = Path.Combine(
             Application.persistentDataPath,
-            fileName
+            "selectedLanguage.json"
         );
 
         string json = JsonConvert.SerializeObject(
