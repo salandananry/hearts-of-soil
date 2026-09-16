@@ -104,3 +104,6 @@ InitTestScene*.unity*
 
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
+
+# Google Sheets translation credentials
+/[Aa]ssets/Unity Translation Kit/Scripts/Editor/translation-editor-config.json
