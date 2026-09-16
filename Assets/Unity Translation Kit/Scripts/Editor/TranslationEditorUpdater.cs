@@ -1,4 +1,3 @@
-
 #if UNITY_EDITOR
 using System;
 using System.Collections.Generic;
@@ -24,19 +23,33 @@ public static class TranslationEditorUpdater
     private const string TranslationFileName =
         "translations.json";
 
-    private static bool isUpdating;
+    private const string SkipNextPlayKey =
+        "TranslationEditorUpdater.SkipNextPlay";
 
+    private static bool isUpdating;
     [InitializeOnEnterPlayMode]
     private static void OnEnterPlayMode(
         EnterPlayModeOptions options
     )
     {
+        if (SessionState.GetBool(
+            SkipNextPlayKey,
+            false
+        ))
+        {
+            SessionState.SetBool(
+                SkipNextPlayKey,
+                false
+            );
+
+            return;
+        }
+
         if (isUpdating)
             return;
 
         StartUpdate();
     }
-
     private static async void StartUpdate()
     {
         isUpdating = true;
@@ -57,8 +70,9 @@ public static class TranslationEditorUpdater
                 FinishUpdate();
                 return;
             }
-
-            if (string.IsNullOrWhiteSpace(config.apiKey))
+            if (string.IsNullOrWhiteSpace(
+                config.apiKey
+            ))
             {
                 Debug.LogWarning(
                     "Google Sheets API key is missing. " +
@@ -68,8 +82,9 @@ public static class TranslationEditorUpdater
                 FinishUpdate();
                 return;
             }
-
-            if (string.IsNullOrWhiteSpace(config.spreadSheetID))
+            if (string.IsNullOrWhiteSpace(
+                config.spreadSheetID
+            ))
             {
                 Debug.LogWarning(
                     "Google Sheets Spreadsheet ID is missing. " +
@@ -79,40 +94,42 @@ public static class TranslationEditorUpdater
                 FinishUpdate();
                 return;
             }
-
             bool hasConnection =
                 await ConnectionStatus.HasConnection();
 
-            if (hasConnection)
-            {
-                await UpdateTranslationFromGoogleSheets(
-                    config
-                );
-            }
-            else
+            if (!hasConnection)
             {
                 Debug.LogWarning(
                     "No internet connection. " +
                     "Using existing local translation file."
                 );
+
+                FinishUpdate();
+                return;
             }
+            await UpdateTranslationFromGoogleSheets(
+                config
+            );
         }
         catch (Exception e)
         {
             Debug.LogError(
                 $"Failed to update translations:\n{e}"
             );
+
+            Debug.LogWarning(
+                "Using existing local translation file."
+            );
         }
 
         FinishUpdate();
     }
-
     private static TranslationEditorConfig LoadConfig()
     {
         string path = Path.Combine(
             Application.dataPath,
+            "Unity Translation Kit",
             "Scripts",
-            "Localization",
             "Editor",
             ConfigFileName
         );
@@ -128,12 +145,13 @@ public static class TranslationEditorUpdater
 
         try
         {
-            string json = File.ReadAllText(path);
+            string json =
+                File.ReadAllText(path);
 
             TranslationEditorConfig config =
-                JsonConvert.DeserializeObject<TranslationEditorConfig>(
-                    json
-                );
+                JsonConvert.DeserializeObject<
+                    TranslationEditorConfig
+                >(json);
 
             return config;
         }
@@ -146,7 +164,6 @@ public static class TranslationEditorUpdater
             return null;
         }
     }
-
     private static async Task UpdateTranslationFromGoogleSheets(
         TranslationEditorConfig config
     )
@@ -171,17 +188,23 @@ public static class TranslationEditorUpdater
             return;
         }
 
-        RemoveEmptyTranslations(translations);
+        RemoveEmptyTranslations(
+            translations
+        );
 
-        SaveTranslationData(translations);
+        SaveTranslationData(
+            translations
+        );
 
         Debug.Log(
             "Translations successfully updated from Google Sheets."
         );
     }
-
     private static void RemoveEmptyTranslations(
-        Dictionary<string, Dictionary<string, string>> translations
+        Dictionary<
+            string,
+            Dictionary<string, string>
+        > translations
     )
     {
         if (translations == null)
@@ -190,7 +213,9 @@ public static class TranslationEditorUpdater
         foreach (var entry in translations)
         {
             var languageCodes =
-                new List<string>(entry.Value.Keys);
+                new List<string>(
+                    entry.Value.Keys
+                );
 
             foreach (var code in languageCodes)
             {
@@ -203,9 +228,11 @@ public static class TranslationEditorUpdater
             }
         }
     }
-
     private static void SaveTranslationData(
-        Dictionary<string, Dictionary<string, string>> translations
+        Dictionary<
+            string,
+            Dictionary<string, string>
+        > translations
     )
     {
         if (translations == null)
@@ -218,20 +245,24 @@ public static class TranslationEditorUpdater
             return;
         }
 
-        string resourcesPath = Path.Combine(
-            Application.dataPath,
-            "Resources"
-        );
+        string resourcesPath =
+            Path.Combine(
+                Application.dataPath,
+                "Resources"
+            );
 
         if (!Directory.Exists(resourcesPath))
         {
-            Directory.CreateDirectory(resourcesPath);
+            Directory.CreateDirectory(
+                resourcesPath
+            );
         }
 
-        string path = Path.Combine(
-            resourcesPath,
-            TranslationFileName
-        );
+        string path =
+            Path.Combine(
+                resourcesPath,
+                TranslationFileName
+            );
 
         var data = new TranslationData
         {
@@ -244,7 +275,10 @@ public static class TranslationEditorUpdater
                 Formatting.Indented
             );
 
-        File.WriteAllText(path, json);
+        File.WriteAllText(
+            path,
+            json
+        );
 
         AssetDatabase.Refresh();
 
@@ -255,7 +289,14 @@ public static class TranslationEditorUpdater
     private static void FinishUpdate()
     {
         isUpdating = false;
-        EditorApplication.EnterPlaymode();
+        SessionState.SetBool(
+            SkipNextPlayKey,
+            true
+        );
+        EditorApplication.delayCall += () =>
+        {
+            EditorApplication.EnterPlaymode();
+        };
     }
 }
 #endif
