@@ -4,16 +4,12 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-#if UNITY_EDITOR
-using UnityEditor;
-using System.Threading.Tasks;
-#endif
-
 [System.Serializable]
 public class TranslationData
 {
     public Dictionary<string, Dictionary<string, string>> translations;
 }
+
 [System.Serializable]
 public class SelectedLanguageData
 {
@@ -26,15 +22,6 @@ public class LanguageDatabase : MonoBehaviour
 
     [Header("Default Translation")]
     [SerializeField] private TextAsset defaultTranslationFile;
-
-#if UNITY_EDITOR
-    [Header("Google Sheets - Editor Only")]
-    [SerializeField] private string apiKey;
-    [SerializeField] private string spreadSheetID;
-#endif
-
-    [SerializeField] private string fileName = "translations.json";
-
     private Dictionary<string, Dictionary<string, string>> _translations;
 
     public string SelectedLanguage { get; set; } = "english";
@@ -53,24 +40,10 @@ public class LanguageDatabase : MonoBehaviour
         Instance = this;
     }
 
-    private async void Start()
+    private void Start()
     {
         LoadSelectedLanguage();
         LoadDefaultTranslationFile();
-
-#if UNITY_EDITOR
-        bool hasConnection = await ConnectionStatus.HasConnection();
-
-        if (hasConnection)
-        {
-            await UpdateTranslationFromGoogleSheets();
-        }
-        else
-        {
-            Debug.LogWarning("No internet connection. Using local translation file.");
-        }
-
-#endif
 
         IsInitialized = true;
         OnInitalized?.Invoke();
@@ -109,9 +82,9 @@ public class LanguageDatabase : MonoBehaviour
     private void LoadSelectedLanguage()
     {
         string path = Path.Combine(
-       Application.persistentDataPath,
-       "selectedLanguage.json"
-   );
+            Application.persistentDataPath,
+            "selectedLanguage.json"
+        );
 
         if (!File.Exists(path))
         {
@@ -139,93 +112,6 @@ public class LanguageDatabase : MonoBehaviour
             Debug.LogError($"Failed to load selected language:\n{e}");
         }
     }
-
-#if UNITY_EDITOR
-
-    private async Task UpdateTranslationFromGoogleSheets()
-    {
-        Debug.Log("Updating translations from Google Sheets...");
-
-        var translations =
-            await TranslationSheet.FetchAllSheets(
-                apiKey,
-                spreadSheetID
-            );
-
-        if (translations == null)
-        {
-            Debug.LogWarning(
-                "Failed to download translations. " +
-                "Using local translation file."
-            );
-
-            return;
-        }
-
-        _translations = translations;
-
-        RemoveEmptyTranslations();
-
-        SaveTranslationData();
-
-        Debug.Log("Translations successfully updated from Google Sheets.");
-    }
-
-    private void RemoveEmptyTranslations()
-    {
-        if (_translations == null)
-            return;
-
-        foreach (var entry in _translations)
-        {
-            var languageCodes =
-                new List<string>(entry.Value.Keys);
-
-            foreach (var code in languageCodes)
-            {
-                if (string.IsNullOrWhiteSpace(entry.Value[code]))
-                {
-                    entry.Value.Remove(code);
-                }
-            }
-        }
-    }
-
-    private void SaveTranslationData()
-    {
-        if (_translations == null)
-        {
-            Debug.LogWarning(
-                "Cannot save translations because translation data is null."
-            );
-
-            return;
-        }
-
-        string path = Path.Combine(
-            Application.dataPath,
-            "Resources",
-            fileName
-        );
-
-        var data = new TranslationData
-        {
-            translations = _translations
-        };
-
-        string json = JsonConvert.SerializeObject(
-            data,
-            Formatting.Indented
-        );
-
-        File.WriteAllText(path, json);
-
-        AssetDatabase.Refresh();
-
-        Debug.Log($"Translation file saved to:\n{path}");
-    }
-
-#endif
 
     public void SaveSelectedLanguage()
     {
