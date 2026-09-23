@@ -1653,9 +1653,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb59793df5478e04db85ec5942b49780, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  apiKey: 
-  spreadSheetID: 
-  fileName: translations.json
+  defaultTranslationFile: {fileID: 4900000, guid: 129c52b42e1d44f4e9b96ae61ff56a29, type: 3}
 --- !u!4 &1786974554
 Transform:
   m_ObjectHideFlags: 0
@@ -2119,6 +2117,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
+  m_UseReflectionProbes: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
