@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [System.Serializable]
@@ -24,16 +25,16 @@ public class GameSceneBootstrap : MonoBehaviour
     [SerializeField] private TileStatusController tileStatus;
     [SerializeField] private PlantController plantController;
     [SerializeField] private WaterController waterController;
-    [SerializeField] private PlantHarvestController plantHarvestController;
-    [SerializeField] private CursorController cursorController;
+    [SerializeField] private HarvestController harvestController;
+    [SerializeField] private FarmModeController farmModeController;
 
     private void Awake()
     {
         farmManager.Initialize(farmMechanics);
         tileStatus.Initialize(farmMechanics, playerController);
-        plantController.Initalize(farmMechanics, playerController);
-        waterController.Initialize(farmMechanics, playerController);
-        plantHarvestController.Initialize(farmMechanics, playerController);
-        //cursorController.Initialize(farmMechanics);
+        plantController.Initalize(farmMechanics, tileStatus);
+        waterController.Initialize(farmMechanics, tileStatus);
+        harvestController.Initialize(farmMechanics, tileStatus);
+        farmModeController.Initialize(plantController,waterController, harvestController);
     }
 }
