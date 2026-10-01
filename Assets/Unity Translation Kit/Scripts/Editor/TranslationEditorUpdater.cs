@@ -248,6 +248,7 @@ public static class TranslationEditorUpdater
         string resourcesPath =
             Path.Combine(
                 Application.dataPath,
+                "Unity Translation Kit",
                 "Resources"
             );
 
