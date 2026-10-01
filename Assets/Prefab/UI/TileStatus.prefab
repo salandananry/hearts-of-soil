@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3161826862079891285}
   - component: {fileID: 8909910962768997826}
   - component: {fileID: 9218914255650487551}
+  - component: {fileID: 3964714094548237529}
   m_Layer: 5
   m_Name: WaterButton
   m_TagString: Untagged
@@ -132,6 +133,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &3964714094548237529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423300305989299218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a66d499c8f02714da252e4e4cef26c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIPanelTransition
+  startScale: 0
+  duration: 0.25
+  easeType: 27
 --- !u!1 &2294981922300215387
 GameObject:
   m_ObjectHideFlags: 0
@@ -144,6 +160,7 @@ GameObject:
   - component: {fileID: 8806566207359190347}
   - component: {fileID: 2568866216444394858}
   - component: {fileID: 7058742831189446812}
+  - component: {fileID: 8192758254201372795}
   m_Layer: 5
   m_Name: PlantButton
   m_TagString: Untagged
@@ -265,6 +282,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &8192758254201372795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2294981922300215387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a66d499c8f02714da252e4e4cef26c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIPanelTransition
+  startScale: 0
+  duration: 0.25
+  easeType: 27
 --- !u!1 &2836560959000567421
 GameObject:
   m_ObjectHideFlags: 0
@@ -277,6 +309,7 @@ GameObject:
   - component: {fileID: 2538119720623181788}
   - component: {fileID: 4838193147405344866}
   - component: {fileID: 5454713049289603163}
+  - component: {fileID: 6105134159535459556}
   m_Layer: 5
   m_Name: HarvestButton
   m_TagString: Untagged
@@ -397,6 +430,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &6105134159535459556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2836560959000567421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a66d499c8f02714da252e4e4cef26c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIPanelTransition
+  startScale: 0
+  duration: 0.25
+  easeType: 27
 --- !u!1 &4121428260439889661
 GameObject:
   m_ObjectHideFlags: 0
@@ -407,6 +455,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3025361882692892075}
   - component: {fileID: 5006474796655543649}
+  - component: {fileID: 2118958037228928508}
   m_Layer: 5
   m_Name: Buttons
   m_TagString: Untagged
@@ -448,6 +497,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cdabed2ac2d38c45b07706ae3279ca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FarmModeController
+--- !u!114 &2118958037228928508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4121428260439889661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5293aca613df7964287851f34b797a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIPanelSequence
+  panels:
+  - {fileID: 8192758254201372795}
+  - {fileID: 3964714094548237529}
+  - {fileID: 6105134159535459556}
 --- !u!1 &5837939811164637697
 GameObject:
   m_ObjectHideFlags: 0
