@@ -9,6 +9,9 @@ public class WaterController : MonoBehaviour
     [Header("Tile Sprites:")]
     [SerializeField] private IsometricRuleTile drySoil;
     [SerializeField] private IsometricRuleTile wetSoil;
+
+    [Header("Player object:")]
+    [SerializeField] private GameObject playerObject;
     #endregion
 
     #region INITIALIZE

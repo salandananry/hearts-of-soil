@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using UnityEngine.EventSystems;
 
+[RequireComponent (typeof(PlayerMovement))]
 public class PlayerController : MonoBehaviour
 {
     public event Action <Vector2> OnPlayerInteract;
