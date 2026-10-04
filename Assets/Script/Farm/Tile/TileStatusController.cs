@@ -40,19 +40,14 @@ public class TileStatusController : MonoBehaviour
     #region EVENT HANDLERS
     private void HandlePlayerInspect(Vector2 mousePos)
     {
-        //if (farmMechanics.FarmModeController.CurrentFarmMode != FarmMode.Inspect) return;
+        if (farmMechanics.FarmModeController.CurrentFarmMode != FarmMode.Inspect) return;
 
         Vector3Int targetTile = farmMechanics.TileUtility.WorldToCell(mousePos);
 
-        if (!farmMechanics.TileUtility.HasTile(targetTile))
-        {
-            if (statusPanel.gameObject.activeSelf)
-            {
-                statusPanel.Close();
-            }
-            return;
-        }
+        if (!farmMechanics.TileUtility.HasTile(targetTile)) return;
+
         currentViewedTile = targetTile;
+
         RefreshTileStatus(targetTile);
         statusPanel.Open();
     }
