@@ -5,10 +5,13 @@ public class PlantController : MonoBehaviour
 {
     #region FIELDS
     private FarmMechanics farmMechanics;
-    private TileStatusController tileStatusController;
+    private PlayerController playerController;
 
     [Header("Plant prefab:")]
     [SerializeField] private GameObject plantPrefab;
+
+    [Header("Player object:")]
+    [SerializeField] private GameObject playerObject;
 
     private Dictionary<Vector3Int, GameObject> spawnedPlants =
     new Dictionary<Vector3Int, GameObject>();
@@ -17,10 +20,10 @@ public class PlantController : MonoBehaviour
     #region INITIALIZE
     public void Initalize(
         FarmMechanics farmMechanics,
-        TileStatusController tileStatusController)
+        PlayerController playerController)
     {
         this.farmMechanics = farmMechanics;
-        this.tileStatusController = tileStatusController;
+        this.playerController = playerController;
         SubscribeEvents();
         LoadExistingPlants();
     }
@@ -32,12 +35,15 @@ public class PlantController : MonoBehaviour
         farmMechanics.FarmManager.RestorePlants();
     }
     #endregion
-    public void PlantSelectedTile()
+
+    #region EVENT HANDLERS
+    private void HandlePlayerPlant(Vector2 mousePos)
     {
-        Vector3Int targetTile = tileStatusController.CurrentViewedTile;
+        if (farmMechanics.FarmModeController.CurrentFarmMode != FarmMode.Plant) return;
+
+        Vector3Int targetTile = farmMechanics.TileUtility.WorldToCell(mousePos);
         farmMechanics.FarmManager.SpawnNewPlant(targetTile);
     }
-    #region EVENT HANDLERS
     private void OnSeedPlantHandler(Vector3Int targetTile)
     {
         GameObject plant = Instantiate(
@@ -92,12 +98,17 @@ public class PlantController : MonoBehaviour
     #region SUBSCRIPTIONS
     private void SubscribeEvents()
     {
+        playerController.OnPlayerInteract += HandlePlayerPlant;
+
         farmMechanics.FarmManager.OnPlantCreated += OnSeedPlantHandler;
         farmMechanics.PlantGrowthManager.OnGrowthStageChanged += UpdatePlantVisual;
         farmMechanics.FarmManager.OnHarvestPlant += RemovePlantAt;
+
     }
     private void OnDestroy()
     {
+        playerController.OnPlayerInteract -= HandlePlayerPlant;
+
         farmMechanics.FarmManager.OnPlantCreated -= OnSeedPlantHandler;
         farmMechanics.PlantGrowthManager.OnGrowthStageChanged -= UpdatePlantVisual;
         farmMechanics.FarmManager.OnHarvestPlant -= RemovePlantAt;

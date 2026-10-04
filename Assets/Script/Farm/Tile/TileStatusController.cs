@@ -23,7 +23,6 @@ public class TileStatusController : MonoBehaviour
     [SerializeField] private Sprite wetTile;
 
     private Vector3Int currentViewedTile;
-    public Vector3Int CurrentViewedTile => currentViewedTile;
     #endregion
 
     #region INITIALIZE
@@ -41,6 +40,8 @@ public class TileStatusController : MonoBehaviour
     #region EVENT HANDLERS
     private void HandlePlayerInspect(Vector2 mousePos)
     {
+        //if (farmMechanics.FarmModeController.CurrentFarmMode != FarmMode.Inspect) return;
+
         Vector3Int targetTile = farmMechanics.TileUtility.WorldToCell(mousePos);
 
         if (!farmMechanics.TileUtility.HasTile(targetTile))
@@ -53,14 +54,6 @@ public class TileStatusController : MonoBehaviour
         }
         currentViewedTile = targetTile;
         RefreshTileStatus(targetTile);
-
-        Vector3 targetPosition = farmMechanics.TileUtility.GetTileWorldPosition(
-            targetTile,
-            2f,
-            0f
-        );
-
-        statusPanel.transform.position = targetPosition;
         statusPanel.Open();
     }
     private void RefreshTileStatus(Vector3Int targetTile)
