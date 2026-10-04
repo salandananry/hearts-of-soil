@@ -14,10 +14,9 @@ public class UIPanelTransition : MonoBehaviour
     }
     public void Open()
     {
-        if (!gameObject.activeSelf)
-        {
-            gameObject.SetActive(true);
-        }
+        if (gameObject.activeSelf) return;
+
+        gameObject.SetActive(true);
 
         rectTransform.DOKill();
         rectTransform.localScale = Vector3.one * startScale;
