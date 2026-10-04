@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class CameraPanController : MonoBehaviour
 {
@@ -24,8 +23,6 @@ public class CameraPanController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (EventSystem.current.IsPointerOverGameObject()) return;
-
             lastWorldPosition = GetMouseWorldPosition();
             isDragging = true;
         }
