@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class TileStatusController : MonoBehaviour
@@ -11,6 +12,7 @@ public class TileStatusController : MonoBehaviour
 
 
     [Header("Status panel")]
+    [SerializeField] private UIPanelTransition statusPopUp;
     [SerializeField] private UIPanelTransition statusPanel;
     [SerializeField] private Image soilImagePreview;
     [SerializeField] private Image plantImagePreview;
@@ -22,7 +24,7 @@ public class TileStatusController : MonoBehaviour
     [SerializeField] private Sprite dryTile;
     [SerializeField] private Sprite wetTile;
 
-    private Vector3Int currentViewedTile;
+    private Vector3Int? currentViewedTile;
     #endregion
 
     #region INITIALIZE
@@ -36,7 +38,38 @@ public class TileStatusController : MonoBehaviour
         SubscribeEvents();
     }
     #endregion
+    #region POP UP
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (!collision.CompareTag("Player")) return;
 
+        Vector3Int newTile =
+            farmMechanics.TileUtility.WorldToCell(collision.transform.position);
+
+        if (!farmMechanics.TileUtility.HasTile(newTile)) return;
+        if (currentViewedTile.HasValue && newTile == currentViewedTile.Value) return;
+
+        currentViewedTile = newTile;
+
+        Vector3 targetPosition = farmMechanics.TileUtility.GetTileWorldPosition(
+            currentViewedTile.Value, 
+            0.40f,
+            0.75f
+        );
+        statusPopUp.transform.position = targetPosition;
+        statusPopUp.Open();
+        //Debug.LogError($"Player entered tile: {newTile}");
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            currentViewedTile = null;
+            statusPopUp.Close();
+            //Debug.LogError("Player left the soil tilemap");
+        }
+    }
+    #endregion
     #region EVENT HANDLERS
     private void HandlePlayerInspect(Vector2 mousePos)
     {

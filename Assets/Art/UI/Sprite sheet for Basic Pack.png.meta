@@ -1717,7 +1717,7 @@ TextureImporter:
         width: 35
         height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1726,6 +1726,28 @@ TextureImporter:
       bones: []
       spriteID: 175d4f77e6980584b97654abcc554b12
       internalID: -95880208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: status_pop_up
+      rect:
+        serializedVersion: 2
+        x: 626
+        y: 35
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91f99351f9ac3164bbe251707d0b4324
+      internalID: 1753951042
       vertices: []
       indices: 
       edges: []
@@ -1809,6 +1831,7 @@ TextureImporter:
       slider_buton_unselected: -708511931
       slider_button_selected: 675099205
       slider_fill: 987887497
+      status_pop_up: 1753951042
       unmute_button: -2111125003
       unmute_button_unselected: -2111125003
       unpause_button_selected: 1133473247
