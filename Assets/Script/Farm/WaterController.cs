@@ -38,16 +38,16 @@ public class WaterController : MonoBehaviour
     {
         if (farmMechanics.FarmModeController.CurrentFarmMode != FarmMode.Water) return;
 
-        Vector3Int targetTile = farmMechanics.TileUtility.WorldToCell(mousePos);
+        Vector3Int targetTile = farmMechanics.SoilTileUtility.WorldToCell(mousePos);
         farmMechanics.FarmManager.WaterSoil(targetTile);
     }
     private void OnSoilWateredHandler(Vector3Int targetTile)
     {
-        farmMechanics.TileMapController.SetTileSprite(targetTile, wetSoil);
+        farmMechanics.SoilTileMapController.SetTile(targetTile, wetSoil);
     }
     private void OnPlantHarvestHandler(Vector3Int targetTile)
     {
-        farmMechanics.TileMapController.SetTileSprite(targetTile, drySoil);
+        farmMechanics.SoilTileMapController.SetTile(targetTile, drySoil);
     }
     #endregion
 

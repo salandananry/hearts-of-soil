@@ -3,18 +3,18 @@ using UnityEngine.Tilemaps;
 
 public class TileMapController : MonoBehaviour
 {
-    [SerializeField] private Tilemap soilTileMap;
+    private Tilemap targetTileMap;
 
-    public void SetTileSprite(Vector3Int targetTile, IsometricRuleTile targetSprite)
+    private void Awake()
     {
-        soilTileMap.SetTile(targetTile, targetSprite);
+        targetTileMap = GetComponent<Tilemap>();
     }
-    public bool HasTile(Vector3Int targetTile)
+    public void SetTile(Vector3Int targetTile, IsometricRuleTile targetSprite)
     {
-        return soilTileMap.HasTile(targetTile);
+        targetTileMap.SetTile(targetTile, targetSprite);
     }
-    public Tilemap GetSoilTileMap()
+    public Tilemap GetTargetTileMap()
     {
-        return soilTileMap;
+        return targetTileMap;
     }
 }

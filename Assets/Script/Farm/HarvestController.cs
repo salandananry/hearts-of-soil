@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlantHarvestController : MonoBehaviour
+public class HarvestController : MonoBehaviour
 {
     #region FIELDS
     private FarmMechanics farmMechanics;
@@ -23,7 +23,7 @@ public class PlantHarvestController : MonoBehaviour
     {
         if (farmMechanics.FarmModeController.CurrentFarmMode != FarmMode.Harvest) return;
 
-        Vector3Int targetTile = farmMechanics.TileUtility.WorldToCell(mousePos);
+        Vector3Int targetTile = farmMechanics.SoilTileUtility.WorldToCell(mousePos);
         farmMechanics.FarmManager.HarvestPlant(targetTile);
     }
     #endregion

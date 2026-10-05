@@ -3,31 +3,34 @@ using UnityEngine.Tilemaps;
 
 public class TileUtility : MonoBehaviour
 {
-    [SerializeField] private TileMapController tileMapController;
+    private TileMapController tileMapController;
+    private Tilemap targetTileMap => tileMapController.GetTargetTileMap();
 
-    private Tilemap SoilTileMap => tileMapController.GetSoilTileMap();
-
+    private void Awake()
+    {
+        tileMapController = GetComponent<TileMapController>();
+    }
     public Vector3Int WorldToCell(Vector3 worldPosition)
     {
-        return SoilTileMap.WorldToCell(worldPosition);
+        return targetTileMap.WorldToCell(worldPosition);
     }
 
     public Vector3 GetTileWorldPosition(Vector3Int cell, float xOffset, float yOffset)
     {
-        Vector3 pos = SoilTileMap.GetCellCenterWorld(cell);
+        Vector3 pos = targetTileMap.GetCellCenterWorld(cell);
         pos.x += xOffset;
         pos.y += yOffset;
         return pos;
     }
 
-    public bool HasTile(Vector3Int targetTile)
+    public bool HasTile(Vector3Int cell)
     {
-        return SoilTileMap.HasTile(targetTile);
+        return targetTileMap.HasTile(cell);
     }
 
     public BoundsInt GetBounds()
     {
-        return SoilTileMap.cellBounds;
+        return targetTileMap.cellBounds;
     }
     public void ForEachTile(System.Action<Vector3Int> action)
     {

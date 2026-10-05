@@ -41,14 +41,14 @@ public class PlantController : MonoBehaviour
     {
         if (farmMechanics.FarmModeController.CurrentFarmMode != FarmMode.Plant) return;
 
-        Vector3Int targetTile = farmMechanics.TileUtility.WorldToCell(mousePos);
+        Vector3Int targetTile = farmMechanics.SoilTileUtility.WorldToCell(mousePos);
         farmMechanics.FarmManager.SpawnNewPlant(targetTile);
     }
     private void OnSeedPlantHandler(Vector3Int targetTile)
     {
         GameObject plant = Instantiate(
             plantPrefab,
-            farmMechanics.TileUtility.GetTileWorldPosition(targetTile, 0f, 0f),
+            farmMechanics.SoilTileUtility.GetTileWorldPosition(targetTile, 0f, 0f),
             Quaternion.identity,
             transform
          );
@@ -68,7 +68,7 @@ public class PlantController : MonoBehaviour
             return;
 
         Vector3 position =
-            farmMechanics.TileUtility.GetTileWorldPosition(
+            farmMechanics.SoilTileUtility.GetTileWorldPosition(
                 targetTile,
                 0f,
                 0f

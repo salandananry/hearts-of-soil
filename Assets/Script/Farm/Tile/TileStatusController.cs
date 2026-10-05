@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class TileStatusController : MonoBehaviour
@@ -24,7 +23,7 @@ public class TileStatusController : MonoBehaviour
     [SerializeField] private Sprite dryTile;
     [SerializeField] private Sprite wetTile;
 
-    private Vector3Int? currentViewedTile;
+    private Vector3Int? currentViewedCell;
     #endregion
 
     #region INITIALIZE
@@ -38,55 +37,57 @@ public class TileStatusController : MonoBehaviour
         SubscribeEvents();
     }
     #endregion
-    #region POP UP
-    private void OnTriggerStay2D(Collider2D collision)
+    private void Update()
     {
-        if (!collision.CompareTag("Player")) return;
+        Vector3Int playerCell =
+    farmMechanics.SoilTileUtility.WorldToCell(playerController.transform.position);
 
-        Vector3Int newTile =
-            farmMechanics.TileUtility.WorldToCell(collision.transform.position);
+        if (!farmMechanics.SoilTileUtility.HasTile(playerCell))
+        {
+            if (currentViewedCell.HasValue)
+            {
+                currentViewedCell = null;
+                statusPopUp.Close();
+            }
 
-        if (!farmMechanics.TileUtility.HasTile(newTile)) return;
-        if (currentViewedTile.HasValue && newTile == currentViewedTile.Value) return;
+            return;
+        }
 
-        currentViewedTile = newTile;
+        if (currentViewedCell.HasValue &&
+            playerCell == currentViewedCell.Value)
+        {
+            return;
+        }
 
-        Vector3 targetPosition = farmMechanics.TileUtility.GetTileWorldPosition(
-            currentViewedTile.Value, 
-            0.40f,
-            0.75f
-        );
+        currentViewedCell = playerCell;
+
+        Vector3 targetPosition =
+            farmMechanics.SoilTileUtility.GetTileWorldPosition(
+                playerCell,
+                0.40f,
+                0.75f
+            );
+
         statusPopUp.transform.position = targetPosition;
         statusPopUp.Open();
-        //Debug.LogError($"Player entered tile: {newTile}");
     }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            currentViewedTile = null;
-            statusPopUp.Close();
-            //Debug.LogError("Player left the soil tilemap");
-        }
-    }
-    #endregion
     #region EVENT HANDLERS
     private void HandlePlayerInspect(Vector2 mousePos)
     {
         if (farmMechanics.FarmModeController.CurrentFarmMode != FarmMode.Inspect) return;
 
-        Vector3Int targetTile = farmMechanics.TileUtility.WorldToCell(mousePos);
+        Vector3Int targetTile = farmMechanics.SoilTileUtility.WorldToCell(mousePos);
 
-        if (!farmMechanics.TileUtility.HasTile(targetTile)) return;
+        if (!farmMechanics.SoilTileUtility.HasTile(targetTile)) return;
 
-        currentViewedTile = targetTile;
+        currentViewedCell = targetTile;
 
         RefreshTileStatus(targetTile);
         statusPanel.Open();
     }
     private void RefreshTileStatus(Vector3Int targetTile)
     {
-        if (targetTile != currentViewedTile) return;
+        if (targetTile != currentViewedCell) return;
 
         RefreshSoilPreview(targetTile);
         RefreshPlantPreview(targetTile);
