@@ -18,10 +18,10 @@ public class PlayerController : MonoBehaviour
 
         MovementInput();
 
-        if(Input.GetMouseButtonDown(1))
+        if(Input.GetKeyDown(KeyCode.E))
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            if (!IsWithinInteractRange(mousePos)) return;
+            //if (!IsWithinInteractRange(mousePos)) return;
             OnPlayerInteract?.Invoke(mousePos);
         }
     }

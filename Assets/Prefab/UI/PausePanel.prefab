@@ -849,7 +849,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a66d499c8f02714da252e4e4cef26c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIPopUp
-  startScale: 0
+  originalScale: {x: 1, y: 1, z: 0}
   duration: 0.25
   easeType: 27
 --- !u!1 &5521530287553746180

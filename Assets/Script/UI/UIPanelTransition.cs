@@ -3,16 +3,10 @@ using DG.Tweening;
 
 public class UIPanelTransition : MonoBehaviour
 {
-    [SerializeField] Vector3 startScale = Vector3.zero;
+    [SerializeField] private Vector3 originalScale = Vector3.one;
     [SerializeField] private float duration;
     [SerializeField] private Ease easeType;
-    private RectTransform rectTransform;    
-    private Vector3 originalScale;
-    private void Awake()
-    {
-        rectTransform = GetComponent<RectTransform>();
-        originalScale = transform.localScale;
-    }
+    private Vector3 startScale = Vector3.zero;
     public void Open()
     {
         gameObject.SetActive(true);

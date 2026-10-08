@@ -25,9 +25,7 @@ public class GameSceneBootstrap : MonoBehaviour
     [SerializeField] private PlantController plantController;
     [SerializeField] private WaterController waterController;
     [SerializeField] private HarvestController plantHarvestController;
-    [SerializeField] private CursorController cursorController;
-
-    private void Awake()
+    private void Start()
     {
         farmManager.Initialize(farmMechanics);
         tileStatus.Initialize(farmMechanics, playerController);

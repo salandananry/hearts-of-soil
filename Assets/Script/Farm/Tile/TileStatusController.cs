@@ -48,6 +48,7 @@ public class TileStatusController : MonoBehaviour
             {
                 currentViewedCell = null;
                 statusPopUp.Close();
+                statusPanel.Close();
             }
 
             return;
@@ -70,20 +71,22 @@ public class TileStatusController : MonoBehaviour
 
         statusPopUp.transform.position = targetPosition;
         statusPopUp.Open();
+        statusPanel.Close();
     }
     #region EVENT HANDLERS
     private void HandlePlayerInspect(Vector2 mousePos)
     {
-        if (farmMechanics.FarmModeController.CurrentFarmMode != FarmMode.Inspect) return;
+        //if (farmMechanics.FarmModeController.CurrentFarmMode != FarmMode.Inspect) return;
 
-        Vector3Int targetTile = farmMechanics.SoilTileUtility.WorldToCell(mousePos);
+        Vector3Int targetTile = farmMechanics.SoilTileUtility.WorldToCell(playerController.transform.position);
 
         if (!farmMechanics.SoilTileUtility.HasTile(targetTile)) return;
 
-        currentViewedCell = targetTile;
+        //currentViewedCell = targetTile;
 
         RefreshTileStatus(targetTile);
         statusPanel.Open();
+        statusPopUp.Close();
     }
     private void RefreshTileStatus(Vector3Int targetTile)
     {
@@ -157,7 +160,7 @@ public class TileStatusController : MonoBehaviour
     {
         if(farmMode != FarmMode.Inspect && statusPanel.gameObject.activeInHierarchy)
         {
-            statusPanel.Close();
+            //statusPanel.Close();
         }
     }
     #endregion

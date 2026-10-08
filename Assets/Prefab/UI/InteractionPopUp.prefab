@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &9124916739598966527
 RectTransform:
   m_ObjectHideFlags: 0
@@ -88,6 +88,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a66d499c8f02714da252e4e4cef26c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIPanelTransition
-  startScale: {x: 0, y: 0, z: 0}
+  originalScale: {x: 0.007407407, y: 0.007407407, z: 0}
   duration: 0.25
   easeType: 27
