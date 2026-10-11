@@ -4,38 +4,28 @@ public class HarvestController : MonoBehaviour
 {
     #region FIELDS
     private FarmMechanics farmMechanics;
-    private PlayerController playerController;
+    private TileStatusController farmTileStatusController;
     #endregion
 
     #region INITIALIZE
     public void Initialize(
         FarmMechanics farmMechanics,
-        PlayerController playerController)
+        TileStatusController farmTileStatusController)
     {
         this.farmMechanics = farmMechanics;
-        this.playerController = playerController;
-        SubscribeEvents();
+        this.farmTileStatusController = farmTileStatusController;
     }
     #endregion
 
     #region EVENT HANDLERS
-    private void HandlePlayerHarvest(Vector2 mousePos)
+    public void HandlePlayerHarvest()
     {
-        if (farmMechanics.FarmModeController.CurrentFarmMode != FarmMode.Harvest) return;
-
-        Vector3Int targetTile = farmMechanics.SoilTileUtility.WorldToCell(mousePos);
+        if (!farmTileStatusController.CurrentViewedCell.HasValue)
+        {
+            return;
+        }
+        Vector3Int targetTile = farmTileStatusController.CurrentViewedCell.Value;
         farmMechanics.FarmManager.HarvestPlant(targetTile);
-    }
-    #endregion
-
-    #region SUBSCRIPTIONS
-    private void SubscribeEvents()
-    {
-        playerController.OnPlayerInteract += HandlePlayerHarvest;
-    }
-    private void OnDestroy()
-    {
-        playerController.OnPlayerInteract -= HandlePlayerHarvest;
     }
     #endregion
 }

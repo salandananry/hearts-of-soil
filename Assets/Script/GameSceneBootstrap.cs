@@ -4,11 +4,11 @@ using UnityEngine;
 public class FarmMechanics
 {
     public FarmManager FarmManager;
-    public TileUtility SoilTileUtility;
+    public TileUtility farmTileUtility;
     public PlantGrowthManager PlantGrowthManager;
     public WaterController waterController;
     public PlantController plantController;
-    public TileMapController SoilTileMapController;
+    public TileMapController farmTileStatusController;
     public FarmModeController FarmModeController;
 }
 public class GameSceneBootstrap : MonoBehaviour
@@ -21,16 +21,16 @@ public class GameSceneBootstrap : MonoBehaviour
 
     [Header("Gameplay Controllers")]
     [SerializeField] private FarmManager farmManager;
-    [SerializeField] private TileStatusController tileStatus;
+    [SerializeField] private TileStatusController FarmTileStatusController;
     [SerializeField] private PlantController plantController;
     [SerializeField] private WaterController waterController;
-    [SerializeField] private HarvestController plantHarvestController;
+    [SerializeField] private HarvestController HarvestController;
     private void Start()
     {
         farmManager.Initialize(farmMechanics);
-        tileStatus.Initialize(farmMechanics, playerController);
-        plantController.Initalize(farmMechanics, playerController);
-        waterController.Initialize(farmMechanics, playerController);
-        plantHarvestController.Initialize(farmMechanics, playerController);
+        FarmTileStatusController.Initialize(farmMechanics, playerController);
+        plantController.Initalize(farmMechanics, FarmTileStatusController);
+        waterController.Initialize(farmMechanics, FarmTileStatusController);
+        HarvestController.Initialize(farmMechanics, FarmTileStatusController);
     }
 }

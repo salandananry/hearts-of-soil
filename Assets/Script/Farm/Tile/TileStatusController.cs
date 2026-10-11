@@ -18,12 +18,15 @@ public class TileStatusController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI growthStageCount;
     [SerializeField] private TextMeshProUGUI growthStatus;
     [SerializeField] private TextMeshProUGUI tileCoordinate;
+    [Header("Dialogue panel")]
+    [SerializeField] private UIPanelTransition dialoguePanel;
 
     [Header("Soil variants:")]
     [SerializeField] private Sprite dryTile;
     [SerializeField] private Sprite wetTile;
 
     private Vector3Int? currentViewedCell;
+    public Vector3Int? CurrentViewedCell => currentViewedCell;
     #endregion
 
     #region INITIALIZE
@@ -40,14 +43,15 @@ public class TileStatusController : MonoBehaviour
     private void Update()
     {
         Vector3Int playerCell =
-    farmMechanics.SoilTileUtility.WorldToCell(playerController.transform.position);
+    farmMechanics.farmTileUtility.WorldToCell(playerController.transform.position);
 
-        if (!farmMechanics.SoilTileUtility.HasTile(playerCell))
+        if (!farmMechanics.farmTileUtility.HasTile(playerCell))
         {
             if (currentViewedCell.HasValue)
             {
                 currentViewedCell = null;
                 statusPopUp.Close();
+                dialoguePanel.Close();
                 statusPanel.Close();
             }
 
@@ -63,7 +67,7 @@ public class TileStatusController : MonoBehaviour
         currentViewedCell = playerCell;
 
         Vector3 targetPosition =
-            farmMechanics.SoilTileUtility.GetTileWorldPosition(
+            farmMechanics.farmTileUtility.GetTileWorldPosition(
                 playerCell,
                 0.40f,
                 0.75f
@@ -76,16 +80,12 @@ public class TileStatusController : MonoBehaviour
     #region EVENT HANDLERS
     private void HandlePlayerInspect(Vector2 mousePos)
     {
-        //if (farmMechanics.FarmModeController.CurrentFarmMode != FarmMode.Inspect) return;
+        Vector3Int targetTile = farmMechanics.farmTileUtility.WorldToCell(playerController.transform.position);
 
-        Vector3Int targetTile = farmMechanics.SoilTileUtility.WorldToCell(playerController.transform.position);
-
-        if (!farmMechanics.SoilTileUtility.HasTile(targetTile)) return;
-
-        //currentViewedCell = targetTile;
-
+        if (!farmMechanics.farmTileUtility.HasTile(targetTile)) return;
         RefreshTileStatus(targetTile);
         statusPanel.Open();
+        dialoguePanel.Open();
         statusPopUp.Close();
     }
     private void RefreshTileStatus(Vector3Int targetTile)
@@ -156,13 +156,6 @@ public class TileStatusController : MonoBehaviour
     {
         tileCoordinate.text = $"Tile: ({targetTile.x},{targetTile.y})";
     }
-    private void OnFarmModeChangeHandler(FarmMode farmMode)
-    {
-        if(farmMode != FarmMode.Inspect && statusPanel.gameObject.activeInHierarchy)
-        {
-            //statusPanel.Close();
-        }
-    }
     #endregion
 
     #region SUBSCRIPTIONS
@@ -174,7 +167,6 @@ public class TileStatusController : MonoBehaviour
         farmMechanics.FarmManager.OnSoilWatered += RefreshTileStatus;
         farmMechanics.FarmManager.OnHarvestPlant += RefreshTileStatus;
         farmMechanics.PlantGrowthManager.OnGrowthStageChanged += RefreshTileStatus;
-        farmMechanics.FarmModeController.OnFarmModeChange += OnFarmModeChangeHandler;
     }
     private void OnDestroy()
     {
@@ -184,7 +176,6 @@ public class TileStatusController : MonoBehaviour
         farmMechanics.FarmManager.OnSoilWatered -= RefreshTileStatus;
         farmMechanics.FarmManager.OnHarvestPlant -= RefreshTileStatus;
         farmMechanics.PlantGrowthManager.OnGrowthStageChanged -= RefreshTileStatus;
-        farmMechanics.FarmModeController.OnFarmModeChange -= OnFarmModeChangeHandler;
     }
     #endregion
 }

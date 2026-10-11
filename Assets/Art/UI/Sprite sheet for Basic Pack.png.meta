@@ -1739,7 +1739,7 @@ TextureImporter:
         width: 12
         height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1748,6 +1748,72 @@ TextureImporter:
       bones: []
       spriteID: 91f99351f9ac3164bbe251707d0b4324
       internalID: 1753951042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite sheet for Basic Pack_5
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 201
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 7, y: 7, z: 7, w: 7}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22540b1ebe6bc534e98d47e0dbe8d96b
+      internalID: -554181094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dialogue_box
+      rect:
+        serializedVersion: 2
+        x: 455
+        y: 73
+        width: 30
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 8, y: 6, z: 4, w: 4}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5753a25a0f648842b7b320bd7151e7f
+      internalID: -1725056001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite sheet for Basic Pack_6
+      rect:
+        serializedVersion: 2
+        x: 355
+        y: 3
+        width: 170
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 4, y: 5, z: 4, w: 4}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b68cf1068a0fd54c9057a5fdf5543ec
+      internalID: -56851444
       vertices: []
       indices: 
       edges: []
@@ -1807,11 +1873,14 @@ TextureImporter:
       Sprite sheet for Basic Pack_4: -7351633071973409212
       Sprite sheet for Basic Pack_40: 6386441837321303921
       Sprite sheet for Basic Pack_41: -3978695104643251425
+      Sprite sheet for Basic Pack_5: -554181094
+      Sprite sheet for Basic Pack_6: -56851444
       Sprite sheet for Basic Pack_7: 947290968
       button_background: -8458084090015514730
       close_button_selected: 5893398131277028864
       close_button_unselected: -6947281443083930522
       coin_counter_hud: 1780726644
+      dialogue_box: -1725056001
       empty_button_hotbar: 4658610957094169638
       harvest_button_hotbar: 4813360202715789574
       harvest_button_selected: -4104028942534283489

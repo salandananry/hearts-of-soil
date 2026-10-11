@@ -5,7 +5,7 @@ public class PlantController : MonoBehaviour
 {
     #region FIELDS
     private FarmMechanics farmMechanics;
-    private PlayerController playerController;
+    private TileStatusController farmTileStatusController;
 
     [Header("Plant prefab:")]
     [SerializeField] private GameObject plantPrefab;
@@ -20,10 +20,10 @@ public class PlantController : MonoBehaviour
     #region INITIALIZE
     public void Initalize(
         FarmMechanics farmMechanics,
-        PlayerController playerController)
+        TileStatusController farmTileStatusController)
     {
         this.farmMechanics = farmMechanics;
-        this.playerController = playerController;
+        this.farmTileStatusController = farmTileStatusController;
         SubscribeEvents();
         LoadExistingPlants();
     }
@@ -37,18 +37,20 @@ public class PlantController : MonoBehaviour
     #endregion
 
     #region EVENT HANDLERS
-    private void HandlePlayerPlant(Vector2 mousePos)
+    public void HandlePlayerPlant()
     {
-        if (farmMechanics.FarmModeController.CurrentFarmMode != FarmMode.Plant) return;
-
-        Vector3Int targetTile = farmMechanics.SoilTileUtility.WorldToCell(mousePos);
+        if (!farmTileStatusController.CurrentViewedCell.HasValue)
+        {
+            return;
+        }
+        Vector3Int targetTile = farmTileStatusController.CurrentViewedCell.Value;
         farmMechanics.FarmManager.SpawnNewPlant(targetTile);
     }
     private void OnSeedPlantHandler(Vector3Int targetTile)
     {
         GameObject plant = Instantiate(
             plantPrefab,
-            farmMechanics.SoilTileUtility.GetTileWorldPosition(targetTile, 0f, 0f),
+            farmMechanics.farmTileUtility.GetTileWorldPosition(targetTile, 0f, 0f),
             Quaternion.identity,
             transform
          );
@@ -68,7 +70,7 @@ public class PlantController : MonoBehaviour
             return;
 
         Vector3 position =
-            farmMechanics.SoilTileUtility.GetTileWorldPosition(
+            farmMechanics.farmTileUtility.GetTileWorldPosition(
                 targetTile,
                 0f,
                 0f
@@ -98,17 +100,12 @@ public class PlantController : MonoBehaviour
     #region SUBSCRIPTIONS
     private void SubscribeEvents()
     {
-        playerController.OnPlayerInteract += HandlePlayerPlant;
-
         farmMechanics.FarmManager.OnPlantCreated += OnSeedPlantHandler;
         farmMechanics.PlantGrowthManager.OnGrowthStageChanged += UpdatePlantVisual;
         farmMechanics.FarmManager.OnHarvestPlant += RemovePlantAt;
-
     }
     private void OnDestroy()
     {
-        playerController.OnPlayerInteract -= HandlePlayerPlant;
-
         farmMechanics.FarmManager.OnPlantCreated -= OnSeedPlantHandler;
         farmMechanics.PlantGrowthManager.OnGrowthStageChanged -= UpdatePlantVisual;
         farmMechanics.FarmManager.OnHarvestPlant -= RemovePlantAt;

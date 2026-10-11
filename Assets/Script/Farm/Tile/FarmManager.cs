@@ -22,7 +22,7 @@ public class FarmManager : MonoBehaviour
     #region FARM ACTION
     public void RestorePlants()
     {
-        var farmUtility = farmMechanics.SoilTileUtility;
+        var farmUtility = farmMechanics.farmTileUtility;
         farmUtility.ForEachTile(targetTile =>
         {
             if (!farmUtility.HasTile(targetTile)) return;
@@ -33,7 +33,7 @@ public class FarmManager : MonoBehaviour
     }
     public void SpawnNewPlant(Vector3Int targetTile)
     {
-        var farmUtility = farmMechanics.SoilTileUtility;
+        var farmUtility = farmMechanics.farmTileUtility;
 
         if (!farmUtility.HasTile(targetTile)) return;
         if (HasPlant(targetTile)) return;
@@ -44,7 +44,7 @@ public class FarmManager : MonoBehaviour
     }
     public void RestoreWateredSoil()
     {
-        var farmUtility = farmMechanics.SoilTileUtility;
+        var farmUtility = farmMechanics.farmTileUtility;
         farmUtility.ForEachTile(targetTile =>
         {
             if (!farmUtility.HasTile(targetTile)) return;
@@ -55,7 +55,7 @@ public class FarmManager : MonoBehaviour
     }
     public void WaterSoil(Vector3Int targetTile)
     {
-        var farmUtility = farmMechanics.SoilTileUtility;
+        var farmUtility = farmMechanics.farmTileUtility;
 
         if (!farmUtility.HasTile(targetTile)) return;
         if (!HasPlant(targetTile)) return;
@@ -66,7 +66,7 @@ public class FarmManager : MonoBehaviour
     }
     public void HarvestPlant(Vector3Int targetTile)
     {
-        var farmUtility = farmMechanics.SoilTileUtility;
+        var farmUtility = farmMechanics.farmTileUtility;
 
         if (!farmUtility.HasTile(targetTile)) return;
         if (!HasPlant(targetTile)) return;

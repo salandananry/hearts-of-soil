@@ -21,7 +21,6 @@ public class PlayerController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.E))
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            //if (!IsWithinInteractRange(mousePos)) return;
             OnPlayerInteract?.Invoke(mousePos);
         }
     }
@@ -33,10 +32,5 @@ public class PlayerController : MonoBehaviour
         ).normalized;
 
         movement.Move(input);
-    }
-    private bool IsWithinInteractRange(Vector2 targetPos)
-    {
-        return Vector2.Distance(transform.position, targetPos)
-               <= interactDistance;
     }
 }

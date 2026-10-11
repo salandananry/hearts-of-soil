@@ -4,7 +4,7 @@ public class WaterController : MonoBehaviour
 {
     #region FIELDS
     private FarmMechanics farmMechanics;
-    private PlayerController playerController;
+    private TileStatusController farmTileStatusController;
 
     [Header("Tile Sprites:")]
     [SerializeField] private IsometricRuleTile drySoil;
@@ -17,10 +17,10 @@ public class WaterController : MonoBehaviour
     #region INITIALIZE
     public void Initialize(
         FarmMechanics farmMechanics,
-        PlayerController playerController)
+        TileStatusController farmTileStatusController)
     {
         this.farmMechanics = farmMechanics;
-        this.playerController = playerController;
+        this.farmTileStatusController = farmTileStatusController;
         SubscribeEvents();
         SpawnExistingWateredTiles();
     }
@@ -34,35 +34,33 @@ public class WaterController : MonoBehaviour
     #endregion
 
     #region EVENT HANDLERS
-    private void HandlePlayerWater(Vector2 mousePos)
+    public void HandlePlayerWater()
     {
-        if (farmMechanics.FarmModeController.CurrentFarmMode != FarmMode.Water) return;
-
-        Vector3Int targetTile = farmMechanics.SoilTileUtility.WorldToCell(mousePos);
+        if (!farmTileStatusController.CurrentViewedCell.HasValue)
+        {
+            return;
+        }
+        Vector3Int targetTile = farmTileStatusController.CurrentViewedCell.Value;
         farmMechanics.FarmManager.WaterSoil(targetTile);
     }
     private void OnSoilWateredHandler(Vector3Int targetTile)
     {
-        farmMechanics.SoilTileMapController.SetTile(targetTile, wetSoil);
+        farmMechanics.farmTileStatusController.SetTile(targetTile, wetSoil);
     }
     private void OnPlantHarvestHandler(Vector3Int targetTile)
     {
-        farmMechanics.SoilTileMapController.SetTile(targetTile, drySoil);
+        farmMechanics.farmTileStatusController.SetTile(targetTile, drySoil);
     }
     #endregion
 
     #region SUBSCRIPTIONS
     private void SubscribeEvents()
     {
-        playerController.OnPlayerInteract += HandlePlayerWater;
-
         farmMechanics.FarmManager.OnSoilWatered += OnSoilWateredHandler;
         farmMechanics.FarmManager.OnHarvestPlant += OnPlantHarvestHandler;
     }
     private void OnDestroy()
     {
-        playerController.OnPlayerInteract -= HandlePlayerWater;
-
         farmMechanics.FarmManager.OnSoilWatered -= OnSoilWateredHandler;
         farmMechanics.FarmManager.OnHarvestPlant -= OnPlantHarvestHandler;
     }
