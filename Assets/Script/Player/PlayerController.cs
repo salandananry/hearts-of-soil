@@ -3,8 +3,7 @@ using System;
 [RequireComponent (typeof(PlayerMovement))]
 public class PlayerController : MonoBehaviour
 {
-    public event Action <Vector2> OnPlayerInteract;
-    [SerializeField] private float interactDistance;
+    public event Action OnPlayerInteract;
     private PlayerMovement movement;
 
     private void Awake()
@@ -20,8 +19,7 @@ public class PlayerController : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.E))
         {
-            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            OnPlayerInteract?.Invoke(mousePos);
+            OnPlayerInteract?.Invoke();
         }
     }
     private void MovementInput()

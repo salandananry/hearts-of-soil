@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,11 +16,11 @@ public class TileStatusController : MonoBehaviour
     [SerializeField] private UIPanelTransition statusPanel;
     [SerializeField] private Image soilImagePreview;
     [SerializeField] private Image plantImagePreview;
-    [SerializeField] private TextMeshProUGUI growthStageCount;
-    [SerializeField] private TextMeshProUGUI growthStatus;
     [SerializeField] private TextMeshProUGUI tileCoordinate;
+
     [Header("Dialogue panel")]
     [SerializeField] private UIPanelTransition dialoguePanel;
+    [SerializeField] private DialogueController dialogueController;
 
     [Header("Soil variants:")]
     [SerializeField] private Sprite dryTile;
@@ -76,9 +77,10 @@ public class TileStatusController : MonoBehaviour
         statusPopUp.transform.position = targetPosition;
         statusPopUp.Open();
         statusPanel.Close();
+        dialoguePanel.Close();
     }
     #region EVENT HANDLERS
-    private void HandlePlayerInspect(Vector2 mousePos)
+    private void HandlePlayerInspect()
     {
         Vector3Int targetTile = farmMechanics.farmTileUtility.WorldToCell(playerController.transform.position);
 
@@ -94,8 +96,8 @@ public class TileStatusController : MonoBehaviour
 
         RefreshSoilPreview(targetTile);
         RefreshPlantPreview(targetTile);
-        RefreshGrowthStageCount(targetTile);
         RefreshTileCoordinates(targetTile);
+        RefreshText(targetTile);
     }
     private void RefreshSoilPreview(Vector3Int targetTile)
     {
@@ -115,18 +117,18 @@ public class TileStatusController : MonoBehaviour
         Sprite newSprite = farmMechanics.PlantGrowthManager.GetPlantSpriteAtTile(targetTile);
         plantImagePreview.sprite = newSprite;
     }
-    private void RefreshGrowthStageCount(Vector3Int targetTile)
+    private void RefreshText(Vector3Int targetTile)
     {
+        dialoguePanel.Open();
         if (!farmMechanics.FarmManager.HasPlant(targetTile))
         {
-            growthStageCount.text = "Stage: 0/4";
-            growthStatus.text = "Status: No Plant";
+            dialogueController.ShowText("An empty plot... I should plant a seed here.");
             return;
         }
+
         if (!farmMechanics.FarmManager.IsWatered(targetTile))
         {
-            growthStageCount.text = "Stage: 0/4";
-            growthStatus.text = "Status: Not Growing (Needs Water)";
+            dialogueController.ShowText("The soil is dry... I should water this plant.");
             return;
         }
 
@@ -135,20 +137,23 @@ public class TileStatusController : MonoBehaviour
         switch (growthStage)
         {
             case 0:
-                growthStageCount.text = "Stage: 1/4";
-                growthStatus.text = "Status: Growing";
+                dialogueController.ShowText("A little seedling is starting to grow.\n (Stage: 1/4)");
                 break;
+
             case 1:
-                growthStageCount.text = "Stage: 2/4";
-                growthStatus.text = "Status: Growing";
+                dialogueController.ShowText("It's growing nicely.\n (Stage: 2/4)");
                 break;
+
             case 2:
-                growthStageCount.text = "Stage: 3/4";
-                growthStatus.text = "Status: Growing";
+                dialogueController.ShowText("It's getting bigger... almost there!\n (Stage: 3/4)");
                 break;
+
             case 3:
-                growthStageCount.text = "Stage: 4/4";
-                growthStatus.text = "Status: Mature";
+                dialogueController.ShowText("It's fully grown! Time to harvest.\n (Stage: 4/4)");
+                break;
+
+            default:
+                dialogueController.ShowText("I'm not sure what's growing here.");
                 break;
         }
     }
