@@ -1,3 +1,4 @@
+
 #if UNITY_EDITOR
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,6 @@ public class TranslationEditorConfig
     public string spreadSheetID;
 }
 
-[InitializeOnLoad]
 public static class TranslationEditorUpdater
 {
     private const string ConfigFileName =
@@ -23,42 +23,25 @@ public static class TranslationEditorUpdater
     private const string TranslationFileName =
         "translations.json";
 
-    private const string SkipNextPlayKey =
-        "TranslationEditorUpdater.SkipNextPlay";
-
     private static bool isUpdating;
-    [InitializeOnEnterPlayMode]
-    private static void OnEnterPlayMode(
-        EnterPlayModeOptions options
-    )
+
+    [MenuItem("Tools/Unity Translation Kit/Fetch Translations")]
+    private static async void FetchTranslations()
     {
-        if (SessionState.GetBool(
-            SkipNextPlayKey,
-            false
-        ))
+        if (isUpdating)
         {
-            SessionState.SetBool(
-                SkipNextPlayKey,
-                false
+            Debug.LogWarning(
+                "A translation update is already in progress."
             );
 
             return;
         }
 
-        if (isUpdating)
-            return;
-
-        StartUpdate();
-    }
-    private static async void StartUpdate()
-    {
         isUpdating = true;
-        EditorApplication.isPlaying = false;
 
         try
         {
-            TranslationEditorConfig config =
-                LoadConfig();
+            TranslationEditorConfig config = LoadConfig();
 
             if (config == null)
             {
@@ -67,33 +50,29 @@ public static class TranslationEditorUpdater
                     "Using existing local translation file."
                 );
 
-                FinishUpdate();
                 return;
             }
-            if (string.IsNullOrWhiteSpace(
-                config.apiKey
-            ))
+
+            if (string.IsNullOrWhiteSpace(config.apiKey))
             {
                 Debug.LogWarning(
                     "Google Sheets API key is missing. " +
                     "Using existing local translation file."
                 );
 
-                FinishUpdate();
                 return;
             }
-            if (string.IsNullOrWhiteSpace(
-                config.spreadSheetID
-            ))
+
+            if (string.IsNullOrWhiteSpace(config.spreadSheetID))
             {
                 Debug.LogWarning(
                     "Google Sheets Spreadsheet ID is missing. " +
                     "Using existing local translation file."
                 );
 
-                FinishUpdate();
                 return;
             }
+
             bool hasConnection =
                 await ConnectionStatus.HasConnection();
 
@@ -104,12 +83,10 @@ public static class TranslationEditorUpdater
                     "Using existing local translation file."
                 );
 
-                FinishUpdate();
                 return;
             }
-            await UpdateTranslationFromGoogleSheets(
-                config
-            );
+
+            await UpdateTranslationFromGoogleSheets(config);
         }
         catch (Exception e)
         {
@@ -121,9 +98,12 @@ public static class TranslationEditorUpdater
                 "Using existing local translation file."
             );
         }
-
-        FinishUpdate();
+        finally
+        {
+            isUpdating = false;
+        }
     }
+
     private static TranslationEditorConfig LoadConfig()
     {
         string path = Path.Combine(
@@ -145,15 +125,11 @@ public static class TranslationEditorUpdater
 
         try
         {
-            string json =
-                File.ReadAllText(path);
+            string json = File.ReadAllText(path);
 
-            TranslationEditorConfig config =
-                JsonConvert.DeserializeObject<
-                    TranslationEditorConfig
-                >(json);
-
-            return config;
+            return JsonConvert.DeserializeObject<
+                TranslationEditorConfig
+            >(json);
         }
         catch (Exception e)
         {
@@ -164,9 +140,9 @@ public static class TranslationEditorUpdater
             return null;
         }
     }
+
     private static async Task UpdateTranslationFromGoogleSheets(
-        TranslationEditorConfig config
-    )
+        TranslationEditorConfig config)
     {
         Debug.Log(
             "Updating translations from Google Sheets..."
@@ -188,52 +164,39 @@ public static class TranslationEditorUpdater
             return;
         }
 
-        RemoveEmptyTranslations(
-            translations
-        );
-
-        SaveTranslationData(
-            translations
-        );
+        RemoveEmptyTranslations(translations);
+        SaveTranslationData(translations);
 
         Debug.Log(
             "Translations successfully updated from Google Sheets."
         );
     }
+
     private static void RemoveEmptyTranslations(
-        Dictionary<
-            string,
-            Dictionary<string, string>
-        > translations
-    )
+        Dictionary<string, Dictionary<string, string>> translations)
     {
         if (translations == null)
+        {
             return;
+        }
 
         foreach (var entry in translations)
         {
             var languageCodes =
-                new List<string>(
-                    entry.Value.Keys
-                );
+                new List<string>(entry.Value.Keys);
 
             foreach (var code in languageCodes)
             {
-                if (string.IsNullOrWhiteSpace(
-                    entry.Value[code]
-                ))
+                if (string.IsNullOrWhiteSpace(entry.Value[code]))
                 {
                     entry.Value.Remove(code);
                 }
             }
         }
     }
+
     private static void SaveTranslationData(
-        Dictionary<
-            string,
-            Dictionary<string, string>
-        > translations
-    )
+        Dictionary<string, Dictionary<string, string>> translations)
     {
         if (translations == null)
         {
@@ -245,59 +208,39 @@ public static class TranslationEditorUpdater
             return;
         }
 
-        string resourcesPath =
-            Path.Combine(
-                Application.dataPath,
-                "Unity Translation Kit",
-                "Resources"
-            );
+        string resourcesPath = Path.Combine(
+            Application.dataPath,
+            "Unity Translation Kit",
+            "Resources"
+        );
 
         if (!Directory.Exists(resourcesPath))
         {
-            Directory.CreateDirectory(
-                resourcesPath
-            );
+            Directory.CreateDirectory(resourcesPath);
         }
 
-        string path =
-            Path.Combine(
-                resourcesPath,
-                TranslationFileName
-            );
+        string path = Path.Combine(
+            resourcesPath,
+            TranslationFileName
+        );
 
         var data = new TranslationData
         {
             translations = translations
         };
 
-        string json =
-            JsonConvert.SerializeObject(
-                data,
-                Formatting.Indented
-            );
-
-        File.WriteAllText(
-            path,
-            json
+        string json = JsonConvert.SerializeObject(
+            data,
+            Formatting.Indented
         );
+
+        File.WriteAllText(path, json);
 
         AssetDatabase.Refresh();
 
         Debug.Log(
             $"Translation file saved to:\n{path}"
         );
-    }
-    private static void FinishUpdate()
-    {
-        isUpdating = false;
-        SessionState.SetBool(
-            SkipNextPlayKey,
-            true
-        );
-        EditorApplication.delayCall += () =>
-        {
-            EditorApplication.EnterPlaymode();
-        };
     }
 }
 #endif
