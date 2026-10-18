@@ -9,7 +9,6 @@ public class FarmMechanics
     public WaterController waterController;
     public PlantController plantController;
     public TileMapController farmTileStatusController;
-    public FarmModeController FarmModeController;
 }
 public class GameSceneBootstrap : MonoBehaviour
 {

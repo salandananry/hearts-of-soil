@@ -5,7 +5,7 @@ using UnityEngine;
 public class DialogueController : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI textField;
-    [SerializeField] private float typingSpeed = 0.04f;
+    [SerializeField] private float typingSpeed;
 
     private Coroutine typingCoroutine;
     private string currentText;
