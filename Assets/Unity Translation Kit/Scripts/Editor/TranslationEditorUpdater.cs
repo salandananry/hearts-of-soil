@@ -169,6 +169,7 @@ public static class TranslationEditorUpdater
 
         RemoveEmptyTranslations(translations);
         SaveTranslationData(translations);
+        LanguageDatabase.Instance.Initialize(translations);
 
         TranslationEditorWindow.AddStatusMessage(
             "Translations successfully updated from Google Sheets."

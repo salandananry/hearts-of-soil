@@ -37,6 +37,5 @@ public class TranslateText : MonoBehaviour
     {
         if (LanguageDatabase.Instance == null || !LanguageDatabase.Instance.IsInitialized) return;
         displayText.text = LanguageDatabase.Instance.GetTranslation(translationKey, fallback);
-        //Debug.Log($"TEXT TRANSLATED [{LanguageDatabase.Instance.SelectedLanguage}]");
     }
 }

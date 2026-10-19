@@ -1,82 +1,120 @@
+
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class TranslationData
 {
     public Dictionary<string, Dictionary<string, string>> translations;
 }
 
-[System.Serializable]
+[Serializable]
 public class SelectedLanguageData
 {
     public string selectedLanguage;
 }
 
-public class LanguageDatabase : MonoBehaviour
+public class LanguageDatabase
 {
-    public static LanguageDatabase Instance { get; private set; }
+    private static LanguageDatabase _instance;
 
-    [Header("Default Translation")]
-    [SerializeField] private TextAsset defaultTranslationFile;
+    public static LanguageDatabase Instance
+    {
+        get
+        {
+            if (_instance == null)
+                _instance = new LanguageDatabase();
+
+            return _instance;
+        }
+    }
+
     private Dictionary<string, Dictionary<string, string>> _translations;
 
     public string SelectedLanguage { get; set; } = "english";
+
     public bool IsInitialized { get; private set; }
 
     public static event Action OnInitalized;
 
-    private void Awake()
-    {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        Instance = this;
-    }
-
-    private void Start()
+    private LanguageDatabase()
     {
         LoadSelectedLanguage();
-        LoadDefaultTranslationFile();
-
-        IsInitialized = true;
-        OnInitalized?.Invoke();
     }
-
-    private void LoadDefaultTranslationFile()
+    [RuntimeInitializeOnLoadMethod(
+    RuntimeInitializeLoadType.BeforeSceneLoad)]
+    private static void InitializeOnRuntimeStart()
     {
-        if (defaultTranslationFile == null)
+        TextAsset translationFile =
+            Resources.Load<TextAsset>("translations");
+
+        if (translationFile == null)
         {
-            Debug.LogError("Default Translation File is not assigned!");
+            Debug.LogError(
+                "Could not find translations.json in a Resources folder."
+            );
             return;
         }
 
+        Instance.Initialize(translationFile.text);
+    }
+    public void Initialize(string json)
+    {
         try
         {
-            var data = JsonConvert.DeserializeObject<TranslationData>(
-                defaultTranslationFile.text
-            );
+            TranslationData data =
+                JsonConvert.DeserializeObject<TranslationData>(json);
 
-            if (data == null || data.translations == null)
+            if (data?.translations == null)
             {
-                Debug.LogError("Failed to parse default translation file.");
+                Debug.LogError("Failed to parse translation file.");
                 return;
             }
 
-            _translations = data.translations;
-
-            Debug.Log("Loaded translation file.");
+            Initialize(data.translations);
         }
         catch (Exception e)
         {
-            Debug.LogError($"Failed to load translation file:\n{e}");
+            Debug.LogError($"Failed to initialize LanguageDatabase:\n{e}");
         }
+    }
+
+    public void Initialize(
+        Dictionary<string, Dictionary<string, string>> translations)
+    {
+        if (translations == null)
+        {
+            Debug.LogError("Cannot initialize with null translations.");
+            return;
+        }
+
+        _translations = translations;
+        IsInitialized = true;
+
+        OnInitalized?.Invoke();
+
+        Debug.Log("LanguageDatabase initialized.");
+    }
+
+    public string GetTranslation(string key, string fallback)
+    {
+        if (_translations == null)
+            return fallback;
+
+        if (!_translations.TryGetValue(key, out var languageTranslations))
+            return fallback;
+
+        if (languageTranslations.TryGetValue(
+            SelectedLanguage,
+            out string translation))
+        {
+            return translation;
+        }
+
+        return fallback;
     }
 
     private void LoadSelectedLanguage()
@@ -87,25 +125,17 @@ public class LanguageDatabase : MonoBehaviour
         );
 
         if (!File.Exists(path))
-        {
-            Debug.Log($"No saved language found. Using default: {SelectedLanguage}");
             return;
-        }
 
         try
         {
             string json = File.ReadAllText(path);
 
-            var data = JsonConvert.DeserializeObject<SelectedLanguageData>(
-                json
-            );
+            SelectedLanguageData data =
+                JsonConvert.DeserializeObject<SelectedLanguageData>(json);
 
-            if (data == null)
-                return;
-
-            SelectedLanguage = data.selectedLanguage ?? "english";
-
-            Debug.Log($"Loaded selected language: {SelectedLanguage}");
+            if (data != null)
+                SelectedLanguage = data.selectedLanguage ?? "english";
         }
         catch (Exception e)
         {
@@ -115,50 +145,28 @@ public class LanguageDatabase : MonoBehaviour
 
     public void SaveSelectedLanguage()
     {
-        var data = new SelectedLanguageData
+        try
         {
-            selectedLanguage = SelectedLanguage
-        };
+            SelectedLanguageData data = new SelectedLanguageData
+            {
+                selectedLanguage = SelectedLanguage
+            };
 
-        string path = Path.Combine(
-            Application.persistentDataPath,
-            "selectedLanguage.json"
-        );
+            string path = Path.Combine(
+                Application.persistentDataPath,
+                "selectedLanguage.json"
+            );
 
-        string json = JsonConvert.SerializeObject(
-            data,
-            Formatting.Indented
-        );
+            string json = JsonConvert.SerializeObject(
+                data,
+                Formatting.Indented
+            );
 
-        File.WriteAllText(path, json);
-
-        Debug.Log($"Selected language saved: {SelectedLanguage}");
-    }
-
-    public string GetTranslation(
-        string key,
-        string fallback
-    )
-    {
-        if (_translations == null)
-            return fallback;
-
-        if (!_translations.TryGetValue(
-            key,
-            out var translations
-        ))
-        {
-            return fallback;
+            File.WriteAllText(path, json);
         }
-
-        if (translations.TryGetValue(
-            SelectedLanguage,
-            out string translation
-        ))
+        catch (Exception e)
         {
-            return translation;
+            Debug.LogError($"Failed to save selected language:\n{e}");
         }
-
-        return fallback;
     }
 }
