@@ -25,12 +25,11 @@ public static class TranslationEditorUpdater
 
     private static bool isUpdating;
 
-    [MenuItem("Tools/Unity Translation Kit/Fetch Translations")]
-    private static async void FetchTranslations()
+    public static async void FetchTranslations()
     {
         if (isUpdating)
         {
-            Debug.LogWarning(
+            TranslationEditorWindow.AddStatusMessage(
                 "A translation update is already in progress."
             );
 
@@ -45,19 +44,14 @@ public static class TranslationEditorUpdater
 
             if (config == null)
             {
-                Debug.LogWarning(
-                    "Translation Editor Config could not be loaded. " +
-                    "Using existing local translation file."
-                );
-
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(config.apiKey))
             {
-                Debug.LogWarning(
-                    "Google Sheets API key is missing. " +
-                    "Using existing local translation file."
+                TranslationEditorWindow.AddStatusMessage(
+                    "API Key is missing. Please enter it in the " +
+                    "Translation Window and save the configuration."
                 );
 
                 return;
@@ -65,9 +59,9 @@ public static class TranslationEditorUpdater
 
             if (string.IsNullOrWhiteSpace(config.spreadSheetID))
             {
-                Debug.LogWarning(
-                    "Google Sheets Spreadsheet ID is missing. " +
-                    "Using existing local translation file."
+                TranslationEditorWindow.AddStatusMessage(
+                    "Spreadsheet ID is missing. Please enter it in the " +
+                    "Translation Window and save the configuration."
                 );
 
                 return;
@@ -78,9 +72,10 @@ public static class TranslationEditorUpdater
 
             if (!hasConnection)
             {
-                Debug.LogWarning(
+                TranslationEditorWindow.AddStatusMessage(
                     "No internet connection. " +
-                    "Using existing local translation file."
+                    "Translation update cancelled; existing local " +
+                    "translations were not changed."
                 );
 
                 return;
@@ -90,12 +85,8 @@ public static class TranslationEditorUpdater
         }
         catch (Exception e)
         {
-            Debug.LogError(
-                $"Failed to update translations:\n{e}"
-            );
-
-            Debug.LogWarning(
-                "Using existing local translation file."
+            TranslationEditorWindow.AddStatusMessage(
+                $"Translation update failed: {e.Message}"
             );
         }
         finally
@@ -116,8 +107,9 @@ public static class TranslationEditorUpdater
 
         if (!File.Exists(path))
         {
-            Debug.LogWarning(
-                $"Translation Editor Config not found:\n{path}"
+            TranslationEditorWindow.AddStatusMessage(
+                "Configuration file not found. Please save your " +
+                "configuration in the Translation Window."
             );
 
             return null;
@@ -127,14 +119,25 @@ public static class TranslationEditorUpdater
         {
             string json = File.ReadAllText(path);
 
-            return JsonConvert.DeserializeObject<
-                TranslationEditorConfig
-            >(json);
+            TranslationEditorConfig config =
+                JsonConvert.DeserializeObject<TranslationEditorConfig>(
+                    json
+                );
+
+            if (config == null)
+            {
+                TranslationEditorWindow.AddStatusMessage(
+                    "Failed to load configuration: " +
+                    "Invalid or empty configuration file."
+                );
+            }
+
+            return config;
         }
         catch (Exception e)
         {
-            Debug.LogError(
-                $"Failed to read Translation Editor Config:\n{e}"
+            TranslationEditorWindow.AddStatusMessage(
+                $"Failed to load configuration: {e.Message}"
             );
 
             return null;
@@ -144,7 +147,7 @@ public static class TranslationEditorUpdater
     private static async Task UpdateTranslationFromGoogleSheets(
         TranslationEditorConfig config)
     {
-        Debug.Log(
+        TranslationEditorWindow.AddStatusMessage(
             "Updating translations from Google Sheets..."
         );
 
@@ -156,9 +159,9 @@ public static class TranslationEditorUpdater
 
         if (translations == null)
         {
-            Debug.LogWarning(
-                "Failed to download translations. " +
-                "Using existing local translation file."
+            TranslationEditorWindow.AddStatusMessage(
+                "Failed to fetch or process translations. " +
+                "Existing local translations were not changed."
             );
 
             return;
@@ -167,7 +170,7 @@ public static class TranslationEditorUpdater
         RemoveEmptyTranslations(translations);
         SaveTranslationData(translations);
 
-        Debug.Log(
+        TranslationEditorWindow.AddStatusMessage(
             "Translations successfully updated from Google Sheets."
         );
     }
@@ -182,6 +185,11 @@ public static class TranslationEditorUpdater
 
         foreach (var entry in translations)
         {
+            if (entry.Value == null)
+            {
+                continue;
+            }
+
             var languageCodes =
                 new List<string>(entry.Value.Keys);
 
@@ -200,9 +208,9 @@ public static class TranslationEditorUpdater
     {
         if (translations == null)
         {
-            Debug.LogWarning(
-                "Cannot save translations because " +
-                "translation data is null."
+            TranslationEditorWindow.AddStatusMessage(
+                "Cannot save translations because the translation " +
+                "data is null."
             );
 
             return;
@@ -238,8 +246,8 @@ public static class TranslationEditorUpdater
 
         AssetDatabase.Refresh();
 
-        Debug.Log(
-            $"Translation file saved to:\n{path}"
+        TranslationEditorWindow.AddStatusMessage(
+            $"Translation file saved to: {path}"
         );
     }
 }
