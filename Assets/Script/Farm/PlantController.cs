@@ -63,29 +63,22 @@ public class PlantController : MonoBehaviour
         if (!spawnedPlants.TryGetValue(targetTile, out GameObject plant))
             return;
 
-        GameObject newPlant =
+        GameObject stagePrefab =
             farmMechanics.PlantGrowthManager.GetPlantPrefabAtTile(targetTile);
 
-        if (newPlant == null)
+        if (stagePrefab == null)
             return;
 
-        Vector3 position =
-            farmMechanics.farmTileUtility.GetTileWorldPosition(
-                targetTile,
-                0f,
-                0f
-            );
+        SpriteRenderer currentRenderer =
+            plant.GetComponent<SpriteRenderer>();
 
-        Destroy(plant);
+        SpriteRenderer stageRenderer =
+            stagePrefab.GetComponent<SpriteRenderer>();
 
-        GameObject newPlantInstance = Instantiate(
-            newPlant,
-            position,
-            Quaternion.identity,
-            transform
-        );
+        if (currentRenderer == null || stageRenderer == null)
+            return;
 
-        spawnedPlants[targetTile] = newPlantInstance;
+        currentRenderer.sprite = stageRenderer.sprite;
     }
     private void RemovePlantAt(Vector3Int targetTile)
     {
