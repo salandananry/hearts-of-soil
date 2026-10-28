@@ -8,24 +8,16 @@ using Newtonsoft.Json;
 using UnityEditor;
 using UnityEngine;
 
-[Serializable]
-public class TranslationEditorConfig
-{
-    public string apiKey;
-    public string spreadSheetID;
-}
-
 public static class TranslationEditorUpdater
 {
-    private const string ConfigFileName =
-        "translation-editor-config.json";
-
     private const string TranslationFileName =
         "translations.json";
 
     private static bool isUpdating;
 
-    public static async void FetchTranslations()
+    public static async void FetchTranslations(
+        string apiKey,
+        string spreadSheetID)
     {
         if (isUpdating)
         {
@@ -36,37 +28,30 @@ public static class TranslationEditorUpdater
             return;
         }
 
+        if (string.IsNullOrWhiteSpace(apiKey))
+        {
+            TranslationEditorWindow.AddStatusMessage(
+                "API Key is missing. Please enter it in the " +
+                "Translation Window."
+            );
+
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(spreadSheetID))
+        {
+            TranslationEditorWindow.AddStatusMessage(
+                "Spreadsheet ID is missing. Please enter it in the " +
+                "Translation Window."
+            );
+
+            return;
+        }
+
         isUpdating = true;
 
         try
         {
-            TranslationEditorConfig config = LoadConfig();
-
-            if (config == null)
-            {
-                return;
-            }
-
-            if (string.IsNullOrWhiteSpace(config.apiKey))
-            {
-                TranslationEditorWindow.AddStatusMessage(
-                    "API Key is missing. Please enter it in the " +
-                    "Translation Window and save the configuration."
-                );
-
-                return;
-            }
-
-            if (string.IsNullOrWhiteSpace(config.spreadSheetID))
-            {
-                TranslationEditorWindow.AddStatusMessage(
-                    "Spreadsheet ID is missing. Please enter it in the " +
-                    "Translation Window and save the configuration."
-                );
-
-                return;
-            }
-
             bool hasConnection =
                 await ConnectionStatus.HasConnection();
 
@@ -81,7 +66,10 @@ public static class TranslationEditorUpdater
                 return;
             }
 
-            await UpdateTranslationFromGoogleSheets(config);
+            await UpdateTranslationFromGoogleSheets(
+                apiKey,
+                spreadSheetID
+            );
         }
         catch (Exception e)
         {
@@ -95,57 +83,9 @@ public static class TranslationEditorUpdater
         }
     }
 
-    private static TranslationEditorConfig LoadConfig()
-    {
-        string path = Path.Combine(
-            Application.dataPath,
-            "Unity Translation Kit",
-            "Scripts",
-            "Editor",
-            ConfigFileName
-        );
-
-        if (!File.Exists(path))
-        {
-            TranslationEditorWindow.AddStatusMessage(
-                "Configuration file not found. Please save your " +
-                "configuration in the Translation Window."
-            );
-
-            return null;
-        }
-
-        try
-        {
-            string json = File.ReadAllText(path);
-
-            TranslationEditorConfig config =
-                JsonConvert.DeserializeObject<TranslationEditorConfig>(
-                    json
-                );
-
-            if (config == null)
-            {
-                TranslationEditorWindow.AddStatusMessage(
-                    "Failed to load configuration: " +
-                    "Invalid or empty configuration file."
-                );
-            }
-
-            return config;
-        }
-        catch (Exception e)
-        {
-            TranslationEditorWindow.AddStatusMessage(
-                $"Failed to load configuration: {e.Message}"
-            );
-
-            return null;
-        }
-    }
-
     private static async Task UpdateTranslationFromGoogleSheets(
-        TranslationEditorConfig config)
+        string apiKey,
+        string spreadSheetID)
     {
         TranslationEditorWindow.AddStatusMessage(
             "Updating translations from Google Sheets..."
@@ -153,8 +93,8 @@ public static class TranslationEditorUpdater
 
         var translations =
             await TranslationSheet.FetchAllSheets(
-                config.apiKey,
-                config.spreadSheetID
+                apiKey,
+                spreadSheetID
             );
 
         if (translations == null)
@@ -168,7 +108,9 @@ public static class TranslationEditorUpdater
         }
 
         RemoveEmptyTranslations(translations);
+
         SaveTranslationData(translations);
+
         LanguageDatabase.Instance.Initialize(translations);
 
         TranslationEditorWindow.AddStatusMessage(

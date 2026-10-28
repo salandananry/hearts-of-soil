@@ -2,23 +2,12 @@
 #if UNITY_EDITOR
 using System;
 using System.Collections.Generic;
-using System.IO;
 using UnityEditor;
 using UnityEngine;
 
 public class TranslationEditorWindow : EditorWindow
 {
-    private const string Version = "1.0.0";
-
-    private const string ConfigPath =
-        "Unity Translation Kit/Scripts/Editor/translation-editor-config.json";
-
-    [System.Serializable]
-    private class ConfigData
-    {
-        public string apiKey = "";
-        public string spreadSheetID = "";
-    }
+    private const string Version = "2.1.0";
 
     private string apiKey = "";
     private string spreadSheetID = "";
@@ -27,15 +16,10 @@ public class TranslationEditorWindow : EditorWindow
     private readonly List<string> statusHistory = new List<string>();
     private Vector2 statusScrollPosition;
 
-    [MenuItem("Tools/Unity Translation Kit/Translation Window")]
+    [MenuItem("Tools/Salandananary/Unity Translation Kit/Translation Window")]
     private static void OpenWindow()
     {
         GetWindow<TranslationEditorWindow>("Translation Kit");
-    }
-
-    private void OnEnable()
-    {
-        LoadConfiguration();
     }
 
     private void OnGUI()
@@ -44,7 +28,6 @@ public class TranslationEditorWindow : EditorWindow
 
         // Header
         EditorGUILayout.BeginHorizontal();
-
         EditorGUILayout.BeginVertical();
 
         EditorGUILayout.LabelField(
@@ -70,9 +53,7 @@ public class TranslationEditorWindow : EditorWindow
         EditorGUILayout.EndHorizontal();
 
         GUILayout.Space(10);
-
         EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
-
         GUILayout.Space(5);
 
         // Configuration
@@ -103,29 +84,11 @@ public class TranslationEditorWindow : EditorWindow
             spreadSheetID
         );
 
-        GUILayout.Space(5);
-
-        if (GUILayout.Button("Save Configuration"))
-        {
-            if (string.IsNullOrWhiteSpace(apiKey) ||
-                string.IsNullOrWhiteSpace(spreadSheetID))
-            {
-                AddStatusMessage(
-                    "Please enter both the API Key and Spreadsheet ID."
-                );
-            }
-            else
-            {
-                SaveConfiguration();
-            }
-        }
-
         GUILayout.Space(10);
-
         EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
-
         GUILayout.Space(5);
 
+        // Fetch Translations
         if (GUILayout.Button(
             "Fetch Translations",
             GUILayout.Height(35)
@@ -141,16 +104,19 @@ public class TranslationEditorWindow : EditorWindow
             else
             {
                 AddStatusMessage("Fetching translations...");
-                TranslationEditorUpdater.FetchTranslations();
+
+                TranslationEditorUpdater.FetchTranslations(
+                    apiKey.Trim(),
+                    spreadSheetID.Trim()
+                );
             }
         }
 
         GUILayout.Space(10);
-
         EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
-
         GUILayout.Space(5);
 
+        // Activity Log
         EditorGUILayout.BeginHorizontal();
 
         EditorGUILayout.LabelField(
@@ -169,7 +135,7 @@ public class TranslationEditorWindow : EditorWindow
 
         statusScrollPosition = EditorGUILayout.BeginScrollView(
             statusScrollPosition,
-            GUILayout.Height(150)
+            GUILayout.ExpandHeight(true)
         );
 
         if (statusHistory.Count == 0)
@@ -193,87 +159,6 @@ public class TranslationEditorWindow : EditorWindow
         EditorGUILayout.EndScrollView();
 
         GUILayout.Space(10);
-    }
-
-    private void LoadConfiguration()
-    {
-        string fullPath = Path.Combine(
-            Application.dataPath,
-            ConfigPath
-        );
-
-        if (!File.Exists(fullPath))
-        {
-            AddStatusMessage(
-                "Configuration file not found. " +
-                "Please enter your API Key and Spreadsheet ID."
-            );
-            return;
-        }
-
-        try
-        {
-            string json = File.ReadAllText(fullPath);
-            ConfigData config = JsonUtility.FromJson<ConfigData>(json);
-
-            if (config == null)
-            {
-                AddStatusMessage(
-                    "Failed to load configuration: " +
-                    "Invalid or empty configuration file."
-                );
-                return;
-            }
-
-            apiKey = config.apiKey ?? "";
-            spreadSheetID = config.spreadSheetID ?? "";
-
-            AddStatusMessage("Configuration loaded.");
-        }
-        catch (Exception exception)
-        {
-            AddStatusMessage(
-                $"Failed to load configuration: {exception.Message}"
-            );
-        }
-    }
-
-    private void SaveConfiguration()
-    {
-        string fullPath = Path.Combine(
-            Application.dataPath,
-            ConfigPath
-        );
-
-        string directory = Path.GetDirectoryName(fullPath);
-
-        try
-        {
-            if (!Directory.Exists(directory))
-            {
-                Directory.CreateDirectory(directory);
-            }
-
-            ConfigData config = new ConfigData
-            {
-                apiKey = apiKey,
-                spreadSheetID = spreadSheetID
-            };
-
-            string json = JsonUtility.ToJson(config, true);
-
-            File.WriteAllText(fullPath, json);
-
-            AssetDatabase.Refresh();
-
-            AddStatusMessage("Configuration saved successfully.");
-        }
-        catch (Exception exception)
-        {
-            AddStatusMessage(
-                $"Failed to save configuration: {exception.Message}"
-            );
-        }
     }
 
     public static void AddStatusMessage(string message)
